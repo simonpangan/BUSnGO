@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +14,44 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        Role::create(['name' => 'passenger']);
+        Role::create(['name' => 'driver']);
+        Role::create(['name' => 'conductor']);
+        Role::create(['name' => 'admin']);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $admin = User::factory()->create([
+            'name' => 'Test Admin',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('password'),
+        ]);
+
+        $admin->assignRole('admin');
+
+        // Create a test driver user
+        $driver = User::factory()->create([
+            'name' => 'Test Driver',
+            'email' => 'driver@example.com',
+            'password' => bcrypt('password'),
+        ]);
+
+        $driver->assignRole('driver');
+
+        // Create a test passenger user
+        $passenger = User::factory()->create([
+            'name' => 'Test Passenger',
+            'email' => 'passenger@example.com',
+            'password' => bcrypt('password'),
+        ]);
+
+        $passenger->assignRole('passenger');
+
+        // Create a test conductor user
+        $conductor = User::factory()->create([
+            'name' => 'Test Conductor',
+            'email' => 'conductor@example.com',
+            'password' => bcrypt('password'),
+        ]);
+
+        $conductor->assignRole('conductor');
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,13 +21,59 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    $authenticatedUser = Auth::user();
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    if ($authenticatedUser->hasRole('admin')) {
+        return redirect()->to(RouteServiceProvider::ADMIN);
+    } elseif ($authenticatedUser->hasRole('driver')) {
+        return redirect()->to(RouteServiceProvider::DRIVER);
+    } elseif ($authenticatedUser->hasRole('conductor')) {
+        return redirect()->to(RouteServiceProvider::CONDUCTOR);
+    } elseif ($authenticatedUser->hasRole('passenger')) {
+        return redirect()->to(RouteServiceProvider::PASSENGER);
+    }
+})->middleware(['auth', 'verified']);
+
+Route::group(['middleware' => ['auth', 'verified']], function () {
+
+
+    //ADMIN ROUTES
+    Route::middleware(['role:admin'])->group(function () {
+        Route::get('/admin', function () {
+            return view('dashboard');
+        })->middleware(['auth', 'verified']);
+    });
+
+    //DRIVER ROUTES
+    Route::middleware(['role:driver'])->group(function () {
+        Route::get('/driver', function () {
+            return view('dashboard');
+        })->middleware(['auth', 'verified']);
+    });
+
+    //CONDUCTOR ROUTES
+    Route::middleware(['role:conductor'])->group(function () {
+
+        Route::get('/conductor', function () {
+            return view('dashboard');
+        })->middleware(['auth', 'verified']);
+
+    });
+
+
+    //PASSENGERs ROUTES
+    Route::middleware(['role:passenger'])->group(function () {
+
+        Route::get('/passenger', function () {
+            return view('dashboard');
+        });
+
+//    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
 });
+
+
 
 require __DIR__.'/auth.php';
