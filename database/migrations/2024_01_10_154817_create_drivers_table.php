@@ -13,17 +13,21 @@ return new class extends Migration
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->string('name', 45);
             $table->char('gender', 1);
             $table->string('address', 45);
             $table->string('city', 45);
             $table->string('contact_no', 45);
-            $table->string('username', 45);
-            $table->text('password');
+            $table->string('photo');
+
+//            $table->text('password');
+//            $table->string('email', 45)->unique();
+
+//            $table->string('username', 45);
 //            $table->string('question', 400);
 //            $table->string('answer', 45);
-            $table->string('email', 45)->unique();
-            $table->string('photo');
+
             $table->timestamps();
         });
     }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Driver;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class DriverController extends Controller
 {
@@ -28,18 +30,34 @@ class DriverController extends Controller
             'contact_no' => 'required|max:45',
 //            'question' => 'required|max:400',
 //            'answer' => 'required|max:45',
+//            'username' => 'required|max:45',
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif',
             // move to user table
-            'username' => 'required|max:45',
             'password' => 'required',
-            'email' => 'required|email|unique:drivers,email',
+            'email' => 'required|email|unique:users,email',
         ]);
 
-        $photoPath = $request->file('photo')->store('photos', 'public');
+        $user = User::create([
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+        ]);
 
-        Driver::create(array_merge($validatedData, ['photo' => $photoPath]));
+        $photoPath = $request
+            ->file('photo')
+            ->store('photos', 'public');
 
-        return to_route('drivers.index')->with('success', 'Driver created successfully.');
+        Driver::create([
+            'user_id' => $user->id,
+            'name' => $validatedData['name'],
+            'gender' => $validatedData['gender'],
+            'address' => $validatedData['address'],
+            'city' => $validatedData['city'],
+            'contact_no' => $validatedData['contact_no'],
+            'photo' => $photoPath,
+        ]);
+
+        return to_route('drivers.index')
+            ->with('success', 'Driver created successfully.');
     }
 
     public function show(Driver $driver)
@@ -85,4 +103,3 @@ class DriverController extends Controller
         return redirect()->route('drivers.index')->with('success', 'Driver deleted successfully.');
     }
 }
-

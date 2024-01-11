@@ -4,25 +4,35 @@
 
         <div class="card mt-3">
             <div class="card-body">
+
                 <div class="mb-3">
-                    <label class="fw-bold">ID:</label>
-                    {{ $driver->id }}
+                    <label class="fw-bold">Name:</label>
+                    {{ $driver->name }}
                 </div>
 
-                <!-- (Rest of the fields) -->
+                <div class="mb-3">
+                    <label class="fw-bold">Gender:</label>
+                    {{ $driver->gender == 'M' ? 'Male' : 'Female' }}
+                </div>
 
+                <div class="mb-3">
+                    <label class="fw-bold">Address:</label>
+                    {{ $driver->address }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold">City:</label>
+                    {{ $driver->city }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold">Contact Number:</label>
+                    {{ $driver->contact_no }}
+                </div>
                 <div class="mb-3">
                     <label class="fw-bold">Photo:</label>
                     <img src="{{ asset('storage/' . $driver->photo) }}" alt="Driver Photo" class="img-thumbnail">
                 </div>
-
-                <a href="{{ route('drivers.edit', $driver->id) }}" class="btn btn-warning">Edit</a>
-
-                <form method="post" action="{{ route('drivers.destroy', $driver->id) }}" style="display:inline">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                </form>
 
                 <a href="{{ route('drivers.index') }}" class="btn btn-secondary">Go Back</a>
             </div>
