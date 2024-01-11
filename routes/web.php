@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DriverController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::resource('drivers', DriverController::class);
 
 Route::get('/', function () {
     return view('welcome');
@@ -46,9 +47,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     //DRIVER ROUTES
     Route::middleware(['role:driver'])->group(function () {
-        Route::get('/driver', function () {
-            return view('dashboard');
-        })->middleware(['auth', 'verified']);
+//        Route::get('/driver', function () {
+//            return view('dashboard');
+//        })->middleware(['auth', 'verified']);
     });
 
     //CONDUCTOR ROUTES
