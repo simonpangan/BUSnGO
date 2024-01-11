@@ -90,37 +90,25 @@
                 </div>
             </div>
 
-            <!-- Username -->
-            <div class="mb-3 row">
-                <label for="username" class="col-md-4 col-form-label text-md-end">Username</label>
-                <div class="col-md-6">
-                    <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username', $driver->username) }}" required>
-                    @error('username')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-            </div>
+{{--            <!-- Password -->--}}
+{{--            <div class="mb-3 row">--}}
+{{--                <label for="password" class="col-md-4 col-form-label text-md-end">Password</label>--}}
+{{--                <div class="col-md-6">--}}
+{{--                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">--}}
+{{--                    @error('password')--}}
+{{--                    <span class="invalid-feedback" role="alert">--}}
+{{--                        <strong>{{ $message }}</strong>--}}
+{{--                    </span>--}}
+{{--                    @enderror--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
-            <!-- Password -->
-            <div class="mb-3 row">
-                <label for="password" class="col-md-4 col-form-label text-md-end">Password</label>
-                <div class="col-md-6">
-                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
-                    @error('password')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-            </div>
-
-            <!-- Email -->
             <div class="mb-3 row">
                 <label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
                 <div class="col-md-6">
-                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $driver->email) }}" required>
+                    <input type="email" class="form-control @error('email') is-invalid @enderror"
+                           id="email" name="email" value="{{ old('email', $driver->user->email) }}" required>
+
                     @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -129,15 +117,13 @@
                 </div>
             </div>
 
-            <!-- Photo -->
             <div class="mb-3 row">
                 <label for="photo" class="col-md-4 col-form-label text-md-end">Current Photo</label>
                 <div class="col-md-6">
-                    <img src="{{ asset('storage/photos/' . $driver->photo) }}" alt="Driver Photo" class="img-thumbnail" style="max-width: 200px;">
+                    <img src="{{ asset('storage/' . $driver->photo) }}" alt="Driver Photo" class="img-thumbnail" style="max-width: 200px;">
                 </div>
             </div>
 
-            <!-- New Photo -->
             <div class="mb-3 row">
                 <label for="new_photo" class="col-md-4 col-form-label text-md-end">New Photo (Optional)</label>
                 <div class="col-md-6">

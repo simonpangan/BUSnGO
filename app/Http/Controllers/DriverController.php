@@ -6,6 +6,8 @@ use App\Models\Driver;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules;
 
 class DriverController extends Controller
 {
@@ -28,12 +30,13 @@ class DriverController extends Controller
             'address' => 'required|max:100',
             'city' => 'required|max:45',
             'contact_no' => 'required|max:45',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif',
 //            'question' => 'required|max:400',
 //            'answer' => 'required|max:45',
 //            'username' => 'required|max:45',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif',
+
             // move to user table
-            'password' => 'required',
+            'password' => ['required', Rules\Password::defaults()],
             'email' => 'required|email|unique:users,email',
         ]);
 
@@ -41,10 +44,10 @@ class DriverController extends Controller
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
         ]);
-
         $photoPath = $request
             ->file('photo')
             ->store('photos', 'public');
+
 
         Driver::create([
             'user_id' => $user->id,
@@ -73,25 +76,46 @@ class DriverController extends Controller
     public function update(Request $request, Driver $driver)
     {
         $validatedData = $request->validate([
-            'name' => 'required|max:45',
+            'name' => ['required', 'string', 'max:255'],
             'gender' => 'required|in:M,F',
             'address' => 'required|max:45',
             'city' => 'required|max:45',
             'contact_no' => 'required|max:45',
-            'username' => 'required|max:45',
-            'password' => 'required',
-            'question' => 'required|max:400',
-            'answer' => 'required|max:45',
-            'email' => 'required|email|unique:drivers,email,' . $driver->id,
+
+//            'username' => 'required|max:45',
+//            'answer' => 'required|max:45',
+//            'question' => 'required|max:400',
+
+            'email' => ['required', 'email',
+                    Rule::unique((new User)->getTable())->ignore($driver->user->id ?? null)
+            ],
+
+//            'password' => 'required',
+
+//            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+        ]);
+
+        $driver->user->update([
+            'email' => $validatedData['email'],
+        ]);
+
+        $driver->update([
+            'name' => $validatedData['name'],
+            'gender' => $validatedData['gender'],
+            'address' => $validatedData['address'],
+            'city' => $validatedData['city'],
+            'contact_no' => $validatedData['contact_no'],
         ]);
 
         if ($request->hasFile('photo')) {
             $photoPath = $request->file('photo')->store('photos', 'public');
-            $validatedData['photo'] = $photoPath;
-        }
 
-        $driver->update($validatedData);
+            $driver->update([
+                'photo' => $photoPath,
+            ]);
+        }
 
         return redirect()->route('drivers.index')->with('success', 'Driver updated successfully.');
     }
@@ -100,6 +124,7 @@ class DriverController extends Controller
     {
         $driver->delete();
 
-        return redirect()->route('drivers.index')->with('success', 'Driver deleted successfully.');
+        return redirect()->route('drivers.index')
+            ->with('success', 'Driver deleted successfully.');
     }
 }

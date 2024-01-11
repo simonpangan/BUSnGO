@@ -10,6 +10,7 @@
                 </ul>
             </div>
         @endif
+
         <form method="post" action="{{ route('drivers.store') }}" enctype="multipart/form-data">
             @csrf
 
@@ -67,15 +68,15 @@
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}" required>
-                @error('username')
-                <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
+{{--            <div class="mb-3">--}}
+{{--                <label for="username" class="form-label">Username</label>--}}
+{{--                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}" required>--}}
+{{--                @error('username')--}}
+{{--                <span class="invalid-feedback" role="alert">--}}
+{{--                        <strong>{{ $message }}</strong>--}}
+{{--                    </span>--}}
+{{--                @enderror--}}
+{{--            </div>--}}
 
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
