@@ -120,7 +120,7 @@
             <div class="mb-3 row">
                 <label for="photo" class="col-md-4 col-form-label text-md-end">Current Photo</label>
                 <div class="col-md-6">
-                    <img src="{{ asset('storage/' . $driver->photo) }}" alt="Driver Photo" class="img-thumbnail" style="max-width: 200px;">
+                    <img src="{{ asset('storage/uploads/' . $driver->photo) }}" alt="Driver Photo" class="img-thumbnail" style="max-width: 200px;">
                 </div>
             </div>
 

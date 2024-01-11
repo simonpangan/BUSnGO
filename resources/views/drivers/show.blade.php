@@ -31,7 +31,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="fw-bold">Photo:</label>
-                    <img src="{{ asset('storage/' . $driver->photo) }}" alt="Driver Photo" class="img-thumbnail">
+                    <img src="{{ asset('storage/uploads/' . $driver->photo) }}" alt="Driver Photo" class="img-thumbnail">
                 </div>
 
                 <a href="{{ route('drivers.index') }}" class="btn btn-secondary">Go Back</a>
