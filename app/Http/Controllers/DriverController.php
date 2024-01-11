@@ -6,6 +6,7 @@ use App\Models\Driver;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 
@@ -44,10 +45,16 @@ class DriverController extends Controller
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
         ]);
-        $photoPath = $request
-            ->file('photo')
-            ->store('photos', 'public');
 
+        //Store Photo in public folder
+        $file = $request->file('photo');
+        $photoFileName = uniqid() . '-' . now()->timestamp . $file->getClientOriginalName();
+
+        $file->storeAs(
+            "uploads",
+            $photoFileName,
+            "public"
+        );
 
         Driver::create([
             'user_id' => $user->id,
@@ -56,7 +63,7 @@ class DriverController extends Controller
             'address' => $validatedData['address'],
             'city' => $validatedData['city'],
             'contact_no' => $validatedData['contact_no'],
-            'photo' => $photoPath,
+            'photo' => $photoFileName,
         ]);
 
         return to_route('drivers.index')
