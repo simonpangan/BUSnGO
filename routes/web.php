@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConductorController;
 use App\Http\Controllers\DriverController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::resource('drivers', DriverController::class);
+Route::resource('conductors', ConductorController::class);
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,7 +30,7 @@ Route::get('/dashboard', function () {
         return redirect()->to(RouteServiceProvider::ADMIN);
     } elseif ($authenticatedUser->hasRole('driver')) {
         return redirect()->to(RouteServiceProvider::DRIVER);
-    } elseif ($authenticatedUser->hasRole('conductor')) {
+    } elseif ($authenticatedUser->hasRole('conductors')) {
         return redirect()->to(RouteServiceProvider::CONDUCTOR);
     } elseif ($authenticatedUser->hasRole('passenger')) {
         return redirect()->to(RouteServiceProvider::PASSENGER);
@@ -53,11 +55,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     });
 
     //CONDUCTOR ROUTES
-    Route::middleware(['role:conductor'])->group(function () {
-
-        Route::get('/conductor', function () {
-            return view('dashboard');
-        })->middleware(['auth', 'verified']);
+    Route::middleware(['role:conductors'])->group(function () {
 
     });
 

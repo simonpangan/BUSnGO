@@ -35,7 +35,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended(RouteServiceProvider::ADMIN);
         } elseif ($authenticatedUser->hasRole('driver')) {
             return redirect()->intended(RouteServiceProvider::DRIVER);
-        } elseif ($authenticatedUser->hasRole('conductor')) {
+        } elseif ($authenticatedUser->hasRole('conductors')) {
             return redirect()->intended(RouteServiceProvider::CONDUCTOR);
         } elseif ($authenticatedUser->hasRole('passenger')) {
             return redirect()->intended(RouteServiceProvider::PASSENGER);
