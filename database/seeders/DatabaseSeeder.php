@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         Role::create(['name' => 'passenger']);
         Role::create(['name' => 'driver']);
-        Role::create(['name' => 'conductor']);
+        Role::create(['name' => 'conductors']);
         Role::create(['name' => 'admin']);
 
         $admin = User::factory()->create([
@@ -45,13 +45,13 @@ class DatabaseSeeder extends Seeder
 
         $passenger->assignRole('passenger');
 
-        // Create a test conductor user
+        // Create a test conductors user
         $conductor = User::factory()->create([
             'name' => 'Test Conductor',
-            'email' => 'conductor@example.com',
+            'email' => 'conductors@example.com',
             'password' => bcrypt('password'),
         ]);
 
-        $conductor->assignRole('conductor');
+        $conductor->assignRole('conductors');
     }
 }
