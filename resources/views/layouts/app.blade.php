@@ -15,6 +15,8 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    @yield('css')
 </head>
 <body>
     <div id="app">
@@ -61,5 +63,7 @@
             {{ $slot }}
         </main>
     </div>
+
+    @yield('javascript')
 </body>
 </html>

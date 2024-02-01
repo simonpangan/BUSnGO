@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BusRequest;
 use App\Models\Bus;
+use Illuminate\Http\Request;
 
 class BusController extends Controller
 {
@@ -19,22 +20,44 @@ class BusController extends Controller
         return Bus::create($request->validated());
     }
 
-    public function show(Bus $bus)
+    public function edit(Bus $bus)
     {
-        return $bus;
+        return view('bus.edit', compact('bus'));
     }
 
-    public function update(BusRequest $request, Bus $bus)
+    public function update(Request $request, Bus $bus)
     {
-        $bus->update($request->validated());
+//        $request->validate([
+//            'no'                 => ['required'],
+//            'seat'               => ['required', 'integer'],
+//            'engine_model'       => ['required'],
+//            'chassis_no'         => ['required'],
+//            'model'              => ['required'],
+//            'color'              => ['required'],
+//            'register_no'        => ['required'],
+//            'made_in'            => ['required'],
+//            'make'               => ['required'],
+//            'price'              => ['required'],
+//            'fuel'               => ['required'],
+//            'engine_capacity'    => ['required'],
+//            'puchase_year'       => ['required', 'integer'],
+//            'transmission_model' => ['required'],
+//            'status'             => ['required'],
+//            'driver_id'          => ['required', 'integer'],
+//            'conductor_id'       => ['required', 'integer'],
+//        ]);
+//        $bus->update($request->validated());
 
-        return $bus;
+//        dd('asd');
+        return back()->with('success', 'Bus updated successfully.');
     }
 
     public function destroy(Bus $bus)
     {
         $bus->delete();
 
-        return response()->json();
+        return to_route('buses.index')
+            ->with('success', 'Bus deleted successfully.')
+        ;
     }
 }

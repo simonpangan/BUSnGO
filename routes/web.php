@@ -46,8 +46,13 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         })->middleware(['auth', 'verified']);
 
 
-        Route::get('/buses', [BusController::class, 'index'])->name('bus.index');
-        Route::post('/buses', [BusController::class, 'create'])->name('bus.create');
+        Route::controller(BusController::class)->group(function () {
+            Route::get('/buses', 'index')->name('buses.index');
+            Route::post('/buses', 'create')->name('buses.create');
+            Route::get('/buses/{bus}/edit', 'edit')->name('buses.edit');
+            Route::put('/buses/{bus}', 'update')->name('buses.update');
+            Route::delete('/buses/{bus}', 'destroy')->name('buses.destroy');
+        });
     });
 
     //DRIVER ROUTES
