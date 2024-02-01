@@ -26,7 +26,8 @@
             <div class="mb-3 row">
                 <label for="name" class="col-md-4 col-form-label text-md-end">Name</label>
                 <div class="col-md-6">
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $driver->name) }}" required>
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
+                           value="{{ old('name', $driver->name) }}" required>
                     @error('name')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -39,7 +40,8 @@
             <div class="mb-3 row">
                 <label for="gender" class="col-md-4 col-form-label text-md-end">Gender</label>
                 <div class="col-md-6">
-                    <select class="form-select @error('gender') is-invalid @enderror" id="gender" name="gender" required>
+                    <select class="form-select @error('gender') is-invalid @enderror" id="gender" name="gender"
+                            required>
                         <option value="M" {{ old('gender', $driver->gender) == 'M' ? 'selected' : '' }}>Male</option>
                         <option value="F" {{ old('gender', $driver->gender) == 'F' ? 'selected' : '' }}>Female</option>
                     </select>
@@ -55,7 +57,8 @@
             <div class="mb-3 row">
                 <label for="address" class="col-md-4 col-form-label text-md-end">Address</label>
                 <div class="col-md-6">
-                    <input type="text" class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{ old('address', $driver->address) }}" required>
+                    <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
+                           name="address" value="{{ old('address', $driver->address) }}" required>
                     @error('address')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -68,7 +71,8 @@
             <div class="mb-3 row">
                 <label for="city" class="col-md-4 col-form-label text-md-end">City</label>
                 <div class="col-md-6">
-                    <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city', $driver->city) }}" required>
+                    <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city"
+                           value="{{ old('city', $driver->city) }}" required>
                     @error('city')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -81,12 +85,16 @@
             <div class="mb-3 row">
                 <label for="contact_no" class="col-md-4 col-form-label text-md-end">Contact Number</label>
                 <div class="col-md-6">
-                    <input type="text" class="form-control @error('contact_no') is-invalid @enderror" id="contact_no" name="contact_no" value="{{ old('contact_no', $driver->contact_no) }}" required>
+                    <input type="text" class="form-control @error('contact_no') is-invalid @enderror" id="contact_no"
+                           aria-describedby="contactHelp" name="contact_no" value="{{ old('contact_no', $driver->contact_no) }}" required>
                     @error('contact_no')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
+                    <div id="contactHelp" class="form-text">
+                        Format: 09********* or +639*********
+                    </div>
                 </div>
             </div>
 
@@ -107,14 +115,16 @@
             <div class="mb-3 row">
                 <label for="photo" class="col-md-4 col-form-label text-md-end">Current Photo</label>
                 <div class="col-md-6">
-                    <img src="{{ asset('storage/uploads/'.$driver->photo) }}" alt="Driver Photo" class="img-thumbnail" style="max-width: 200px;">
+                    <img src="{{ asset('storage/uploads/'.$driver->photo) }}" alt="Driver Photo" class="img-thumbnail"
+                         style="max-width: 200px;">
                 </div>
             </div>
 
             <div class="mb-3 row">
                 <label for="new_photo" class="col-md-4 col-form-label text-md-end">New Photo (Optional)</label>
                 <div class="col-md-6">
-                    <input type="file" class="form-control @error('new_photo') is-invalid @enderror" id="new_photo" name="new_photo" accept="image/*">
+                    <input type="file" class="form-control @error('new_photo') is-invalid @enderror" id="new_photo"
+                           name="new_photo" accept="image/*">
                     @error('new_photo')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

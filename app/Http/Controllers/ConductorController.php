@@ -14,8 +14,9 @@ class ConductorController extends Controller
 {
     public function index()
     {
-        $conductors = Conductor::all();
-        return view('conductors.index', compact('conductors'));
+        return view('conductors.index', [
+            'conductors' => Conductor::all()
+        ]);
     }
 
     public function create()
@@ -30,7 +31,7 @@ class ConductorController extends Controller
             'gender' => 'required|in:M,F',
             'address' => 'required|max:100',
             'city' => 'required|max:45',
-            'contact_no' => 'required|max:45',
+            'contact_no' => ['required', 'max:45', 'regex:/^(09|\+639)\d{9}$/'],
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif',
 
             'email' => 'required|email|unique:users,email',
@@ -45,7 +46,6 @@ class ConductorController extends Controller
         //Store Photo in public folder
         $file = $request->file('photo');
         $photoFileName = uniqid() . '-' . now()->timestamp . $file->getClientOriginalName();
-
         $file->storeAs('public/uploads', $photoFileName);
 
         Conductor::create([
@@ -77,11 +77,11 @@ class ConductorController extends Controller
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'gender' => 'required|in:M,F',
-            'address' => 'required|max:45',
+            'address' => 'required|max:100',
             'city' => 'required|max:45',
-            'contact_no' => 'required|max:45',
+            'contact_no' => ['required', 'max:45', 'regex:/^(09|\+639)\d{9}$/'],
             'email' => ['required', 'email',
-                    Rule::unique((new User)->getTable())->ignore($conductor->user->id ?? null)
+                Rule::unique((new User)->getTable())->ignore($conductor->user->id ?? null)
             ],
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
@@ -99,12 +99,25 @@ class ConductorController extends Controller
         ]);
 
         if ($request->hasFile('new_photo')) {
-            $request->file('new_photo')
-                ->storeAs('public/uploads', $conductor->photo);
+            //Delete old photo
+            Storage::disk('public')->delete("/uploads/{$conductor->photo}");
+
+            //Generate unique name
+            $file = $request->file('new_photo');
+            $photoFileName = uniqid().'-'.now()->timestamp.$file->getClientOriginalName();
+
+            //store the photo in public folder
+            $file->storeAs('public/uploads', $photoFileName);
+
+            //Store the path in database
+            $conductor->update([
+                'photo' => $photoFileName,
+            ]);
         }
 
-        return redirect()
-            ->route('conductors.index')
+        return to_route('conductors.edit', [
+                'conductor' => $conductor->id,
+            ])
             ->with('success', 'Conductor updated successfully.');
     }
 

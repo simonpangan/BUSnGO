@@ -68,6 +68,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::controller(ConductorController::class)->group(function () {
             Route::get('/conductors', 'index')->name('conductors.index');
             Route::get('/conductors/create', 'create')->name('conductors.create');
+            Route::get('/conductors/{conductor}', 'show')->name('conductors.show');
             Route::post('/conductors', 'store')->name('conductors.store');
             Route::get('/conductors/{conductor}/edit', 'edit')->name('conductors.edit');
             Route::put('/conductors/{conductor}', 'update')->name('conductors.update');

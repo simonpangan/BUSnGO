@@ -81,12 +81,15 @@
             <div class="mb-3 row">
                 <label for="contact_no" class="col-md-4 col-form-label text-md-end">Contact Number</label>
                 <div class="col-md-6">
-                    <input type="text" class="form-control @error('contact_no') is-invalid @enderror" id="contact_no" name="contact_no" value="{{ old('contact_no', $conductor->contact_no) }}" required>
+                    <input type="text" aria-describedby="contactHelp" class="form-control @error('contact_no') is-invalid @enderror" id="contact_no" name="contact_no" value="{{ old('contact_no', $conductor->contact_no) }}" required>
                     @error('contact_no')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
+                    <div id="contactHelp" class="form-text">
+                        Format: 09********* or +639*********
+                    </div>
                 </div>
             </div>
 
