@@ -1,4 +1,9 @@
 <x-app-layout>
+    @section('css')
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.13.8/datatables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css"/>
+    @endsection
+
     <div class="container mt-4">
         @if(session('success'))
             <div class="alert alert-success">
@@ -11,7 +16,7 @@
             <a href="{{ route('drivers.create') }}" class="btn btn-success">Create Driver</a>
         </div>
 
-        <table class="table mt-3">
+        <table id="drivers-table" class="table mt-3">
             <thead>
             <tr>
                 <th>ID</th>
@@ -50,4 +55,17 @@
             </tbody>
         </table>
     </div>
+
+    @section('javascript')
+        @jquery
+        <script src="https://cdn.datatables.net/v/dt/dt-1.13.8/datatables.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#drivers-table').DataTable({
+                    responsive: true
+                })
+            });
+        </script>
+    @endsection
 </x-app-layout>

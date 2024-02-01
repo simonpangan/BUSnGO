@@ -17,8 +17,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::resource('drivers', DriverController::class);
-Route::resource('conductors', ConductorController::class);
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -54,6 +53,25 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::get('/buses/{bus}/edit', 'edit')->name('buses.edit');
             Route::put('/buses/{bus}', 'update')->name('buses.update');
             Route::delete('/buses/{bus}', 'destroy')->name('buses.destroy');
+        });
+
+        Route::controller(DriverController::class)->group(function () {
+            Route::get('/drivers', 'index')->name('drivers.index');
+            Route::get('/drivers/create', 'create')->name('drivers.create');
+            Route::post('/drivers', 'store')->name('drivers.store');
+            Route::post('/drivers', 'show')->name('drivers.show');
+            Route::get('/drivers/{driver}/edit', 'edit')->name('drivers.edit');
+            Route::put('/drivers/{driver}', 'update')->name('drivers.update');
+            Route::delete('/drivers/{driver}', 'destroy')->name('drivers.destroy');
+        });
+
+        Route::controller(ConductorController::class)->group(function () {
+            Route::get('/conductors', 'index')->name('conductors.index');
+            Route::get('/conductors/create', 'create')->name('conductors.create');
+            Route::post('/conductors', 'store')->name('conductors.store');
+            Route::get('/conductors/{conductor}/edit', 'edit')->name('conductors.edit');
+            Route::put('/conductors/{conductor}', 'update')->name('conductors.update');
+            Route::delete('/conductors/{conductor}', 'destroy')->name('conductors.destroy');
         });
     });
 
