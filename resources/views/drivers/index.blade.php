@@ -20,8 +20,6 @@
                 <th>Address</th>
                 <th>City</th>
                 <th>Contact Number</th>
-                <th>Username</th>
-                <th>Email</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -34,8 +32,6 @@
                     <td>{{ $driver->address }}</td>
                     <td>{{ $driver->city }}</td>
                     <td>{{ $driver->contact_no }}</td>
-                    <td>{{ $driver->username }}</td>
-                    <td>{{ $driver->email }}</td>
                     <td>
                         <a href="{{ route('drivers.show', $driver->id) }}" class="btn btn-info btn-sm">View</a>
                         <a href="{{ route('drivers.edit', $driver->id) }}" class="btn btn-warning btn-sm">Edit</a>

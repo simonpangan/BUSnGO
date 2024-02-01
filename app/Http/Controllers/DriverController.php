@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Driver;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules;
 
 class DriverController extends Controller
 {
@@ -26,20 +31,35 @@ class DriverController extends Controller
             'address' => 'required|max:100',
             'city' => 'required|max:45',
             'contact_no' => 'required|max:45',
-//            'question' => 'required|max:400',
-//            'answer' => 'required|max:45',
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif',
-            // move to user table
-            'username' => 'required|max:45',
-            'password' => 'required',
-            'email' => 'required|email|unique:drivers,email',
+
+            'email' => 'required|email|unique:users,email',
+            'password' => ['required', Rules\Password::defaults()],
         ]);
 
-        $photoPath = $request->file('photo')->store('photos', 'public');
+        $user = User::create([
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+        ]);
 
-        Driver::create(array_merge($validatedData, ['photo' => $photoPath]));
+        //Store Photo in public folder
+        $file = $request->file('photo');
+        $photoFileName = uniqid() . '-' . now()->timestamp . $file->getClientOriginalName();
 
-        return to_route('drivers.index')->with('success', 'Driver created successfully.');
+        $file->storeAs('public/uploads', $photoFileName);
+
+        Driver::create([
+            'user_id' => $user->id,
+            'name' => $validatedData['name'],
+            'gender' => $validatedData['gender'],
+            'address' => $validatedData['address'],
+            'city' => $validatedData['city'],
+            'contact_no' => $validatedData['contact_no'],
+            'photo' => $photoFileName,
+        ]);
+
+        return to_route('drivers.index')
+            ->with('success', 'Driver created successfully.');
     }
 
     public function show(Driver $driver)
@@ -55,34 +75,45 @@ class DriverController extends Controller
     public function update(Request $request, Driver $driver)
     {
         $validatedData = $request->validate([
-            'name' => 'required|max:45',
+            'name' => ['required', 'string', 'max:255'],
             'gender' => 'required|in:M,F',
             'address' => 'required|max:45',
             'city' => 'required|max:45',
             'contact_no' => 'required|max:45',
-            'username' => 'required|max:45',
-            'password' => 'required',
-            'question' => 'required|max:400',
-            'answer' => 'required|max:45',
-            'email' => 'required|email|unique:drivers,email,' . $driver->id,
+            'email' => ['required', 'email',
+                    Rule::unique((new User)->getTable())->ignore($driver->user->id ?? null)
+            ],
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
 
-        if ($request->hasFile('photo')) {
-            $photoPath = $request->file('photo')->store('photos', 'public');
-            $validatedData['photo'] = $photoPath;
+        $driver->user->update([
+            'email' => $validatedData['email'],
+        ]);
+
+        $driver->update([
+            'name' => $validatedData['name'],
+            'gender' => $validatedData['gender'],
+            'address' => $validatedData['address'],
+            'city' => $validatedData['city'],
+            'contact_no' => $validatedData['contact_no'],
+        ]);
+
+        if ($request->hasFile('new_photo')) {
+            $request->file('new_photo')
+                ->storeAs('public/uploads', $driver->photo);
         }
 
-        $driver->update($validatedData);
-
-        return redirect()->route('drivers.index')->with('success', 'Driver updated successfully.');
+        return redirect()
+            ->route('drivers.index')
+            ->with('success', 'Driver updated successfully.');
     }
 
     public function destroy(Driver $driver)
     {
+        Storage::disk('public')->delete("/uploads/{$driver->photo}");
         $driver->delete();
 
-        return redirect()->route('drivers.index')->with('success', 'Driver deleted successfully.');
+        return redirect()->route('drivers.index')
+            ->with('success', 'Driver deleted successfully.');
     }
 }
-
