@@ -2,18 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Conductor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Driver>
- */
-class DriverFactory extends Factory
+class ConductorFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = Conductor::class;
+
     public function definition(): array
     {
         return [

@@ -90,19 +90,6 @@
                 </div>
             </div>
 
-{{--            <!-- Password -->--}}
-{{--            <div class="mb-3 row">--}}
-{{--                <label for="password" class="col-md-4 col-form-label text-md-end">Password</label>--}}
-{{--                <div class="col-md-6">--}}
-{{--                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">--}}
-{{--                    @error('password')--}}
-{{--                    <span class="invalid-feedback" role="alert">--}}
-{{--                        <strong>{{ $message }}</strong>--}}
-{{--                    </span>--}}
-{{--                    @enderror--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
             <div class="mb-3 row">
                 <label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
                 <div class="col-md-6">
@@ -120,7 +107,7 @@
             <div class="mb-3 row">
                 <label for="photo" class="col-md-4 col-form-label text-md-end">Current Photo</label>
                 <div class="col-md-6">
-                    <img src="{{ asset('storage/uploads/' . $driver->photo) }}" alt="Driver Photo" class="img-thumbnail" style="max-width: 200px;">
+                    <img src="{{ asset('storage/uploads/'.$driver->photo) }}" alt="Driver Photo" class="img-thumbnail" style="max-width: 200px;">
                 </div>
             </div>
 
@@ -136,34 +123,6 @@
                 </div>
             </div>
 
-            <!-- Security Question and Answer (Uncomment if needed) -->
-            <!--
-            <div class="mb-3 row">
-                <label for="question" class="col-md-4 col-form-label text-md-end">Security Question</label>
-                <div class="col-md-6">
-                    <input type="text" class="form-control @error('question') is-invalid @enderror" id="question" name="question" value="{{ old('question', $driver->question) }}" required>
-                    @error('question')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-            </div>
-        </div>
-
-        <div class="mb-3 row">
-            <label for="answer" class="col-md-4 col-form-label text-md-end">Security Answer</label>
-            <div class="col-md-6">
-                <input type="text" class="form-control @error('answer') is-invalid @enderror" id="answer" name="answer" value="{{ old('answer', $driver->answer) }}" required>
-                    @error('answer')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-            </div>
-        </div>
--->
-
-            <!-- Buttons -->
             <div class="mb-3 row">
                 <div class="col-md-6 offset-md-4">
                     <button type="submit" class="btn btn-primary">Update Driver</button>
