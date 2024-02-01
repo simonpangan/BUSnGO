@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BusController;
 use App\Http\Controllers\DriverController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
@@ -43,6 +44,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/admin', function () {
             return view('dashboard');
         })->middleware(['auth', 'verified']);
+
+
+        Route::get('/buses', [BusController::class, 'index'])->name('bus.index');
+        Route::post('/buses', [BusController::class, 'create'])->name('bus.create');
     });
 
     //DRIVER ROUTES
