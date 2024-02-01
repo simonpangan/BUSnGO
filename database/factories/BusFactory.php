@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Bus;
+use App\Models\Conductor;
+use App\Models\Driver;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
@@ -28,8 +30,8 @@ class BusFactory extends Factory
             'puchase_year'       => $this->faker->randomNumber(),
             'transmission_model' => $this->faker->word(),
             'status'             => $this->faker->word(),
-            'driver_id'          => $this->faker->randomNumber(),
-            'conductor_id'       => $this->faker->randomNumber(),
+            'driver_id'          => Driver::factory(),
+            'conductor_id'       => Conductor::factory(),
             'created_at'         => Carbon::now(),
             'updated_at'         => Carbon::now(),
         ];

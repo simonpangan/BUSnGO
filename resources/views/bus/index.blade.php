@@ -14,7 +14,7 @@
 
         <div class="d-flex justify-content-between align-items-center">
             <h2>Buses List</h2>
-            {{--            <a href="{{ route('buses.create') }}" class="btn btn-success">Create Bus</a>--}}
+            <a href="{{ route('buses.create') }}" class="btn btn-success">Create Bus</a>
         </div>
 
         <div>
@@ -37,8 +37,8 @@
                     <th>Purchase Year</th>
                     <th>Transmission Model</th>
                     <th>Status</th>
-                    <th>Driver ID</th>
-                    <th>Conductor ID</th>
+                    <th>Driver Name</th>
+                    <th>Conductor Name</th>
                     <th>Created At</th>
                     <th>Updated At</th>
                     <th>Action</th>
@@ -63,11 +63,12 @@
                     <td>{{ $bus->puchase_year }}</td>
                     <td>{{ $bus->transmission_model }}</td>
                     <td>{{ $bus->status }}</td>
-                    <td>{{ $bus->driver_id }}</td>
-                    <td>{{ $bus->conductor_id }}</td>
+                    <td>{{ $bus->driver->name }}</td>
+                    <td>{{ $bus->conductor->name }}</td>
                     <td>{{ $bus->created_at }}</td>
                     <td>{{ $bus->updated_at }}</td>
                     <td>
+                        <a href="{{ route('buses.show', $bus->id) }}" class="btn btn-info btn-sm">Show</a>
                         <a href="{{ route('buses.edit', $bus->id) }}" class="btn btn-warning btn-sm">Edit</a>
                         <form method="post" action="{{ route('buses.destroy', $bus->id) }}" style="display:inline">
                             @csrf

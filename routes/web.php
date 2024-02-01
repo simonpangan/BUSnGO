@@ -49,7 +49,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         Route::controller(BusController::class)->group(function () {
             Route::get('/buses', 'index')->name('buses.index');
-            Route::post('/buses', 'create')->name('buses.create');
+            Route::get('/buses/create', 'create')->name('buses.create');
+            Route::post('/buses', 'store')->name('buses.store');
+            Route::get('/buses/{bus}/', 'show')->name('buses.show');
             Route::get('/buses/{bus}/edit', 'edit')->name('buses.edit');
             Route::put('/buses/{bus}', 'update')->name('buses.update');
             Route::delete('/buses/{bus}', 'destroy')->name('buses.destroy');
