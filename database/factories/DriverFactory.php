@@ -21,7 +21,7 @@ class DriverFactory extends Factory
             'gender' => $this->faker->randomElement(['M', 'F']),
             'address' => $this->faker->address,
             'city' => $this->faker->city,
-            'contact_no' => $this->faker->phoneNumber,
+            'contact_no' => "09{$this->faker->randomNumber(9, true)}",
             'photo' => $this->faker->imageUrl(),
         ];
     }

@@ -14,8 +14,9 @@ class DriverController extends Controller
 {
     public function index()
     {
-        $drivers = Driver::all();
-        return view('drivers.index', compact('drivers'));
+        return view('drivers.index', [
+            'drivers' => Driver::all(),
+        ]);
     }
 
     public function create()
@@ -30,7 +31,7 @@ class DriverController extends Controller
             'gender' => 'required|in:M,F',
             'address' => 'required|max:100',
             'city' => 'required|max:45',
-            'contact_no' => 'required|max:45',
+            'contact_no' => ['required', 'max:45', 'regex:/^(09|\+639)\d{9}$/'],
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif',
 
             'email' => 'required|email|unique:users,email',
@@ -44,8 +45,7 @@ class DriverController extends Controller
 
         //Store Photo in public folder
         $file = $request->file('photo');
-        $photoFileName = uniqid() . '-' . now()->timestamp . $file->getClientOriginalName();
-
+        $photoFileName = uniqid().'-'.now()->timestamp.$file->getClientOriginalName();
         $file->storeAs('public/uploads', $photoFileName);
 
         Driver::create([
@@ -77,9 +77,9 @@ class DriverController extends Controller
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'gender' => 'required|in:M,F',
-            'address' => 'required|max:45',
+            'address' => 'required|max:100',
             'city' => 'required|max:45',
-            'contact_no' => 'required|max:45',
+            'contact_no' => ['required', 'max:45', 'regex:/^(09|\+639)\d{9}$/'],
             'email' => ['required', 'email',
                     Rule::unique((new User)->getTable())->ignore($driver->user->id ?? null)
             ],
@@ -99,8 +99,17 @@ class DriverController extends Controller
         ]);
 
         if ($request->hasFile('new_photo')) {
-            $request->file('new_photo')
-                ->storeAs('public/uploads', $driver->photo);
+            //Delete old photo
+            Storage::disk('public')->delete("/uploads/{$driver->photo}");
+
+            //Store new_photo in public folder
+            $file = $request->file('new_photo');
+            $photoFileName = uniqid().'-'.now()->timestamp.$file->getClientOriginalName();
+            $file->storeAs('public/uploads', $photoFileName);
+
+            $driver->update([
+                'photo' => $photoFileName,
+            ]);
         }
 
         return redirect()

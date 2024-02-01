@@ -59,13 +59,20 @@
 
             <div class="mb-3">
                 <label for="contact_no" class="form-label">Contact Number</label>
-                <input type="text" class="form-control @error('contact_no') is-invalid @enderror" id="contact_no" name="contact_no" value="{{ old('contact_no') }}" required>
+                <input type="text"
+                       class="form-control @error('contact_no') is-invalid @enderror" id="contact_no"
+                       name="contact_no" value="{{ old('contact_no') }}" required
+                       aria-describedby="contactHelp"
+                >
 
                 @error('contact_no')
                 <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
+                <div id="contactHelp" class="form-text">
+                    Format: 09********* or +639*********
+                </div>
             </div>
 
 {{--            <div class="mb-3">--}}

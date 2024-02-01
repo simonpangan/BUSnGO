@@ -58,8 +58,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::controller(DriverController::class)->group(function () {
             Route::get('/drivers', 'index')->name('drivers.index');
             Route::get('/drivers/create', 'create')->name('drivers.create');
+            Route::get('/drivers/{driver}', 'show')->name('drivers.show');
             Route::post('/drivers', 'store')->name('drivers.store');
-            Route::post('/drivers', 'show')->name('drivers.show');
             Route::get('/drivers/{driver}/edit', 'edit')->name('drivers.edit');
             Route::put('/drivers/{driver}', 'update')->name('drivers.update');
             Route::delete('/drivers/{driver}', 'destroy')->name('drivers.destroy');
