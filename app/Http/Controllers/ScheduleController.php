@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('role:admin')->only([
             'create', 'edit', 'update', 'destroy'
         ]);
