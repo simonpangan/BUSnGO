@@ -56,35 +56,13 @@
                         data-style="border border-1"
                         data-live-search="true"
                 >
-                    <option>Select City</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
+                    <option>Select City/Municipality</option>
+                    @foreach($LGUs as $lgu)
+                        <option
+                            {{ old('city') == $lgu->name ? "selected" : "" }}
+                            value="{{ $lgu->name }}"
+                        >{{ $lgu->name }}</option>
+                    @endforeach
                 </select>
                 @error('city')
                     <span class="invalid-feedback" role="alert">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Driver;
+use App\Models\LGU;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -21,7 +22,9 @@ class DriverController extends Controller
 
     public function create()
     {
-        return view('drivers.create');
+        return view('drivers.create', [
+            'LGUs' => LGU::all(),
+        ]);
     }
 
     public function store(Request $request)
