@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Bus;
 use App\Models\Schedule;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class ScheduleController extends Controller
 {
@@ -18,7 +21,9 @@ class ScheduleController extends Controller
     public function index()
     {
         return view('schedules.index', [
-            'schedules' => Schedule::all()
+            'schedules' => Schedule::query()
+                ->latest()
+                ->get()
         ]);
     }
 
@@ -31,15 +36,38 @@ class ScheduleController extends Controller
 
     public function store(Request $request)
     {
-        Schedule::create([
+        $schedule = Schedule::create([
             'bus_id' => $request->bus_id,
             'departure_time' => $request->departure_time,
             'arrival_time' => $request->arrival_time,
             'status' => $request->status,
         ]);
 
+        $bus = Bus::find($request->bus_id);
+        $tickets = Collection::times(
+            $bus->seat,
+            fn(int $number) => [
+                'seat_no' => $number,
+                'status' => 'available'
+            ]
+        );
+
+        $schedule->tickets()->createMany($tickets);
+
         return to_route('schedules.index')
             ->with('success', 'Schedule created successfully');
+    }
+
+    public function book(Request $request,
+        Schedule $schedule,
+        Ticket $ticket
+    ) {
+        $ticket->update([
+            'status' => 'booked',
+            'passenger_id' => Auth::id()
+        ]);
+
+        return to_route('schedules.show', $schedule);
     }
 
     public function show(Schedule $schedule)

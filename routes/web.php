@@ -27,13 +27,15 @@ Route::get('/', function () {
 Route::controller(ScheduleController::class)->group(function () {
 	Route::get('/schedules', 'index')->name('schedules.index');
 
+	Route::get('/schedules/create', 'create')->name('schedules.create');
 	Route::post('/schedules', 'store')->name('schedules.store');
 
-	Route::get('/schedules/{schedule}', 'show')->name('schedules.show');
-	Route::get('/schedules/create', 'create')->name('schedules.create');
+	Route::put('/schedules/{schedule}/book/{ticket}', 'book')->name('schedules.book');
 
+	Route::get('/schedules/{schedule}', 'show')->name('schedules.show');
 	Route::get('/schedules/{schedule}/edit', 'edit')->name('schedules.edit');
 	Route::put('/schedules/{schedule}', 'update')->name('schedules.update');
+
 	Route::delete('/schedules/{schedule}', 'destroy')->name('schedules.destroy');
 });
 
@@ -54,7 +56,6 @@ Route::get('/dashboard', function () {
 Route::group(['middleware' => ['auth', 'verified']], function () {
 
 
-    //ADMIN ROUTES
     Route::middleware(['role:admin'])->group(function () {
         Route::get('/admin', function () {
             return view('dashboard');
@@ -74,7 +75,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::controller(DriverController::class)->group(function () {
             Route::get('/drivers', 'index')->name('drivers.index');
             Route::get('/drivers/create', 'create')->name('drivers.create');
-            Route::get('/drivers/{driver}', 'show')->name('drivers.show');
+
+            Route::get('/drivers/{driver}', 'show')
+                 ->name('drivers.show')
+                ->withoutMiddleware('role:admin');
+
             Route::post('/drivers', 'store')->name('drivers.store');
             Route::get('/drivers/{driver}/edit', 'edit')->name('drivers.edit');
             Route::put('/drivers/{driver}', 'update')->name('drivers.update');
@@ -84,7 +89,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::controller(ConductorController::class)->group(function () {
             Route::get('/conductors', 'index')->name('conductors.index');
             Route::get('/conductors/create', 'create')->name('conductors.create');
-            Route::get('/conductors/{conductor}', 'show')->name('conductors.show');
+
+            Route::get('/conductors/{conductor}', 'show')
+                 ->name('conductors.show')
+                 ->withoutMiddleware('role:admin');
+
             Route::post('/conductors', 'store')->name('conductors.store');
             Route::get('/conductors/{conductor}/edit', 'edit')->name('conductors.edit');
             Route::put('/conductors/{conductor}', 'update')->name('conductors.update');
