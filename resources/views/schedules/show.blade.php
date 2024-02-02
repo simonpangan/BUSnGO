@@ -35,34 +35,34 @@
 
         <table>
             <thead>
-            <tr>
-                <th>Seat #</th>
-                <th>Status</th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th>Seat #</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody>
-            @foreach($schedule->tickets as $ticket)
-                <tr>
-                    <td>{{ $ticket->seat_no }}</td>
-                    <td>{{ $ticket->status }}</td>
-                    <td>
-                        @if($ticket->status == "available")
-                            <form method="post" action="{{ route('schedules.book', [$schedule->id, $ticket->id]) }}"
-                                  style="display:inline">
-                                @csrf
-                                @method('put')
-                                <button type="submit" class="btn btn-info btn-sm"
-                                        onclick="return confirm('Are you sure?')"
-                                >Book
-                                </button>
-                            </form>
-                        @elseif(Auth::id() == $ticket->passenger_id)
-                            Your ticket
-                        @endif
-                    </td>
-                </tr>
-            @endforeach
+                @foreach($schedule->tickets as $ticket)
+                    <tr>
+                        <td>{{ $ticket->seat_no }}</td>
+                        <td>{{ $ticket->status }}</td>
+                        <td>
+                            @if($ticket->status == "available")
+                                <form method="post" action="{{ route('schedules.book', [$schedule->id, $ticket->id]) }}"
+                                      style="display:inline">
+                                    @csrf
+                                    @method('put')
+                                    <button type="submit" class="btn btn-info btn-sm"
+                                            onclick="return confirm('Are you sure?')"
+                                    >Book
+                                    </button>
+                                </form>
+                            @elseif(Auth::id() == $ticket->passenger_id)
+                                Your ticket
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
 
