@@ -68,11 +68,23 @@
             <div class="mb-3 row">
                 <label for="city" class="col-md-4 col-form-label text-md-end">City</label>
                 <div class="col-md-6">
-                    <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city', $conductor->city) }}" required>
+                    <select class="form-control @error('city') is-invalid @enderror" aria-label="City select" name="city"
+                            data-style="border border-1"
+                            data-live-search="true"
+                    >
+                        <option>Select City/Municipality</option>
+                        @foreach($LGUs as $lgu)
+                            <option
+                                {{ old('city', $conductor->city) == $lgu->name ? "selected" : "" }}
+                                value="{{ $lgu->name }}"
+                            >{{ $lgu->name }}</option>
+                        @endforeach
+                    </select>
+
                     @error('city')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
             </div>

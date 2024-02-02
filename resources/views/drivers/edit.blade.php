@@ -1,4 +1,9 @@
 <x-app-layout>
+    @section('css')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css" />
+    @endsection
+
+
     <div class="container mt-4">
         <h2>Edit Driver</h2>
 
@@ -71,12 +76,24 @@
             <div class="mb-3 row">
                 <label for="city" class="col-md-4 col-form-label text-md-end">City</label>
                 <div class="col-md-6">
-                    <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city"
-                           value="{{ old('city', $driver->city) }}" required>
+                    <select class="form-control @error('city') is-invalid @enderror" aria-label="City select" name="city"
+                            data-style="border border-1"
+                            data-live-search="true"
+                    >
+                        //TODO: maybe add this always margin-top: 0px; margin-bottom: 48205px; min-width: 218px;
+                        <option selected>Select City/Municipality</option>
+                        @foreach($LGUs as $lgu)
+                            <option
+                                {{ old('city', $driver->city) == $lgu->name ? "selected" : "" }}
+                                value="{{ $lgu->name }}"
+                            >{{ $lgu->name }}</option>
+                        @endforeach
+                    </select>
+
                     @error('city')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
             </div>
@@ -141,4 +158,13 @@
             </div>
         </form>
     </div>
+
+    @section('javascript')
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    $('select[name="city"]').selectpicker();
+                })
+            </script>
+    @endsection
 </x-app-layout>

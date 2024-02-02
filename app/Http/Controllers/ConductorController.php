@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conductor;
+use App\Models\LGU;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -21,7 +22,9 @@ class ConductorController extends Controller
 
     public function create()
     {
-        return view('conductors.create');
+        return view('conductors.create', [
+            'LGUs' => LGU::all(),
+        ]);
     }
 
     public function store(Request $request)
@@ -69,7 +72,10 @@ class ConductorController extends Controller
 
     public function edit(Conductor $conductor)
     {
-        return view('conductors.edit', compact('conductor'));
+        return view('conductors.edit', [
+            'LGUs' => LGU::all(),
+            'conductor' => $conductor,
+        ]);
     }
 
     public function update(Request $request, Conductor $conductor)

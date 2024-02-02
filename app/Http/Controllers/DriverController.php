@@ -72,7 +72,10 @@ class DriverController extends Controller
 
     public function edit(Driver $driver)
     {
-        return view('drivers.edit', compact('driver'));
+        return view('drivers.edit', [
+            'LGUs' => LGU::all(),
+            'driver' => $driver
+        ]);
     }
 
     public function update(Request $request, Driver $driver)

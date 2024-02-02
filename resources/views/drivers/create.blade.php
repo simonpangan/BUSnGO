@@ -128,7 +128,6 @@
         <script>
             $(document).ready(function() {
                 $('select[name="city"]').selectpicker();
-                // console.log($('select[name="city"]'));
             })
         </script>
     @endsection

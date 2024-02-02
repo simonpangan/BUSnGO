@@ -1,4 +1,8 @@
 <x-app-layout>
+    @section('css')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css" />
+    @endsection
+
     <div class="container mt-4">
         <h2>Create Conductor</h2>
         @if ($errors->any())
@@ -48,8 +52,18 @@
             </div>
 
             <div class="mb-3">
-                <label for="city" class="form-label">City</label>
-                <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" required>
+                <select class="form-control @error('city') is-invalid @enderror" aria-label="City select" name="city"
+                        data-style="border border-1"
+                        data-live-search="true"
+                >
+                    <option>Select City/Municipality</option>
+                    @foreach($LGUs as $lgu)
+                        <option
+                            {{ old('city') == $lgu->name ? "selected" : "" }}
+                            value="{{ $lgu->name }}"
+                        >{{ $lgu->name }}</option>
+                    @endforeach
+                </select>
                 @error('city')
                 <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -114,4 +128,13 @@
             <button type="submit" class="btn btn-primary">Create Conductor</button>
         </form>
     </div>
+
+    @section('javascript')
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('select[name="city"]').selectpicker();
+            })
+        </script>
+    @endsection
 </x-app-layout>
