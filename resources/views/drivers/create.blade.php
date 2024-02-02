@@ -1,4 +1,8 @@
 <x-app-layout>
+    @section('css')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css" />
+    @endsection
+
     <div class="container mt-4">
         <h2>Create Driver</h2>
         @if ($errors->any())
@@ -48,10 +52,42 @@
             </div>
 
             <div class="mb-3">
-                <label for="city" class="form-label">City</label>
-                <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" required>
+                <select class="form-control @error('city') is-invalid @enderror" aria-label="City select" name="city"
+                        data-style="border border-1"
+                        data-live-search="true"
+                >
+                    <option>Select City</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                    <option value="3">Three</option>
+                </select>
                 @error('city')
-                <span class="invalid-feedback" role="alert">
+                    <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
@@ -75,16 +111,6 @@
                 </div>
             </div>
 
-{{--            <div class="mb-3">--}}
-{{--                <label for="username" class="form-label">Username</label>--}}
-{{--                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}" required>--}}
-{{--                @error('username')--}}
-{{--                <span class="invalid-feedback" role="alert">--}}
-{{--                        <strong>{{ $message }}</strong>--}}
-{{--                    </span>--}}
-{{--                @enderror--}}
-{{--            </div>--}}
-
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" required>
@@ -94,26 +120,6 @@
                     </span>
                 @enderror
             </div>
-
-{{--            <div class="mb-3">--}}
-{{--                <label for="question" class="form-label">Security Question</label>--}}
-{{--                <input type="text" class="form-control @error('question') is-invalid @enderror" id="question" name="question" value="{{ old('question') }}" required>--}}
-{{--                @error('question')--}}
-{{--                <span class="invalid-feedback" role="alert">--}}
-{{--                        <strong>{{ $message }}</strong>--}}
-{{--                    </span>--}}
-{{--                @enderror--}}
-{{--            </div>--}}
-
-{{--            <div class="mb-3">--}}
-{{--                <label for="answer" class="form-label">Security Answer</label>--}}
-{{--                <input type="text" class="form-control @error('answer') is-invalid @enderror" id="answer" name="answer" value="{{ old('answer') }}" required>--}}
-{{--                @error('answer')--}}
-{{--                <span class="invalid-feedback" role="alert">--}}
-{{--                        <strong>{{ $message }}</strong>--}}
-{{--                    </span>--}}
-{{--                @enderror--}}
-{{--            </div>--}}
 
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
@@ -138,4 +144,14 @@
             <button type="submit" class="btn btn-primary">Create Driver</button>
         </form>
     </div>
+
+    @section('javascript')
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('select[name="city"]').selectpicker();
+                // console.log($('select[name="city"]'));
+            })
+        </script>
+    @endsection
 </x-app-layout>

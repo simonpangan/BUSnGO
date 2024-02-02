@@ -40,7 +40,7 @@
                         <x-admin-routes/>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false" v-pre>
+                                aria-expanded="false">
                                 {{ Auth::user()->name }}
                             </a>
 
@@ -66,6 +66,8 @@
         </main>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    @jquery
     @yield('javascript')
 </body>
 </html>

@@ -86,8 +86,7 @@
     </div>
 
     @section('javascript')
-        @jquery
-         <script src="https://cdn.datatables.net/v/dt/dt-1.13.8/datatables.min.js"></script>
+        <script src="https://cdn.datatables.net/v/dt/dt-1.13.8/datatables.min.js"></script>
         <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
         <script>
             $(document).ready(function () {
