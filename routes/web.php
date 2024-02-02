@@ -3,6 +3,7 @@
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\ConductorController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\ScheduleController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::controller(ScheduleController::class)->group(function () {
+	Route::get('/schedules', 'index')->name('schedules.index');
+
+	Route::post('/schedules', 'store')->name('schedules.store');
+
+	Route::get('/schedules/{schedule}', 'show')->name('schedules.show');
+	Route::get('/schedules/create', 'create')->name('schedules.create');
+
+	Route::get('/schedules/{schedule}/edit', 'edit')->name('schedules.edit');
+	Route::put('/schedules/{schedule}', 'update')->name('schedules.update');
+	Route::delete('/schedules/{schedule}', 'destroy')->name('schedules.destroy');
 });
 
 Route::get('/dashboard', function () {
