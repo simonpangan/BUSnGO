@@ -13,7 +13,6 @@
 
         <div class="d-flex justify-content-between align-items-center">
             <h2>Tickets List</h2>
-            <a href="{{ route('buses.create') }}" class="btn btn-success">Create Bus</a>
         </div>
 
         <div>

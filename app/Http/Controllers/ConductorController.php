@@ -16,7 +16,7 @@ class ConductorController extends Controller
     public function index()
     {
         return view('conductors.index', [
-            'conductors' => Conductor::all()
+            'conductors' => Conductor::latest()->get()
         ]);
     }
 
