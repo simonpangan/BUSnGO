@@ -39,6 +39,9 @@
                     <ul class="navbar-nav ms-auto">
                         <x-admin-routes/>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('passenger.tickets') }}">{{ __('My Tickets') }}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('schedules.index') }}">{{ __('Schedules') }}</a>
                         </li>
                         @auth

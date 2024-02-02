@@ -3,6 +3,7 @@
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\ConductorController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\PassengerTicketController;
 use App\Http\Controllers\ScheduleController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
@@ -121,9 +122,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             return view('dashboard');
         });
 
-//    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::get('/tickets', PassengerTicketController::class)->name('passenger.tickets');
+
     });
 });
 
