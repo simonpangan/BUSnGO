@@ -3,9 +3,9 @@
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\ConductorController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\PassengerTicketPaymentController;
 use App\Http\Controllers\TicketPaymentController\PassengerTicketController;
 use App\Http\Controllers\ScheduleController;
-use App\Http\Controllers\TicketPaymentController\PassengerTicketPaymentController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -56,7 +56,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified']);
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
-
 
     Route::middleware(['role:admin'])->group(function () {
         Route::get('/admin', function () {
@@ -125,10 +124,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         Route::get('/tickets', [PassengerTicketController::class, 'index'])->name('passenger.tickets');
 
-        Route::post('/payment', [PassengerTicketPaymentController::class, 'pay'])->name('payment.pay');
+        Route::post('/payment/book', [PassengerTicketPaymentController::class, 'book'])->name('payment.book');
         Route::get('/payment/callback', [PassengerTicketPaymentController::class, 'callback'])->name('payment.callback');
         Route::get('/payment/failed', [PassengerTicketPaymentController::class, 'failed'])->name('payment.failed');
-
     });
 });
 

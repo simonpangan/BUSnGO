@@ -8,6 +8,7 @@ use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Luigel\Paymongo\Facades\Paymongo;
 
 class ScheduleController extends Controller
 {
@@ -56,18 +57,6 @@ class ScheduleController extends Controller
 
         return to_route('schedules.index')
             ->with('success', 'Schedule created successfully');
-    }
-
-    public function book(Request $request,
-        Schedule $schedule,
-        Ticket $ticket
-    ) {
-        $ticket->update([
-            'status' => 'booked',
-            'passenger_id' => Auth::id()
-        ]);
-
-        return to_route('schedules.show', $schedule);
     }
 
     public function show(Schedule $schedule)

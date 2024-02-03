@@ -13,13 +13,6 @@ use Luigel\Paymongo\Facades\Paymongo;
 
 class PassengerTicketController extends Controller
 {
-    private PassengerTicketPaymentController $passengerTicketPaymentController;
-
-    public function __construct()
-    {
-        $this->passengerTicketPaymentController = new PassengerTicketPaymentController();
-    }
-
     public function index()
     {
         return view('passenger.tickets', [
