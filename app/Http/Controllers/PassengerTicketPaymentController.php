@@ -18,6 +18,7 @@ class PassengerTicketPaymentController
 
     public function book(Request $request)
     {
+        dd($request->tickets);
         $payment = Paymongo::source()->create([
             'type'     => ($request->wallet == 'G-CASH') ? 'gcash' : 'grab_pay',
 //            'amount'   => $request->price, // schedule price

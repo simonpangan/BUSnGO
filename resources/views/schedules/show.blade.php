@@ -43,43 +43,48 @@
                 $schedule->bus->conductor->id
             )}}"> {{ $schedule->bus->conductor->name }}</a>
         </div>
+        <form method="post" action="{{ route('payment.book', [
+                'schedule_id' => $schedule->id,
+//                'ticket_id' => $ticket->id
+            ])}}"
+        >
+            @csrf
+            <button type="submit" class="btn btn-warning btn-sm"
+                onclick="return confirm('Are you sure?')"
+            >
+                Book Selected
+            </button>
 
-        <table>
-            <thead>
-            <tr>
-                <th>Seat #</th>
-                <th>Status</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
             @foreach($schedule->tickets as $ticket)
-                <tr>
-                    <td>{{ $ticket->seat_no }}</td>
-                    <td>{{ $ticket->status }}</td>
-                    <td>
-                        @if($ticket->status == "available")
-                            <form method="post" action="{{ route('payment.book', [
-                                    'schedule_id' => $schedule->id,
-                                    'ticket_id'     => $ticket->id
-                                ])}}"
-                                  style="display:inline">
-                                @csrf
-                                <button type="submit" class="btn btn-info btn-sm"
-                                    onclick="return confirm('Are you sure?')"
-                                >
-                                    Book
-                                </button>
-                            </form>
-                        @elseif(Auth::id() == $ticket->passenger_id)
-                            Your ticket
-                        @endif
-                    </td>
-                </tr>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox"
+                           name="tickets[]"
+                           value="{{ $ticket->seat_no }}"
+                           id="ticketsCheckBox"
+                        {{ $ticket->status != "available" ? "disabled" : "" }}
+                    >
+                    <label class="form-check-label" for="ticketsCheckBox">
+                        Seat # {{ $ticket->seat_no }}
+                    </label>
+                </div>
+                {{--                @if($ticket->status == "available")--}}
+{{--                                    <form method="post" action="{{ route('payment.book', [--}}
+                {{--                            'schedule_id' => $schedule->id,--}}
+{{--                                            'ticket_id'     => $ticket->id--}}
+{{--                                        ])}}"--}}
+                {{--                          style="display:inline">--}}
+                {{--                        @csrf--}}
+                {{--                        <button type="submit" class="btn btn-info btn-sm"--}}
+                {{--                            onclick="return confirm('Are you sure?')"--}}
+                {{--                        >--}}
+                {{--                            Book--}}
+                {{--                        </button>--}}
+                {{--                    </form>--}}
+                {{--                @elseif(Auth::id() == $ticket->passenger_id)--}}
+                {{--                    Your ticket--}}
+                {{--                @endif--}}
             @endforeach
-            </tbody>
-        </table>
-
+        </form>
         <a href="{{ route('schedules.index')  }}" class="btn btn-primary">Back to list</a>
     </div>
 
