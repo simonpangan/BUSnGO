@@ -18,7 +18,6 @@ class PassengerTicketPaymentController
 
     public function book(Request $request)
     {
-        dd($request->tickets);
         $payment = Paymongo::source()->create([
             'type'     => ($request->wallet == 'G-CASH') ? 'gcash' : 'grab_pay',
 //            'amount'   => $request->price, // schedule price
@@ -31,7 +30,8 @@ class PassengerTicketPaymentController
         ]);
 
         Session::put([
-            'ticketID' => $request->ticket_id,
+//            'ticketID'   => $request->ticket_id,
+            'tickets'    => array_values($request->tickets),
             'scheduleID' => $request->schedule_id
         ]);
 
@@ -40,14 +40,15 @@ class PassengerTicketPaymentController
 
     public function callback()
     {
-        $ticketID =  Session::pull('ticketID');
-        $scheduleID =  Session::pull('scheduleID');
+        $tickets    = Session::pull('tickets');
+        $scheduleID = Session::pull('scheduleID');
 
-        $ticket = Ticket::findOrFail($ticketID);
-        $ticket->update([
-            'status' => 'booked',
-            'passenger_id' => Auth::id()
-        ]);
+        Ticket::query()
+              ->whereIn('id', $tickets)
+              ->update([
+                  'status'       => 'booked',
+                  'passenger_id' => Auth::id()
+              ]);
 
         return to_route('schedules.show', [
             'schedule' => $scheduleID

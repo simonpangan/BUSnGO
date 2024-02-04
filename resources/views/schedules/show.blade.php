@@ -65,6 +65,7 @@
                     >
                     <label class="form-check-label" for="ticketsCheckBox">
                         Seat # {{ $ticket->seat_no }}
+                        {{ $ticket->passenger_id == Auth::id() ? '(Your Ticket)' : "" }}
                     </label>
                 </div>
                 {{--                @if($ticket->status == "available")--}}
