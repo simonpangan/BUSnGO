@@ -13,7 +13,7 @@
 
         <div class="d-flex justify-content-between align-items-center">
             <h2>Drivers List</h2>
-            <a href="{{ route('drivers.create') }}" class="btn btn-success">Create Driver</a>
+            <a href="{{ route('admin.drivers.create') }}" class="btn btn-success">Create Driver</a>
         </div>
 
         <table id="drivers-table" class="table mt-3">
@@ -39,8 +39,8 @@
                     <td>{{ $driver->contact_no }}</td>
                     <td>
                         <a href="{{ route('drivers.show', $driver->id) }}" class="btn btn-info btn-sm">View</a>
-                        <a href="{{ route('drivers.edit', $driver->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form method="post" action="{{ route('drivers.destroy', $driver->id) }}" style="display:inline">
+                        <a href="{{ route('admin.drivers.edit', $driver->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <form method="post" action="{{ route('admin.drivers.destroy', $driver->id) }}" style="display:inline">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>

@@ -34,7 +34,7 @@
                     <img src="{{ asset('storage/uploads/' . $driver->photo) }}" alt="Driver Photo" class="img-thumbnail">
                 </div>
 
-                <a href="{{ route('drivers.index') }}" class="btn btn-secondary">Go Back</a>
+                <a href="{{ route('admin.drivers.index') }}" class="btn btn-secondary">Go Back</a>
             </div>
         </div>
     </div>

@@ -31,7 +31,7 @@
             </tr>
             </thead>
             <tbody>
-            @forelse($schedules as $schedule)
+            @foreach($schedules as $schedule)
                 <tr>
                     <td>{{ $schedule->bus->no }}</td>
                     <td>{{ $schedule->departure_time->format('l, F j, Y g:i A') }}</td>
@@ -49,11 +49,7 @@
                         @endrole
                     </td>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="9">No drivers found.</td>
-                </tr>
-            @endforelse
+            @endforeach
             </tbody>
         </table>
     </div>

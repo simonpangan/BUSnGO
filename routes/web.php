@@ -1,10 +1,14 @@
 <?php
 
-use App\Http\Controllers\BusController;
+use App\Http\Controllers\AdminScheduleController;
 use App\Http\Controllers\ConductorController;
+use App\Http\Controllers\MyScheduleController;
+use App\Http\Controllers\BusController;
+use App\Http\Controllers\AdminConductorController;
+use App\Http\Controllers\AdminDriverController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\PassengerTicketController;
 use App\Http\Controllers\PassengerTicketPaymentController;
-use App\Http\Controllers\TicketPaymentController\PassengerTicketController;
 use App\Http\Controllers\ScheduleController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
@@ -26,21 +30,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::controller(ScheduleController::class)->group(function () {
-	Route::get('/schedules', 'index')->name('schedules.index');
-
-	Route::get('/schedules/create', 'create')->name('schedules.create');
-	Route::post('/schedules', 'store')->name('schedules.store');
-
-	Route::put('/schedules/{schedule}/book/{ticket}', 'book')->name('schedules.book');
-
-	Route::get('/schedules/{schedule}', 'show')->name('schedules.show');
-	Route::get('/schedules/{schedule}/edit', 'edit')->name('schedules.edit');
-	Route::put('/schedules/{schedule}', 'update')->name('schedules.update');
-
-	Route::delete('/schedules/{schedule}', 'destroy')->name('schedules.destroy');
-});
-
 Route::get('/dashboard', function () {
     $authenticatedUser = Auth::user();
 
@@ -48,20 +37,36 @@ Route::get('/dashboard', function () {
         return redirect()->to(RouteServiceProvider::ADMIN);
     } elseif ($authenticatedUser->hasRole('driver')) {
         return redirect()->to(RouteServiceProvider::DRIVER);
-    } elseif ($authenticatedUser->hasRole('conductors')) {
+    } elseif ($authenticatedUser->hasRole('conductor')) {
         return redirect()->to(RouteServiceProvider::CONDUCTOR);
     } elseif ($authenticatedUser->hasRole('passenger')) {
         return redirect()->to(RouteServiceProvider::PASSENGER);
     }
 })->middleware(['auth', 'verified']);
 
+Route::controller(ScheduleController::class)->group(function () {
+    Route::get('/schedules', 'index')->name('schedules.index');
+    Route::get('/schedules/{schedule}', 'show')->name('schedules.show');
+    Route::put('/schedules/{schedule}/book/{ticket}', 'book')->name('schedules.book');
+});
+
 Route::group(['middleware' => ['auth', 'verified']], function () {
 
-    Route::middleware(['role:admin'])->group(function () {
-        Route::get('/admin', function () {
+    //Admin Routes
+    Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/', function () {
             return view('dashboard');
         })->middleware(['auth', 'verified']);
 
+        Route::controller(AdminScheduleController::class)->group(function () {
+            Route::get('/schedules/create', 'create')->name('schedules.create');
+            Route::post('/schedules', 'store')->name('schedules.store');
+
+            Route::get('/schedules/{schedule}/edit', 'edit')->name('schedules.edit');
+            Route::put('/schedules/{schedule}', 'update')->name('schedules.update');
+
+            Route::delete('/schedules/{schedule}', 'destroy')->name('schedules.destroy');
+        });
 
         Route::controller(BusController::class)->group(function () {
             Route::get('/buses', 'index')->name('buses.index');
@@ -73,13 +78,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::delete('/buses/{bus}', 'destroy')->name('buses.destroy');
         });
 
-        Route::controller(DriverController::class)->group(function () {
+        Route::controller(AdminDriverController::class)->group(function () {
             Route::get('/drivers', 'index')->name('drivers.index');
             Route::get('/drivers/create', 'create')->name('drivers.create');
-
-            Route::get('/drivers/{driver}', 'show')
-                 ->name('drivers.show')
-                ->withoutMiddleware('role:admin');
 
             Route::post('/drivers', 'store')->name('drivers.store');
             Route::get('/drivers/{driver}/edit', 'edit')->name('drivers.edit');
@@ -87,13 +88,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::delete('/drivers/{driver}', 'destroy')->name('drivers.destroy');
         });
 
-        Route::controller(ConductorController::class)->group(function () {
+        Route::controller(AdminConductorController::class)->group(function () {
             Route::get('/conductors', 'index')->name('conductors.index');
             Route::get('/conductors/create', 'create')->name('conductors.create');
-
-            Route::get('/conductors/{conductor}', 'show')
-                 ->name('conductors.show')
-                 ->withoutMiddleware('role:admin');
 
             Route::post('/conductors', 'store')->name('conductors.store');
             Route::get('/conductors/{conductor}/edit', 'edit')->name('conductors.edit');
@@ -104,20 +101,33 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     //DRIVER ROUTES
     Route::middleware(['role:driver'])->group(function () {
-//        Route::get('/driver', function () {
-//            return view('dashboard');
-//        })->middleware(['auth', 'verified']);
+        Route::get('/driver', function () {
+            return view('dashboard');
+        })->middleware(['auth', 'verified']);
+
+        Route::controller(DriverController::class)->group(function () {
+
+
+             Route::get('/drivers/{driver}', 'show')
+                 ->name('drivers.show')
+                 ->withoutMiddleware('role:driver');
+        });
     });
 
     //CONDUCTOR ROUTES
-    Route::middleware(['role:conductors'])->group(function () {
+    Route::middleware(['role:conductor'])->group(function () {
+        Route::get('/conductor', function () {
+            return view('dashboard');
+        });
 
+
+        Route::get('/conductors/{conductor}', [ConductorController::class, 'show'])
+             ->name('conductors.show')
+             ->withoutMiddleware('role:conductor');
     });
 
-
-    //PASSENGERs ROUTES
+    //PASSENGER ROUTES
     Route::middleware(['role:passenger'])->group(function () {
-
         Route::get('/passenger', function () {
             return view('dashboard');
         });
@@ -127,6 +137,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('/payment/book', [PassengerTicketPaymentController::class, 'book'])->name('payment.book');
         Route::get('/payment/callback', [PassengerTicketPaymentController::class, 'callback'])->name('payment.callback');
         Route::get('/payment/failed', [PassengerTicketPaymentController::class, 'failed'])->name('payment.failed');
+    });
+
+    Route::middleware(['role:driver|conductor'])->group(function () {
+        Route::get('/my-schedules', MyScheduleController::class)->name('my-schedule');
     });
 });
 

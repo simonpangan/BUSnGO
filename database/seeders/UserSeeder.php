@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
         if (Role::count() == 0) {
             Role::create(['name' => 'passenger']);
             Role::create(['name' => 'driver']);
-            Role::create(['name' => 'conductors']);
+            Role::create(['name' => 'conductor']);
             Role::create(['name' => 'admin']);
         }
 
@@ -54,7 +54,7 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('password'),
             ]);
 
-            $conductor->assignRole('conductors');
+            $conductor->assignRole('conductor');
         }
     }
 }

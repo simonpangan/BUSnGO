@@ -21,7 +21,7 @@ class RouteServiceProvider extends ServiceProvider
 
     public const ADMIN = "/admin";
     public const DRIVER = "/driver";
-    public const CONDUCTOR = "/conductors";
+    public const CONDUCTOR = "/conductor";
     public const PASSENGER = "/passenger";
 
     /**

@@ -18,7 +18,7 @@
             </div>
         @endif
 
-        <form method="post" action="{{ route('conductors.update', $conductor->id) }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('admin.conductors.update', $conductor->id) }}" enctype="multipart/form-data">
             @csrf
             @method('put')
 
@@ -169,7 +169,7 @@
             <div class="mb-3 row">
                 <div class="col-md-6 offset-md-4">
                     <button type="submit" class="btn btn-primary">Update Conductor</button>
-                    <a href="{{ route('conductors.index') }}" class="btn btn-secondary">Go Back</a>
+                    <a href="{{ route('admin.conductors.index') }}" class="btn btn-secondary">Go Back</a>
                 </div>
             </div>
         </form>

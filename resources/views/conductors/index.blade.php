@@ -8,7 +8,7 @@
 
         <div class="d-flex justify-content-between align-items-center">
             <h2>Conductors List</h2>
-            <a href="{{ route('conductors.create') }}" class="btn btn-success">Create conductor</a>
+            <a href="{{ route('admin.conductors.create') }}" class="btn btn-success">Create conductor</a>
         </div>
 
         <table class="table mt-3">
@@ -34,8 +34,8 @@
                     <td>{{ $conductor->contact_no }}</td>
                     <td>
                         <a href="{{ route('conductors.show', $conductor->id) }}" class="btn btn-info btn-sm">View</a>
-                        <a href="{{ route('conductors.edit', $conductor->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form method="post" action="{{ route('conductors.destroy', $conductor->id) }}"
+                        <a href="{{ route('admin.conductors.edit', $conductor->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <form method="post" action="{{ route('admin.conductors.destroy', $conductor->id) }}"
                               style="display:inline">
                             @csrf
                             @method('delete')

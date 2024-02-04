@@ -12,32 +12,34 @@
         @endif
 
         <div class="d-flex justify-content-between align-items-center">
-            <h2>Tickets List</h2>
+            <h2>My Schedules</h2>
+            @role('admin')
+            <a href="{{ route('schedules.create') }}" class="btn btn-success">
+                Create Schedule
+            </a>
+            @endrole
         </div>
 
-        <div>
-            <table id="myBuses" style="width: 1000px;" class="display table mt-3">
-                <thead>
-                <tr>
-                    <th>Bus No</th>
-                    <th>Seat No</th>
-                    <th>Status</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($tickets as $ticket)
+        <table id="schedules-table" class="table mt-3">
+            <thead>
+            <tr>
+                <th>Bus No</th>
+                <th>Departure Time</th>
+                <th>Arrival Time</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach($schedules as $schedule)
                     <tr>
-                        <td>{{ $ticket->schedule->bus->id }}</td>
-                        <td>{{ $ticket->seat_no }}</td>
-                        <td>{{ $ticket->schedule->status }}</td>
-                        <td>
-                        </td>
+                        <td>{{ $schedule->bus->no }}</td>
+                        <td>{{ $schedule->departure_time->format('l, F j, Y g:i A') }}</td>
+                        <td>{{ $schedule->arrival_time->format('l, F j, Y g:i A') }}</td>
+                        <td>{{ $schedule->status }}</td>
                     </tr>
                 @endforeach
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
     </div>
 
     @section('javascript')
@@ -45,9 +47,9 @@
         <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
         <script>
             $(document).ready(function () {
-                $('#myBuses').DataTable({
+                $('#schedules-table').DataTable({
                     responsive: true
-                });
+                })
             });
         </script>
     @endsection

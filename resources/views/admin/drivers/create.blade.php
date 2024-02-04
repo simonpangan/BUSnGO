@@ -15,7 +15,7 @@
             </div>
         @endif
 
-        <form method="post" action="{{ route('drivers.store') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('admin.drivers.store') }}" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-3">

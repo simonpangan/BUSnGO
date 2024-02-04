@@ -40,14 +40,18 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ms-auto">
                     <x-admin-routes/>
-                    @role('passenger')
+                    <x-passenger-routes/>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('schedules.index') }}">{{ __('Schedules') }}</a>
+                    </li>
+                    @hasanyrole('driver|conductor')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('passenger.tickets') }}">{{ __('My Tickets') }}</a>
+                            <a class="nav-link" href="{{ route('my-schedule') }}">
+                                My schedule
+                            </a>
                         </li>
-                    @endrole
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('schedules.index') }}">{{ __('Schedules') }}</a>
-                        </li>
+                    @endhasanyrole
+
                     @auth
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"

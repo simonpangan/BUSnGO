@@ -6,7 +6,6 @@ use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\MessageBag;
 use Luigel\Paymongo\Facades\Paymongo;
 
 class PassengerTicketPaymentController
@@ -57,7 +56,7 @@ class PassengerTicketPaymentController
 
     public function failed(Request $request)
     {
-        Session::forget('ticketID');
+        Session::forget('tickets');
 
         return to_route('schedules.show', [
             'schedule' => Session::pull('scheduleID')
