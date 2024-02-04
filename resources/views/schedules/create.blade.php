@@ -15,7 +15,7 @@
             </div>
         @endif
 
-        <form method="post" action="{{ route('schedules.store') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('admin.schedules.store') }}" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-3">
@@ -80,7 +80,7 @@
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-primary">Create Driver</button>
+            <button type="submit" class="btn btn-primary">Create Schedule</button>
         </form>
     </div>
 

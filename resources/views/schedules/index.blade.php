@@ -40,8 +40,8 @@
                     <td>
                         <a href="{{ route('schedules.show', $schedule->id) }}" class="btn btn-info btn-sm">View</a>
                         @role('admin')
-                            <a href="{{ route('schedules.edit', $schedule->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form method="post" action="{{ route('schedules.destroy', $schedule->id) }}" style="display:inline">
+                            <a href="{{ route('admin.schedules.edit', $schedule->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form method="post" action="{{ route('admin.schedules.destroy', $schedule->id) }}" style="display:inline">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>

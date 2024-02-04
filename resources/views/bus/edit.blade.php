@@ -8,7 +8,7 @@
             </div>
         @endif
 
-        <form method="post" action="{{ route('buses.update', $bus->id) }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('admin.buses.update', $bus->id) }}" enctype="multipart/form-data">
             @csrf @method('put')
 
             <div class="mb-3 row">
@@ -263,7 +263,7 @@
                     <button type="submit" class="btn btn-primary">
                         Update Bus
                     </button>
-                    <a href="{{ route('buses.index') }}" class="btn btn-secondary">Go Back</a>
+                    <a href="{{ route('admin.buses.index') }}" class="btn btn-secondary">Go Back</a>
                 </div>
             </div>
         </form>

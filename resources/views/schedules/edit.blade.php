@@ -22,7 +22,7 @@
             </div>
         @endif
 
-        <form method="post" action="{{ route('schedules.update', $schedule) }}">
+        <form method="post" action="{{ route('admin.schedules.update', $schedule) }}">
             @csrf
             @method('PUT')
             <div class="mb-3">

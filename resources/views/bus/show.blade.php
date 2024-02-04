@@ -114,7 +114,7 @@
 
         <div class="mb-3 row">
             <div class="col-md-6 offset-md-4">
-                <a href="{{ route('buses.index') }}" class="btn btn-secondary">Go Back</a>
+                <a href="{{ route('admin.buses.index') }}" class="btn btn-secondary">Go Back</a>
             </div>
         </div>
     </div>

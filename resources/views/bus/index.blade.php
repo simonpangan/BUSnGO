@@ -14,7 +14,7 @@
 
         <div class="d-flex justify-content-between align-items-center">
             <h2>Buses List</h2>
-            <a href="{{ route('buses.create') }}" class="btn btn-success">Create Bus</a>
+            <a href="{{ route('admin.buses.create') }}" class="btn btn-success">Create Bus</a>
         </div>
 
         <div>
@@ -68,9 +68,9 @@
                     <td>{{ $bus->created_at }}</td>
                     <td>{{ $bus->updated_at }}</td>
                     <td>
-                        <a href="{{ route('buses.show', $bus->id) }}" class="btn btn-info btn-sm">Show</a>
-                        <a href="{{ route('buses.edit', $bus->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form method="post" action="{{ route('buses.destroy', $bus->id) }}" style="display:inline">
+                        <a href="{{ route('admin.buses.show', $bus->id) }}" class="btn btn-info btn-sm">Show</a>
+                        <a href="{{ route('admin.buses.edit', $bus->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <form method="post" action="{{ route('admin.buses.destroy', $bus->id) }}" style="display:inline">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-danger btn-sm"

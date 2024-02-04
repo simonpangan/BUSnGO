@@ -49,7 +49,7 @@ class BusController extends Controller
 
         Bus::create($values);
 
-        return to_route('buses.index')
+        return to_route('admin.buses.index')
             ->with('success', 'Bus created successfully.');
     }
 
@@ -100,7 +100,7 @@ class BusController extends Controller
     {
         $bus->delete();
 
-        return to_route('buses.index')
+        return to_route('admin.buses.index')
             ->with('success', 'Bus deleted successfully.')
         ;
     }
