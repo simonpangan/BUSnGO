@@ -14,7 +14,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <h2>My Schedules</h2>
             @role('admin')
-            <a href="{{ route('schedules.create') }}" class="btn btn-success">
+            <a href="{{ route('admin.schedules.create') }}" class="btn btn-success">
                 Create Schedule
             </a>
             @endrole
