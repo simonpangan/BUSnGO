@@ -1,11 +1,7 @@
 <?php
 
-use App\Http\Controllers\AdminScheduleController;
 use App\Http\Controllers\ConductorController;
 use App\Http\Controllers\MyScheduleController;
-use App\Http\Controllers\BusController;
-use App\Http\Controllers\AdminConductorController;
-use App\Http\Controllers\AdminDriverController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\PassengerTicketController;
 use App\Http\Controllers\PassengerTicketPaymentController;
@@ -52,52 +48,8 @@ Route::controller(ScheduleController::class)->group(function () {
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
 
-    //Admin Routes
-    Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
-        Route::get('/', function () {
-            return view('dashboard');
-        })->middleware(['auth', 'verified']);
+    require __DIR__.'/admin.php';
 
-        Route::controller(AdminScheduleController::class)->group(function () {
-            Route::get('/schedules/create', 'create')->name('schedules.create');
-            Route::post('/schedules', 'store')->name('schedules.store');
-
-            Route::get('/schedules/{schedule}/edit', 'edit')->name('schedules.edit');
-            Route::put('/schedules/{schedule}', 'update')->name('schedules.update');
-
-            Route::delete('/schedules/{schedule}', 'destroy')->name('schedules.destroy');
-        });
-
-        Route::controller(BusController::class)->group(function () {
-            Route::get('/buses', 'index')->name('buses.index');
-            Route::get('/buses/create', 'create')->name('buses.create');
-            Route::post('/buses', 'store')->name('buses.store');
-            Route::get('/buses/{bus}/', 'show')->name('buses.show');
-            Route::get('/buses/{bus}/edit', 'edit')->name('buses.edit');
-            Route::put('/buses/{bus}', 'update')->name('buses.update');
-            Route::delete('/buses/{bus}', 'destroy')->name('buses.destroy');
-        });
-
-        Route::controller(AdminDriverController::class)->group(function () {
-            Route::get('/drivers', 'index')->name('drivers.index');
-            Route::get('/drivers/create', 'create')->name('drivers.create');
-            Route::post('/drivers', 'store')->name('drivers.store');
-
-            Route::get('/drivers/{driver}/edit', 'edit')->name('drivers.edit');
-            Route::put('/drivers/{driver}', 'update')->name('drivers.update');
-            Route::delete('/drivers/{driver}', 'destroy')->name('drivers.destroy');
-        });
-
-        Route::controller(AdminConductorController::class)->group(function () {
-            Route::get('/conductors', 'index')->name('conductors.index');
-            Route::get('/conductors/create', 'create')->name('conductors.create');
-
-            Route::post('/conductors', 'store')->name('conductors.store');
-            Route::get('/conductors/{conductor}/edit', 'edit')->name('conductors.edit');
-            Route::put('/conductors/{conductor}', 'update')->name('conductors.update');
-            Route::delete('/conductors/{conductor}', 'destroy')->name('conductors.destroy');
-        });
-    });
 
     //DRIVER ROUTES
     Route::middleware(['role:driver'])->group(function () {

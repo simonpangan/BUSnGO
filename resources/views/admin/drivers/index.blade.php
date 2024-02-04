@@ -12,7 +12,7 @@
         @endif
 
         <div class="d-flex justify-content-between align-items-center">
-            <h2>Drivers List</h2>
+            <h2>Terminal List</h2>
             <a href="{{ route('admin.drivers.create') }}" class="btn btn-success">Create Driver</a>
         </div>
 
