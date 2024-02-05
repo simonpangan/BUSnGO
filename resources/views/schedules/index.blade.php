@@ -64,7 +64,8 @@
         <script>
             $(document).ready(function () {
                 $('#drivers-table').DataTable({
-                    responsive: true
+                    responsive: true,
+                    "order": []
                 })
             });
         </script>

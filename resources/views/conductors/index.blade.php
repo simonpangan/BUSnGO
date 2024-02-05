@@ -24,7 +24,7 @@
             </tr>
             </thead>
             <tbody>
-            @forelse($conductors as $conductor)
+            @foreach($conductors as $conductor)
                 <tr>
                     <td>{{ $conductor->id }}</td>
                     <td>{{ $conductor->name }}</td>
@@ -50,11 +50,7 @@
                         </form>
                     </td>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="9">No conductors found.</td>
-                </tr>
-            @endforelse
+            @endforeach
             </tbody>
         </table>
     </div>

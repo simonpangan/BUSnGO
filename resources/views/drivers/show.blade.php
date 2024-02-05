@@ -1,40 +1,32 @@
 <x-app-layout>
     <div class="container mt-4">
-        <h2>Driver Details</h2>
+        <a href="{{ route('admin.drivers.index') }}" class="btn btn-secondary">
+            <- Go Back
+        </a>
 
-        <div class="card mt-3">
+        <h2 class="text-center">Driver Details</h2>
+
+        <div class="card mt-3 mx-auto rounded" style="max-width: 500px;">
+            <img src="{{ asset('storage/uploads/' . $driver->photo) }}"
+                 style="height: 350px"
+                 class="card-img-top object-fit-cover"
+                 alt="{{ $driver->name }}">
             <div class="card-body">
-
-                <div class="mb-3">
-                    <label class="fw-bold">Name:</label>
+                <h5 class="card-title">
                     {{ $driver->name }}
-                </div>
-
+                </h5>
                 <div class="mb-3">
-                    <label class="fw-bold">Gender:</label>
-                    {{ $driver->gender == 'M' ? 'Male' : 'Female' }}
-                </div>
-
-                <div class="mb-3">
-                    <label class="fw-bold">Address:</label>
-                    {{ $driver->address }}
-                </div>
-
-                <div class="mb-3">
-                    <label class="fw-bold">City:</label>
-                    {{ $driver->city }}
-                </div>
-
-                <div class="mb-3">
-                    <label class="fw-bold">Contact Number:</label>
-                    {{ $driver->contact_no }}
+                    <span class="fw-bold">Gender:</span> {{ $driver->gender == 'M' ? 'Male' : 'Female' }}
                 </div>
                 <div class="mb-3">
-                    <label class="fw-bold">Photo:</label>
-                    <img src="{{ asset('storage/uploads/' . $driver->photo) }}" alt="Driver Photo" class="img-thumbnail">
+                    <span class="fw-bold">Address:</span> {{ $driver->address }}
                 </div>
-
-                <a href="{{ route('admin.drivers.index') }}" class="btn btn-secondary">Go Back</a>
+                <div class="mb-3">
+                    <span class="fw-bold">City/Municipality:</span> {{ $driver->city }}
+                </div>
+                <div class="mb-3">
+                    <span class="fw-bold">Contact Number:</span> {{ $driver->contact_no }}
+                </div>
             </div>
         </div>
     </div>

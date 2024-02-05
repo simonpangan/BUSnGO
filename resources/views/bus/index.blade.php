@@ -92,8 +92,9 @@
         <script>
             $(document).ready(function () {
                 $('#myBuses').DataTable({
-                    responsive: true
-                });
+                    responsive: true,
+                    "order": []
+                })
             });
         </script>
     @endsection

@@ -17,7 +17,9 @@ class AdminConductorController extends Controller
     public function index()
     {
         return view('conductors.index', [
-            'conductors' => Conductor::latest()->get()
+            'conductors' => Conductor::query()
+                 ->latest()
+                 ->get()
         ]);
     }
 
@@ -31,35 +33,35 @@ class AdminConductorController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|max:45',
-            'gender' => 'required|in:M,F',
-            'address' => 'required|max:100',
-            'city' => 'required|max:45',
+            'name'       => 'required|max:45',
+            'gender'     => 'required|in:M,F',
+            'address'    => 'required|max:100',
+            'city'       => 'required|max:45',
             'contact_no' => ['required', 'max:45', 'regex:/^(09|\+639)\d{9}$/'],
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'photo'      => 'required|image|mimes:jpeg,png,jpg,gif',
 
-            'email' => 'required|email|unique:users,email',
+            'email'    => 'required|email|unique:users,email',
             'password' => ['required', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
-            'email' => $validatedData['email'],
+            'email'    => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
         ]);
 
         //Store Photo in public folder
-        $file = $request->file('photo');
-        $photoFileName = uniqid() . '-' . now()->timestamp . $file->getClientOriginalName();
+        $file          = $request->file('photo');
+        $photoFileName = uniqid().'-'.now()->timestamp.$file->getClientOriginalName();
         $file->storeAs('public/uploads', $photoFileName);
 
         Conductor::create([
-            'user_id' => $user->id,
-            'name' => $validatedData['name'],
-            'gender' => $validatedData['gender'],
-            'address' => $validatedData['address'],
-            'city' => $validatedData['city'],
+            'user_id'    => $user->id,
+            'name'       => $validatedData['name'],
+            'gender'     => $validatedData['gender'],
+            'address'    => $validatedData['address'],
+            'city'       => $validatedData['city'],
             'contact_no' => $validatedData['contact_no'],
-            'photo' => $photoFileName,
+            'photo'      => $photoFileName,
         ]);
 
         return to_route('conductors.index')
@@ -69,7 +71,7 @@ class AdminConductorController extends Controller
     public function edit(Conductor $conductor)
     {
         return view('conductors.edit', [
-            'LGUs' => LGU::all(),
+            'LGUs'      => LGU::all(),
             'conductor' => $conductor,
         ]);
     }
@@ -77,15 +79,16 @@ class AdminConductorController extends Controller
     public function update(Request $request, Conductor $conductor)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'gender' => 'required|in:M,F',
-            'address' => 'required|max:100',
-            'city' => 'required|max:45',
+            'name'       => ['required', 'string', 'max:255'],
+            'gender'     => 'required|in:M,F',
+            'address'    => 'required|max:100',
+            'city'       => 'required|max:45',
             'contact_no' => ['required', 'max:45', 'regex:/^(09|\+639)\d{9}$/'],
-            'email' => ['required', 'email',
+            'email'      => [
+                'required', 'email',
                 Rule::unique((new User)->getTable())->ignore($conductor->user->id ?? null)
             ],
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'photo'      => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
 
         $conductor->user->update([
@@ -93,10 +96,10 @@ class AdminConductorController extends Controller
         ]);
 
         $conductor->update([
-            'name' => $validatedData['name'],
-            'gender' => $validatedData['gender'],
-            'address' => $validatedData['address'],
-            'city' => $validatedData['city'],
+            'name'       => $validatedData['name'],
+            'gender'     => $validatedData['gender'],
+            'address'    => $validatedData['address'],
+            'city'       => $validatedData['city'],
             'contact_no' => $validatedData['contact_no'],
         ]);
 
@@ -105,7 +108,7 @@ class AdminConductorController extends Controller
             Storage::disk('public')->delete("/uploads/{$conductor->photo}");
 
             //Generate unique name
-            $file = $request->file('new_photo');
+            $file          = $request->file('new_photo');
             $photoFileName = uniqid().'-'.now()->timestamp.$file->getClientOriginalName();
 
             //store the photo in public folder
@@ -118,8 +121,8 @@ class AdminConductorController extends Controller
         }
 
         return to_route('admin.conductors.edit', [
-                'conductor' => $conductor->id,
-            ])
+            'conductor' => $conductor->id,
+        ])
             ->with('success', 'Conductor updated successfully.');
     }
 
