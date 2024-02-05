@@ -89,6 +89,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     });
 });
 
-
+//TODO: dapat yung driver ilalagay sa schedule
+//Todo: ticket booking bug gumagana lang sa schedule 1
 
 require __DIR__.'/auth.php';
