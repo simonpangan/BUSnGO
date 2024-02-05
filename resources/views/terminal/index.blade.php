@@ -36,11 +36,15 @@
                     <td>{{ $terminal->from }}</td>
                     <td>{{ $terminal->to }}</td>
                     <td>
-                            <a href="{{ route('admin.terminals.edit', $terminal->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{{ route('admin.terminals.edit', $terminal->id) }}" class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
                             <form method="post" action="{{ route('admin.terminals.destroy', $terminal->id) }}" style="display:inline">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
                             </form>
                     </td>
                 </tr>

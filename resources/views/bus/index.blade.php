@@ -69,12 +69,13 @@
                     <td>{{ $bus->updated_at }}</td>
                     <td>
                         <a href="{{ route('admin.buses.show', $bus->id) }}" class="btn btn-info btn-sm">Show</a>
-                        <a href="{{ route('admin.buses.edit', $bus->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{{ route('admin.buses.edit', $bus->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
                         <form method="post" action="{{ route('admin.buses.destroy', $bus->id) }}" style="display:inline">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Are you sure?')">Delete
+                                    onclick="return confirm('Are you sure?')">
+                                <i class="bi bi-trash-fill"></i>
                             </button>
                         </form>
                     </td>

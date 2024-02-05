@@ -42,11 +42,13 @@
                     <td>
                         <a href="{{ route('schedules.show', $schedule->id) }}" class="btn btn-info btn-sm">View</a>
                         @role('admin')
-                            <a href="{{ route('admin.schedules.edit', $schedule->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{{ route('admin.schedules.edit', $schedule->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
                             <form method="post" action="{{ route('admin.schedules.destroy', $schedule->id) }}" style="display:inline">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
                             </form>
                         @endrole
                     </td>

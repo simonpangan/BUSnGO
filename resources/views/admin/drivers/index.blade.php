@@ -39,11 +39,13 @@
                     <td>{{ $driver->contact_no }}</td>
                     <td>
                         <a href="{{ route('drivers.show', $driver->id) }}" class="btn btn-info btn-sm">View</a>
-                        <a href="{{ route('admin.drivers.edit', $driver->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{{ route('admin.drivers.edit', $driver->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
                         <form method="post" action="{{ route('admin.drivers.destroy', $driver->id) }}" style="display:inline">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
                         </form>
                     </td>
                 </tr>
