@@ -64,7 +64,7 @@ class AdminConductorController extends Controller
             'photo'      => $photoFileName,
         ]);
 
-        return to_route('conductors.index')
+        return to_route('admin.conductors.index')
             ->with('success', 'Conductor created successfully.');
     }
 
