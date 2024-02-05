@@ -114,8 +114,7 @@ class AdminDriverController extends Controller
             ]);
         }
 
-        return redirect()
-            ->route('admin.drivers.index')
+        return to_route('admin.drivers.edit', $driver)
             ->with('success', 'Driver updated successfully.');
     }
 
