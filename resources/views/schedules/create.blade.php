@@ -39,6 +39,28 @@
             </div>
 
             <div class="mb-3">
+                <select class="form-control @error('terminal_id') is-invalid @enderror" aria-label="City select" name="terminal_id"
+                        data-style="border border-1"
+                        data-live-search="true"
+                >
+                    <option>Select Terminal</option>
+                    @foreach($terminals as $terminal)
+                        <option
+                            {{ old('terminal_id') == $terminal->id ? "selected" : "" }}
+                            value="{{ $terminal->id }}"
+                        >
+                            From: {{ $terminal->from }} To: {{ $terminal->to }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('terminal_id')
+                <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="mb-3">
                 <label for="status" class="form-label">Departure Time</label>
                 <input type="datetime-local"
                        class="form-control @error('departure_time') is-invalid @enderror" id="departure_time"

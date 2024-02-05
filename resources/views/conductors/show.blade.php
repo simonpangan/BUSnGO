@@ -34,7 +34,7 @@
                     <img src="{{ asset('storage/uploads/' . $conductor->photo) }}" alt="Driver Photo" class="img-thumbnail">
                 </div>
 
-                <a href="{{ route('conductors.index') }}" class="btn btn-secondary">Go Back</a>
+{{--                <a href="{{ route('conductors.index') }}" class="btn btn-secondary">Go Back</a>--}}
             </div>
         </div>
     </div>

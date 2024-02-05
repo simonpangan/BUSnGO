@@ -25,4 +25,9 @@ class Schedule extends Model
     {
         return $this->hasMany(Ticket::class);
     }
+
+    public function terminal(): BelongsTo
+    {
+        return $this->belongsTo(Terminal::class);
+    }
 }

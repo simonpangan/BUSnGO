@@ -14,23 +14,29 @@
         <h2> Schedule</h2>
 
         <div class="mb-3">
-            Bus: {{ $schedule->bus->no }}
+            <strong>Bus</strong>: {{ $schedule->bus->no }}
+        </div>
+        <div class="mb-3">
+            <strong>Terminal</strong>
+            <br />
+            From: {{ $schedule->terminal->from }}
+            <br />
+            To : {{ $schedule->terminal->to }}
+        </div>
+        <div class="mb-3">
+            <strong>Departure Time:</strong> {{ $schedule->departure_time }}
         </div>
 
         <div class="mb-3">
-            Departure Time: {{ $schedule->departure_time }}
+            <strong>Arrival Time</strong>: {{ $schedule->arrival_time }}
         </div>
 
         <div class="mb-3">
-            Arrival Time: {{ $schedule->arrival_time }}
-        </div>
-
-        <div class="mb-3">
-            Status: {{ $schedule->status }}
+            <strong>Status</strong>: {{ $schedule->status }}
         </div>
 
         <div>
-            Driver: <a
+            <strong>Driver</strong>: <a
                 target="_blank"
                 href="{{ route('drivers.show',
                 $schedule->bus->driver->id

@@ -24,6 +24,7 @@
             <thead>
             <tr>
                 <th>Bus No</th>
+                <th>Terminal</th>
                 <th>Departure Time</th>
                 <th>Arrival Time</th>
                 <th>Status</th>
@@ -34,6 +35,7 @@
             @foreach($schedules as $schedule)
                 <tr>
                     <td>{{ $schedule->bus->no }}</td>
+                    <td>{{ $schedule->terminal->from  }} to {{ $schedule->terminal->to }}</td>
                     <td>{{ $schedule->departure_time->format('l, F j, Y g:i A') }}</td>
                     <td>{{ $schedule->arrival_time->format('l, F j, Y g:i A') }}</td>
                     <td>{{ $schedule->status }}</td>
