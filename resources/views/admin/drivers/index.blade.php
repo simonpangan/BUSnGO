@@ -12,11 +12,10 @@
         @endif
 
         <div class="d-flex justify-content-between align-items-center">
-            <h2>Terminal List</h2>
+            <h2>Driver List</h2>
             <a href="{{ route('admin.drivers.create') }}" class="btn btn-success">Create Driver</a>
         </div>
-
-        <table id="drivers-table" class="table mt-3">
+        <table id="drivers-table" class="table mt-4">
             <thead>
             <tr>
                 <th>ID</th>
@@ -64,7 +63,8 @@
         <script>
             $(document).ready(function () {
                 $('#drivers-table').DataTable({
-                    responsive: true
+                    responsive: true,
+                    "order": []
                 })
             });
         </script>

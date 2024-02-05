@@ -12,7 +12,9 @@ class AdminTerminalController extends Controller
     public function index()
     {
         return view('terminal.index',[
-            'terminals' => Terminal::all()
+            'terminals' => Terminal::query()
+                ->latest()
+                ->get()
         ]);
     }
 
