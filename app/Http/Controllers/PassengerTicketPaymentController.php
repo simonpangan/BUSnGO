@@ -30,7 +30,7 @@ class PassengerTicketPaymentController
 
         Session::put([
 //            'ticketID'   => $request->ticket_id,
-            'tickets'    => array_values($request->tickets),
+            'tickets'    => $request->tickets,
             'scheduleID' => $request->schedule_id
         ]);
 
@@ -43,7 +43,7 @@ class PassengerTicketPaymentController
         $scheduleID = Session::pull('scheduleID');
 
         Ticket::query()
-              ->whereIn('id', $tickets)
+              ->whereIn('id', array_values($tickets))
               ->update([
                   'status'       => 'booked',
                   'passenger_id' => Auth::id()

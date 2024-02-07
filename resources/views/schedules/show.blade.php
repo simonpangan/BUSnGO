@@ -65,7 +65,7 @@
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox"
                            name="tickets[]"
-                           value="{{ $ticket->seat_no }}"
+                           value="{{ $ticket->id }}"
                            id="ticketsCheckBox"
                         {{ $ticket->status != "available" ? "disabled" : "" }}
                     >

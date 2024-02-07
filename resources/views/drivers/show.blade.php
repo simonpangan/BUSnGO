@@ -7,7 +7,7 @@
         <h2 class="text-center">Driver Details</h2>
 
         <div class="card mt-3 mx-auto rounded" style="max-width: 500px;">
-            <img src="{{ asset('storage/uploads/' . $driver->photo) }}"
+                <img src="{{ asset('storage/uploads/' . $driver->photo) }}"
                  style="height: 350px"
                  class="card-img-top object-fit-cover"
                  alt="{{ $driver->name }}">
