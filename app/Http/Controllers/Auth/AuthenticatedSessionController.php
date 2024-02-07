@@ -35,7 +35,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended(RouteServiceProvider::ADMIN);
         } elseif ($authenticatedUser->hasRole('driver')) {
             return redirect()->intended(RouteServiceProvider::DRIVER);
-        } elseif ($authenticatedUser->hasRole('conductors')) {
+        } elseif ($authenticatedUser->hasRole('conductor')) {
             return redirect()->intended(RouteServiceProvider::CONDUCTOR);
         } elseif ($authenticatedUser->hasRole('passenger')) {
             return redirect()->intended(RouteServiceProvider::PASSENGER);
@@ -45,7 +45,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function     destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
 

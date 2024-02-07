@@ -66,6 +66,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     //CONDUCTOR ROUTES
     Route::middleware(['role:conductor'])->group(function () {
+        Route::get('/conductors', function () {
+            return view('dashboard');
+        });
+
         Route::get('/conductors/{conductor}', [ConductorController::class, 'show'])
              ->name('conductors.show')
              ->withoutMiddleware('role:conductor');

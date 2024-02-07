@@ -14,12 +14,12 @@ class MyScheduleController extends Controller
             'schedules' => Schedule::query()
                 ->when(Auth::user()->hasRole('driver'),
                     function ($query) {
-                        $query->whereRelation('bus', 'driver_id', Auth::id());
+                        $query->where('driver_id', Auth::id());
                     }
                 )
                 ->when(Auth::user()->hasRole('conductor'),
                     function ($query) {
-                        $query->whereRelation('bus', 'conductor_id', Auth::id());
+                        $query->where('conductor_id', Auth::id());
                     }
                 )
                 ->get()
