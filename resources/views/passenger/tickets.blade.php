@@ -29,7 +29,7 @@
                 <tbody>
                 @foreach($tickets as $ticket)
                     <tr>
-                        <td>{{ $ticket->schedule->bus->id }}</td>
+                        <td>{{ $ticket->schedule->bus->no }}</td>
                         <td>{{ $ticket->seat_no }}</td>
                         <td>From: {{ $ticket->schedule->terminal->from }}, To: {{ $ticket->schedule->terminal->to }}</td>
                         <td>{{ $ticket->schedule->status }}</td>
@@ -48,8 +48,9 @@
         <script>
             $(document).ready(function () {
                 $('#myBuses').DataTable({
-                    responsive: true
-                });
+                    responsive: true,
+                    'sort' : []
+                })
             });
         </script>
     @endsection

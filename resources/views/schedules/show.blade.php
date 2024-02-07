@@ -82,8 +82,8 @@
                                        >
                                        <label class="form-check-label" for="tsCheckBox">
                                            #{{ $t->seat_no }}
-                                           {{ $t->passenger_id == Auth::id() ? '(Your Ticket)' : "" }}
                                        </label>
+                                       {{ $t->passenger_id == Auth::id() ? '(Yours)' : "" }}
                                </div>
                            @endforeach
                        </div>
