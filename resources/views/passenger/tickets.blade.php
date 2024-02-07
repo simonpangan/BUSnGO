@@ -21,6 +21,7 @@
                 <tr>
                     <th>Bus No</th>
                     <th>Seat No</th>
+                    <th>Terminal</th>
                     <th>Status</th>
                     <th></th>
                 </tr>
@@ -30,6 +31,7 @@
                     <tr>
                         <td>{{ $ticket->schedule->bus->id }}</td>
                         <td>{{ $ticket->seat_no }}</td>
+                        <td>From: {{ $ticket->schedule->terminal->from }}, To: {{ $ticket->schedule->terminal->to }}</td>
                         <td>{{ $ticket->schedule->status }}</td>
                         <td>
                         </td>
