@@ -23,6 +23,7 @@
                     <th>Seat No</th>
                     <th>Terminal</th>
                     <th>Status</th>
+                    <th>Paid At</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -33,6 +34,7 @@
                         <td>{{ $ticket->seat_no }}</td>
                         <td>From: {{ $ticket->schedule->terminal->from }}, To: {{ $ticket->schedule->terminal->to }}</td>
                         <td>{{ $ticket->schedule->status }}</td>
+                        <td>{{ $ticket->updated_at->diffForHumans() }}</td>
                         <td>
                         </td>
                     </tr>
