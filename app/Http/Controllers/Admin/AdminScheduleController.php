@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bus;
+use App\Models\Conductor;
+use App\Models\Driver;
 use App\Models\Schedule;
 use App\Models\Terminal;
 use Illuminate\Http\Request;
@@ -16,17 +18,23 @@ class AdminScheduleController extends Controller
         return view('schedules.create', [
             'buses' => Bus::all(),
             'terminals' => Terminal::all(),
+            'drivers'    => Driver::all(),
+            'conductors' => Conductor::all(),
         ]);
     }
 
     public function store(Request $request)
     {
+//        'driver_id'          => ['required', 'integer'],
+//            'conductor_id'       => ['required', 'integer'],
         $schedule = Schedule::create([
             'bus_id' => $request->bus_id,
             'departure_time' => $request->departure_time,
             'arrival_time' => $request->arrival_time,
             'status' => $request->status,
-            'terminal_id' => $request->terminal_id
+            'terminal_id' => $request->terminal_id,
+            'driver_id' => $request->driver_id,
+            'conductor_id' => $request->conductor_id,
         ]);
 
         $bus = Bus::find($request->bus_id);
@@ -49,7 +57,9 @@ class AdminScheduleController extends Controller
         return view('schedules.edit', [
             'buses' => Bus::all(),
             'terminals' => Terminal::all(),
-            'schedule' => $schedule
+            'schedule' => $schedule,
+             'drivers'    => Driver::all(),
+            'conductors' => Conductor::all(),
         ]);
     }
 
@@ -60,7 +70,9 @@ class AdminScheduleController extends Controller
             'departure_time' => $request->departure_time,
             'arrival_time' => $request->arrival_time,
             'status' => $request->status,
-            'terminal_id' => $request->terminal_id
+            'terminal_id' => $request->terminal_id,
+            'driver_id' => $request->driver_id,
+            'conductor_id' => $request->conductor_id,
         ]);
 
         return redirect()->route('admin.schedules.edit', $schedule)

@@ -24,8 +24,6 @@ return new class extends Migration {
             $table->integer('puchase_year');
             $table->string('transmission_model');
             $table->string('status');
-            $table->unsignedInteger('driver_id');
-            $table->unsignedInteger('conductor_id');
             $table->timestamps();
         });
     }

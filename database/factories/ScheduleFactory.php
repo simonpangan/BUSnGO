@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Bus;
+use App\Models\Conductor;
+use App\Models\Driver;
 use App\Models\Schedule;
 use App\Models\Terminal;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -20,6 +22,8 @@ class ScheduleFactory extends Factory
             'departure_time' => Carbon::now(),
             'arrival_time'   => Carbon::now(),
             'status'         => $this->faker->word(),
+            'driver_id'          => Driver::factory(),
+            'conductor_id'       => Conductor::factory(),
             'created_at'     => Carbon::now(),
             'updated_at'     => Carbon::now(),
         ];

@@ -216,47 +216,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="mb-3 row">
-                <label for="driver_id" class="col-md-4 col-form-label text-md-end">Driver</label>
-                <div class="col-md-6">
-                    <select name="driver_id" class="form-select form-select-sm @error('driver_id') is-invalid @enderror"
-                            aria-label="Driver Select">
-                        <option>Select Driver</option>
-                        @foreach($drivers as $driver)
-                            <option value="{{ $driver->id }}"
-                                {{ old('driver_id', $bus->driver_id) == $driver->id ? "selected" : "" }}
-                            >{{ $driver->name }}</option>
-                        @endforeach
-                    </select>
 
-                    @error('driver_id')
-                    <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <label for="conductor_id" class="col-md-4 col-form-label text-md-end">Conductor</label>
-                <div class="col-md-6">
-                    <select name="conductor_id"
-                            class="form-select form-select-sm @error('conductor_id') is-invalid @enderror"
-                            aria-label="Conductor Select">
-                        <option>Select Conductor</option>
-                        @foreach($conductors as $conductor)
-                            <option value="{{ $conductor->id }}"
-                                {{ old('conductor_id', $bus->conductor_id) == $conductor->id ? "selected" : "" }}
-                            >{{ $conductor->name }}</option>
-                        @endforeach
-                    </select>
-
-                    @error('conductor_id')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-            </div>
 
             <div class="mb-3 row">
                 <div class="col-md-6 offset-md-4">

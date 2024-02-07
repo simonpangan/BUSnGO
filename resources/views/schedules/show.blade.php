@@ -44,15 +44,15 @@
                         <strong>Driver</strong>: <a
                             target="_blank"
                             href="{{ route('drivers.show',
-                    $schedule->bus->driver->id
-                )}}"> {{ $schedule->bus->driver->name }}</a>
+                    $schedule->driver->id
+                )}}"> {{ $schedule->driver->name }}</a>
                     </div>
                     <div>
                         <strong>Conductor:</strong> <a
                             target="_blank"
                             href="{{ route('conductors.show',
-                    $schedule->bus->conductor->id
-                )}}"> {{ $schedule->bus->conductor->name }}</a>
+                    $schedule->conductor->id
+                )}}"> {{ $schedule->conductor->name }}</a>
                     </div>
                 </div>
             </div>

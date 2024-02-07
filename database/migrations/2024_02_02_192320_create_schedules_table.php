@@ -13,6 +13,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('terminal_id');
             $table->dateTime('departure_time');
             $table->dateTime('arrival_time');
+            $table->unsignedInteger('driver_id');
+            $table->unsignedInteger('conductor_id');
             $table->string('status');
             $table->timestamps();
         });

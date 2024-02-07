@@ -26,6 +26,16 @@ class Schedule extends Model
         return $this->hasMany(Ticket::class);
     }
 
+    public function driver(): BelongsTo
+    {
+        return $this->belongsTo(Driver::class);
+    }
+
+    public function conductor(): BelongsTo
+    {
+        return $this->belongsTo(Conductor::class);
+    }
+
     public function terminal(): BelongsTo
     {
         return $this->belongsTo(Terminal::class);

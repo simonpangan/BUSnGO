@@ -30,8 +30,6 @@ class BusFactory extends Factory
             'puchase_year'       => $this->faker->randomNumber(),
             'transmission_model' => $this->faker->word(),
             'status'             => $this->faker->word(),
-            'driver_id'          => Driver::factory(),
-            'conductor_id'       => Conductor::factory(),
             'created_at'         => Carbon::now(),
             'updated_at'         => Carbon::now(),
         ];

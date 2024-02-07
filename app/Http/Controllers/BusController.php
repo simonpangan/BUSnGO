@@ -45,8 +45,6 @@ class BusController extends Controller
             'puchase_year'       => ['required', 'integer'],
             'transmission_model' => ['required', 'max:50'],
             'status'             => ['required', 'max:50'],
-            'driver_id'          => ['required', 'integer'],
-            'conductor_id'       => ['required', 'integer'],
         ]);
 
         Bus::create($values);
