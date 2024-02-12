@@ -29,6 +29,8 @@ class AdminScheduleController extends Controller
 //            'conductor_id'       => ['required', 'integer'],
         $schedule = Schedule::create([
             'bus_id' => $request->bus_id,
+//            'ticket_cost' => $request->ticket_cost,
+            'ticket_cost' => 100,
             'departure_time' => $request->departure_time,
             'arrival_time' => $request->arrival_time,
             'status' => $request->status,

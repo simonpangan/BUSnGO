@@ -16,15 +16,25 @@ class ScheduleController extends Controller
     {
         return view('schedules.index', [
             'schedules' => Schedule::query()
-                ->latest()
-                ->get()
+                                   ->latest()
+                                   ->get()
         ]);
     }
 
     public function show(Schedule $schedule)
     {
         return view('schedules.show', [
-            'schedule' => $schedule
+            'schedule'        => $schedule,
+            'scheduleTickets' =>
+                $schedule->tickets
+                    ->chunk(4)
+                    ->map
+                    ->values()
+            ,
+            'authUserTickets' => $schedule->tickets
+                ->where('passenger_id', Auth::id())
+                ->pluck('seat_no')
+                ->toArray()
         ]);
     }
 }

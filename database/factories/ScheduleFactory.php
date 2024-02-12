@@ -18,6 +18,7 @@ class ScheduleFactory extends Factory
     {
         return [
             'bus_id'         => Bus::factory(),
+            'ticket_cost'     => $this->faker->numberBetween(100, 1000),
             'terminal_id'    => Terminal::inRandomOrder()->first()->id,
             'departure_time' => Carbon::now(),
             'arrival_time'   => Carbon::now(),

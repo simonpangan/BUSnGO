@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BusLocationController;
 use App\Http\Controllers\ConductorController;
 use App\Http\Controllers\MyScheduleController;
 use App\Http\Controllers\DriverController;
@@ -66,13 +67,15 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     //CONDUCTOR ROUTES
     Route::middleware(['role:conductor'])->group(function () {
-        Route::get('/conductors', function () {
+        Route::get('/conductor', function () {
             return view('dashboard');
         });
 
         Route::get('/conductors/{conductor}', [ConductorController::class, 'show'])
              ->name('conductors.show')
              ->withoutMiddleware('role:conductor');
+
+        Route::get('/bus-location', [BusLocationController::class, 'update'])->name('bus-location.update');
     });
 
     //PASSENGER ROUTES

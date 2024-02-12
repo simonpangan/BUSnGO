@@ -1,8 +1,10 @@
 <x-app-layout>
     <div class="container mt-4">
+        @role('admin|conductor')
         <a href="{{ route('admin.conductors.index') }}" class="btn btn-secondary">
             <- Go Back
         </a>
+        @endrole
 
         <h2 class="text-center">Conductor Details</h2>
 

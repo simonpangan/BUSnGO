@@ -44,9 +44,19 @@
                 <ul class="navbar-nav ms-auto">
                     <x-admin-routes/>
                     <x-passenger-routes/>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('schedules.index') }}">{{ __('Schedules') }}</a>
-                    </li>
+                    @guest
+                        @if (Route::has('login'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                        @endif
+
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif
+                    @endguest
                     @hasanyrole('driver|conductor')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('my-schedule') }}">
@@ -54,8 +64,10 @@
                             </a>
                         </li>
                     @endhasanyrole
-
                     @auth
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('schedules.index') }}">{{ __('Schedules') }}</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                data-bs-toggle="dropdown" aria-haspopup="true"

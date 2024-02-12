@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Schedule;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,17 +11,13 @@ use Luigel\Paymongo\Facades\Paymongo;
 
 class PassengerTicketPaymentController
 {
-    public function index()
-    {
-        return view('payment.index');
-    }
-
     public function book(Request $request)
     {
+        $schedule = Schedule::findOrFail($request->schedule_id);
+
         $payment = Paymongo::source()->create([
             'type'     => ($request->wallet == 'G-CASH') ? 'gcash' : 'grab_pay',
-//            'amount'   => $request->price, // schedule price
-            'amount'   => 123,
+            'amount'   => $schedule->ticket_cost * count($request->tickets),
             'currency' => 'PHP',
             'redirect' => [
                 'success' => route('payment.callback'),
@@ -29,7 +26,6 @@ class PassengerTicketPaymentController
         ]);
 
         Session::put([
-//            'ticketID'   => $request->ticket_id,
             'tickets'    => $request->tickets,
             'scheduleID' => $request->schedule_id
         ]);

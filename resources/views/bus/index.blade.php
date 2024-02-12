@@ -37,8 +37,6 @@
                     <th>Purchase Year</th>
                     <th>Transmission Model</th>
                     <th>Status</th>
-                    <th>Driver Name</th>
-                    <th>Conductor Name</th>
                     <th>Created At</th>
                     <th>Updated At</th>
                     <th>Action</th>
@@ -63,8 +61,6 @@
                     <td>{{ $bus->puchase_year }}</td>
                     <td>{{ $bus->transmission_model }}</td>
                     <td>{{ $bus->status }}</td>
-                    <td>{{ $bus->driver->name }}</td>
-                    <td>{{ $bus->conductor->name }}</td>
                     <td>{{ $bus->created_at }}</td>
                     <td>{{ $bus->updated_at }}</td>
                     <td>
