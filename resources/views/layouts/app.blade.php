@@ -64,6 +64,21 @@
                             </a>
                         </li>
                     @endhasanyrole
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            About Us
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('about') }}">
+                                    Our Story
+                                </a>
+                            </li>
+{{--                            <li><a class="dropdown-item" href="#">Another action</a></li>--}}
+{{--                            <li><hr class="dropdown-divider"></li>--}}
+{{--                            <li><a class="dropdown-item" href="#">Something else here</a></li>--}}
+                        </ul>
+                    </li>
                     @auth
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('schedules.index') }}">{{ __('Schedules') }}</a>
