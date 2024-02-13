@@ -74,9 +74,8 @@
                                     Our Story
                                 </a>
                             </li>
-{{--                            <li><a class="dropdown-item" href="#">Another action</a></li>--}}
-{{--                            <li><hr class="dropdown-divider"></li>--}}
-{{--                            <li><a class="dropdown-item" href="#">Something else here</a></li>--}}
+                            <li><a class="dropdown-item" href="{{ route('faq') }}">FAQ</a></li>
+                            <li><a class="dropdown-item" href="{{ route('terms-and-condition') }}">Terms and Conditions</a></li>
                         </ul>
                     </li>
                     @auth

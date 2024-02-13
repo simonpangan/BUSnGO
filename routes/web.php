@@ -28,6 +28,8 @@ Route::get('/', function () {
 });
 
 Route::view('/about', 'about')->name('about');
+Route::view('/faq', 'faq')->name('faq');
+Route::view('/terms-and-conditions', 'terms-and-condition')->name('terms-and-condition');
 
 Route::get('/dashboard', function () {
     $authenticatedUser = Auth::user();
