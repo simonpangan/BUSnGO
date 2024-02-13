@@ -106,6 +106,10 @@
         </div>
     </nav>
 
+    <noscript>
+        <x-noscript />
+    </noscript>
+
     <main class="py-4">
         {{ $slot }}
     </main>
