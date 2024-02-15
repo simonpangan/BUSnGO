@@ -22,7 +22,7 @@
 </head>
 <body>
 <div id="app">
-{{--    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">--}}
+    {{--    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">--}}
     <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
@@ -49,67 +49,23 @@
                     @endauth
                     <x-admin-routes/>
                     <x-passenger-routes/>
-                    @guest
-                        @if (Route::has('login'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                        @endif
-
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
-                    @endguest
+                    <x-guest-routes/>
                     @hasanyrole('driver|conductor')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('my-schedule') }}">
-                                My schedule
-                            </a>
-                        </li>
-                    @endhasanyrole
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            About Us
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('my-schedule') }}">
+                            My schedule
                         </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="{{ route('about') }}">
-                                    Our Story
-                                </a>
-                            </li>
-                            <li><a class="dropdown-item" href="{{ route('faq') }}">FAQ</a></li>
-                            <li><a class="dropdown-item" href="{{ route('terms-and-condition') }}">Terms and Conditions</a></li>
-                        </ul>
                     </li>
-                    @auth
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                               data-bs-toggle="dropdown" aria-haspopup="true"
-                               aria-expanded="false">
-                                {{ Auth::user()->name }}
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    @endauth
+                    @endhasanyrole
+                    <x-about-us-routes/>
+                    <x-logout-route/>
                 </ul>
             </div>
         </div>
     </nav>
 
     <noscript>
-        <x-noscript />
+        <x-noscript/>
     </noscript>
 
     <main class="py-4">
