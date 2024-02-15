@@ -89,15 +89,33 @@ class PassengerTicketPaymentController
         ])->with('error', 'Transaction Error');
     }
 
-    public function refund(Request $request)
+    public function refund(Payment $payment)
     {
-        dd($request);
+        //TODO: ADD REFUND TIME LIMIT LOGIC
+//        if ($this->somethingIsInvalid()) {
+//            throw ValidationException::withMessages([
+//                'some_error' => 'Something is invalid.'),
+//         ]);
 
-        $refund = Paymongo::refund()->create([
-            'amount'     => $request->amount,
-            'notes'      => 'test refund',
-            'payment_id' => $request->payment_id,
+        Paymongo::refund()->create([
+            'amount'     => $payment->amount,
+            'payment_id' => $payment->paymongo_id,
             'reason'     => Refund::REASON_REQUESTED_BY_CUSTOMER,
         ]);
+
+        Ticket::query()
+              ->whereIn('id', array_values($payment->tickets_id))
+              ->update([
+                  'status'       => 'available',
+                  'passenger_id' => null,
+                  'paid_at'      => null
+              ]);
+
+        $payment->update([
+            'status' => 'refunded'
+        ]);
+
+        return to_route('passenger.tickets')
+            ->with('success', 'Successfully refunded your ticket');
     }
 }

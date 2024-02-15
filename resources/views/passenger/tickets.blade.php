@@ -38,7 +38,13 @@
                             {{ implode(",", $payment->tickets->pluck('seat_no')->toArray()) }}
                         </td>
                         <td>From: {{ $payment->schedule->terminal->from }}, To: {{ $payment->schedule->terminal->to }}</td>
-                        <td>{{ $payment->schedule->status }}</td>
+                        <td>
+                            {{ $payment->schedule->status }}
+                            <br />
+                            <a href="{{ route('schedules.show', $payment->schedule->id) }}"
+                                class="btn btn-sm btn-primary">View
+                            </a>
+                        </td>
                         <td>{{ $payment->status }}</td>
                         <td>
                             {{ $payment->paid_at->diffForHumans() }}
@@ -47,6 +53,7 @@
                             <form method="post" action="{{ route('payment.refund', $payment->id) }}" style="display:inline">
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm"
+                                        @if($payment->status == 'refunded') {{ 'disabled' }} @endif
                                         onclick="return confirm('Are you sure?')">
                                     Refund
                                 </button>
