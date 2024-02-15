@@ -29,6 +29,7 @@ Route::get('/', function () {
 
 Route::view('/about', 'about')->name('about');
 Route::view('/faq', 'faq')->name('faq');
+Route::view('/contact-us', 'contact-us')->name('contact-us');
 Route::view('/terms-and-conditions', 'terms-and-condition')->name('terms-and-condition');
 
 Route::get('/dashboard', function () {

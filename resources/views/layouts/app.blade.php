@@ -58,6 +58,11 @@
                     </li>
                     @endhasanyrole
                     <x-about-us-routes/>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('contact-us') }}">
+                            Contact Us
+                        </a>
+                    </li>
                     <x-logout-route/>
                 </ul>
             </div>
