@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('passenger_id')->nullable();
             $table->string('status');
             $table->timestamps();
+            $table->dateTime('paid_at')->nullable();
         });
     }
 

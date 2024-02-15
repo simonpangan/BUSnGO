@@ -19,23 +19,38 @@
             <table id="myBuses" style="width: 1000px;" class="display table mt-3">
                 <thead>
                 <tr>
+                    <th>Amount</th>
                     <th>Bus No</th>
                     <th>Seat No</th>
                     <th>Terminal</th>
-                    <th>Status</th>
+                    <th>Schedule Status</th>
+                    <th>Ticket Status</th>
                     <th>Paid At</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($tickets as $ticket)
+                @foreach($payments as $payment)
                     <tr>
-                        <td>{{ $ticket->schedule->bus->no }}</td>
-                        <td>{{ $ticket->seat_no }}</td>
-                        <td>From: {{ $ticket->schedule->terminal->from }}, To: {{ $ticket->schedule->terminal->to }}</td>
-                        <td>{{ $ticket->schedule->status }}</td>
-                        <td>{{ $ticket->updated_at->diffForHumans() }}</td>
+                        <td>₱{{ $payment->amount }}</td>
+                        <td>{{ $payment->schedule->bus->no }}</td>
                         <td>
+                            {{ implode(",", $payment->tickets->pluck('seat_no')->toArray()) }}
+                        </td>
+                        <td>From: {{ $payment->schedule->terminal->from }}, To: {{ $payment->schedule->terminal->to }}</td>
+                        <td>{{ $payment->schedule->status }}</td>
+                        <td>{{ $payment->status }}</td>
+                        <td>
+                            {{ $payment->paid_at->diffForHumans() }}
+                        </td>
+                        <td>
+                            <form method="post" action="{{ route('payment.refund', $payment->id) }}" style="display:inline">
+                                @csrf
+                                <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Are you sure?')">
+                                    Refund
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

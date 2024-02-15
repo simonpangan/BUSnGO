@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
 use App\Models\Schedule;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Luigel\Paymongo\Facades\Paymongo;
+use Luigel\Paymongo\Models\Refund;
 
 class PassengerTicketPaymentController
 {
@@ -25,37 +28,76 @@ class PassengerTicketPaymentController
             ]
         ]);
 
-        Session::put([
-            'tickets'    => $request->tickets,
-            'scheduleID' => $request->schedule_id
+        Session::put('payment_details', [
+            'tickets'     => $request->tickets,
+            'schedule_id' => $request->schedule_id,
+            'amount'      => $payment->amount,
         ]);
+
+        Session::put('payment_id', $payment->id);
 
         return redirect()->to($payment->redirect['checkout_url']);
     }
 
+
     public function callback()
     {
-        $tickets    = Session::pull('tickets');
-        $scheduleID = Session::pull('scheduleID');
+        $paymentDetails = Session::pull('payment_details');
+        $paymentID      = Session::pull('payment_id');
+
+        $payment = Paymongo::payment()
+           ->create([
+               'amount'   => $paymentDetails['amount'],
+               'currency' => 'PHP',
+               'source'   => [
+                   'id'   => $paymentID,
+                   'type' => 'source'
+               ]
+           ]);
+
+        $paidAt = Carbon::now();
 
         Ticket::query()
-              ->whereIn('id', array_values($tickets))
+              ->whereIn('id', array_values($paymentDetails['tickets']))
               ->update([
                   'status'       => 'booked',
-                  'passenger_id' => Auth::id()
+                  'passenger_id' => Auth::id(),
+                  'paid_at'      => $paidAt
               ]);
 
+        Payment::create([
+            'amount'      => $paymentDetails['amount'],
+            'paymongo_id' => $payment->id,
+            'passenger_id'     => Auth::id(),
+            'schedule_id' => $paymentDetails['schedule_id'],
+            'tickets_id'  => $paymentDetails['tickets'],
+            'status'      => 'paid',
+            'paid_at' => $paidAt
+        ]);
+
         return to_route('schedules.show', [
-            'schedule' => $scheduleID
+            'schedule' => $paymentDetails['schedule_id']
         ])->with('success', 'Successfully booked your ticket');
     }
 
-    public function failed(Request $request)
+    public function failed()
     {
         Session::forget('tickets');
 
         return to_route('schedules.show', [
             'schedule' => Session::pull('scheduleID')
         ])->with('error', 'Transaction Error');
+    }
+
+    public function refund(Request $request)
+    {
+        dd($request);
+
+        $refund = Paymongo::refund()->create([
+            'amount'     => $request->amount,
+            'notes'      => 'test refund',
+            'payment_id' => $request->payment_id,
+            'reason'     => Refund::REASON_REQUESTED_BY_CUSTOMER,
+        ]);
     }
 }

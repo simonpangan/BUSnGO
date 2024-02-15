@@ -90,9 +90,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         Route::get('/tickets', [PassengerTicketController::class, 'index'])->name('passenger.tickets');
 
-        Route::post('/payment/book', [PassengerTicketPaymentController::class, 'book'])->name('payment.book');
-        Route::get('/payment/callback', [PassengerTicketPaymentController::class, 'callback'])->name('payment.callback');
-        Route::get('/payment/failed', [PassengerTicketPaymentController::class, 'failed'])->name('payment.failed');
+        Route::post('/payments/book', [PassengerTicketPaymentController::class, 'book'])->name('payment.book');
+        Route::get('/payments/callback', [PassengerTicketPaymentController::class, 'callback'])->name('payment.callback');
+        Route::get('/payments/failed', [PassengerTicketPaymentController::class, 'failed'])->name('payment.failed');
+
+        Route::post('/payments/{payment}/refund', [PassengerTicketPaymentController::class, 'refund'])->name('payment.refund');
     });
 
     Route::middleware(['role:driver|conductor'])->group(function () {
