@@ -17,12 +17,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(UserSeeder::class);
-        $this->call(DriverSeeder::class);
-        $this->call(BusSeeder::class);
         $this->call(TerminalSeeder::class);
-        $this->call(ScheduleSeeder::class);
-
-        DB::unprepared(file_get_contents(__DIR__ . '/../dump/philippines_local_government_units.sql'));
+//        $this->call(UserSeeder::class);
+//        $this->call(DriverSeeder::class);
+//        $this->call(BusSeeder::class);
+//        $this->call(TerminalSeeder::class);
+//        $this->call(ScheduleSeeder::class);
+//
+//        DB::unprepared(file_get_contents(__DIR__ . '/../dump/philippines_local_government_units.sql'));
     }
 }

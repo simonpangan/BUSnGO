@@ -9,17 +9,15 @@ use Illuminate\Support\Collection;
 
 class TerminalSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        $terminals = Collection::times(10, function() {
-            return [
-                'from' => fake()->name(),
-                'to' => fake()->name()
-            ];
-        });
+        $terminals = Collection::times(10, fn() => [
+            'from' => fake()->city(),
+            'to' => fake()->city(),
+            'transit_points' => json_encode(Collection::times(random_int(2, 5),
+                static fn() => fake()->city()
+            )->toArray()),
+        ]);
 
         Terminal::insert($terminals->toArray());
     }
