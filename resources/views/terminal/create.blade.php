@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="container mt-4">
+    <div class="container mt-4" style="width: 500px">
         <h2 class="text-center">Create Terminal</h2>
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -21,8 +21,8 @@
                        value="{{ old('from') }}" required>
                 @error('from')
                 <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <strong>{{ $message }}</strong>
+                </span>
                 @enderror
             </div>
 
@@ -37,7 +37,36 @@
                     </span>
                 @enderror
             </div>
+            <div x-data="{
+                    terminalPoints: ['color'],
+                    addTerminalPoint() {
+                        this.terminalPoints.push('')
+                    },
+                    removeTerminalPoint(index) {
+                        this.terminalPoints.splice(index, 1)
+                    }
+                 }">
+                <label for="to" class="form-label">Terminal Points</label>
+                <button type="button" class="btn btn-info rounded-pill mb-2"
+                    x-on:click="addTerminalPoint()">Add</button>
 
+                <template x-for="(terminalPoint, index) in terminalPoints">
+                    <div class="d-flex">
+                        <input type="text" class="form-control mb-2 @error('to') is-invalid @enderror"
+                               id="terminalPoints" name="transit_points[]"
+                               value="{{ old('transit_points') }}"
+                               x-text="terminalPoint"
+                               required
+                        >
+                        <template x-if="index != 0">
+                            <button type="button" class="btn btn-danger mb-2"
+                                    x-on:click="removeTerminalPoint(index)">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </template>
+                    </div>
+                </template>
+            </div>
 
             <button type="submit" class="btn btn-primary">Create Terminal</button>
         </form>

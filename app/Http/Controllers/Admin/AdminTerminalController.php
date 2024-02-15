@@ -28,6 +28,7 @@ class AdminTerminalController extends Controller
         $validatedData = $request->validate([
             'from' => 'required|max:45',
             'to' => 'required|max:45',
+            'transit_points'  => 'required|array',
         ]);
 
         Terminal::create($validatedData);
@@ -46,14 +47,12 @@ class AdminTerminalController extends Controller
         $validatedData = $request->validate([
             'from' => 'required|max:45',
             'to' => 'required|max:45',
+            'transit_points'  => 'required|array',
         ]);
 
-        $terminal->update([
-            'from' => $validatedData['from'],
-            'to' => $validatedData['to'],
-        ]);
+        $terminal->update($validatedData);
 
-        return to_route('admin.terminals.index')
+        return to_route('admin.terminals.edit', $terminal)
             ->with('success', 'Terminal created successfully.');
     }
 
