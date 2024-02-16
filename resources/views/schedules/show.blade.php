@@ -18,11 +18,11 @@
                         To : {{ $schedule->terminal->to }}
                     </div>
                     <div class="mb-3">
-                        <strong>Departure Time:</strong> {{ $schedule->departure_time }}
+                        <strong>Departure Time:</strong> {{ $schedule->departure_time->format('l, F j, Y g:i A') }}
                     </div>
 
                     <div class="mb-3">
-                        <strong>Arrival Time</strong>: {{ $schedule->arrival_time }}
+                        <strong>Arrival Time</strong>: {{ $schedule->arrival_time->format('l, F j, Y g:i A') }}
                     </div>
 
                     <div class="mb-3">

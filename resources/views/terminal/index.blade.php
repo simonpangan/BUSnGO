@@ -26,6 +26,7 @@
                 <th>#</th>
                 <th>From</th>
                 <th>To</th>
+                <th>Terminal Points</th>
                 <th></th>
             </tr>
             </thead>
@@ -35,6 +36,13 @@
                     <td>{{ $terminal->id }}</td>
                     <td>{{ $terminal->from }}</td>
                     <td>{{ $terminal->to }}</td>
+                    <td>
+                        <ul>
+                            @foreach($terminal->transit_points as $point)
+                                <li>{{ $point }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
                     <td>
                             <a href="{{ route('admin.terminals.edit', $terminal->id) }}" class="btn btn-warning btn-sm">
                                 <i class="bi bi-pencil-square"></i>

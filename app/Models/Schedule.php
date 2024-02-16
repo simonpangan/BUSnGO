@@ -16,6 +16,14 @@ class Schedule extends Model
         'arrival_time'   => 'datetime',
     ];
 
+    public const STATUS = [
+        'Ticketing',
+        'Onboarding',
+        'Departing',
+        'Arriving',
+    ];
+
+
     public function bus(): BelongsTo
     {
         return $this->belongsTo(Bus::class);

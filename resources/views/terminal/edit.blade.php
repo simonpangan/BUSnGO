@@ -1,5 +1,9 @@
 <x-app-layout>
     <div class="container mt-4">
+        <a href="{{ route('admin.terminals.index') }}" class="btn btn-info">
+            <- Go Back
+        </a>
+
         <h2 class="text-center">Edit Terminal</h2>
         @if ($errors->any())
             <div class="alert alert-danger">

@@ -1,3 +1,5 @@
+@php use App\Models\Schedule @endphp
+
 <x-app-layout>
     @section('css')
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css" />
@@ -67,7 +69,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="status" class="form-label">Departure Time</label>
+                <label for="departure_time" class="form-label">Departure Time</label>
                 <input type="datetime-local"
                        class="form-control @error('departure_time') is-invalid @enderror" id="departure_time"
                        name="departure_time" value="{{ old('departure_time', $schedule->departure_time) }}" required
@@ -81,7 +83,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="status" class="form-label">Arrival Time</label>
+                <label for="arrival_time" class="form-label">Arrival Time</label>
                 <input type="datetime-local"
                        class="form-control @error('arrival_time') is-invalid @enderror" id="arrival_time"
                        name="arrival_time" value="{{ old('arrival_time', $schedule->arrival_time) }}" required
@@ -96,13 +98,21 @@
 
             <div class="mb-3">
                 <label for="status" class="form-label">Status</label>
-                <input type="text"
-                       class="form-control @error('status') is-invalid @enderror" id="status"
-                       name="status" value="{{ old('status', $schedule->status) }}" required
+                <select name="status"
+                        class="form-select form-select @error('status') is-invalid @enderror"
+                        aria-label="Status Select"
+                        id="status"
                 >
+                    <option>Select Status</option>
+                    @foreach(Schedule::STATUS as $status)
+                        <option value="{{ $status }}"
+                            {{ old('status', $schedule->status) == $status ? "selected" : "" }}
+                        >{{ $status }}</option>
+                    @endforeach
+                </select>
 
                 @error('status')
-                <span class="invalid-feedback" role="alert">
+                    <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
