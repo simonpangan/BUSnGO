@@ -22,7 +22,7 @@ class ScheduleFactory extends Factory
             'terminal_id'    => Terminal::inRandomOrder()->first()->id,
             'departure_time' => Carbon::now(),
             'arrival_time'   => Carbon::now(),
-            'status'         => $this->faker->word(),
+            'status'         => $this->faker->randomElement(Schedule::STATUS),
             'driver_id'          => Driver::factory(),
             'conductor_id'       => Conductor::factory(),
             'created_at'     => Carbon::now(),
