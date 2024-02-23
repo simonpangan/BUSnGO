@@ -1,3 +1,5 @@
+@php use App\Models\Schedule @endphp
+
 <x-app-layout>
     @section('css')
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.13.8/datatables.min.css"/>
@@ -19,7 +21,6 @@
             </a>
             @endrole
         </div>
-
         <table id="schedules-table" class="table mt-3">
             <thead>
             <tr>
@@ -35,7 +36,32 @@
                         <td>{{ $schedule->bus->no }}</td>
                         <td>{{ $schedule->departure_time->format('l, F j, Y g:i A') }}</td>
                         <td>{{ $schedule->arrival_time->format('l, F j, Y g:i A') }}</td>
-                        <td>{{ $schedule->status }}</td>
+                        <td>
+                            <form id="status-update-form"
+                              action="{{ route('bus-location.update', [
+                                    'schedule_id' => $schedule->id,
+                                ]) }}"
+                              method="POST"
+                            >
+                                @csrf
+                                <select class="form-control @error('status') is-invalid @enderror" aria-label="Status select"
+                                        id="statusChange"
+                                        name="status"
+                                >
+                                    @foreach(Schedule::STATUS as $status)
+                                        <option value="{{ $status }}"
+                                            {{ old('status', $schedule->status) == $status ? "selected" : "" }}
+                                        >{{ $status }}</option>
+                                    @endforeach
+                                    @foreach($schedule->terminal->transit_points as $points)
+                                        <option
+                                            {{ old('status', $schedule->status) == $points ? "selected" : "" }}
+                                            value="Just passed by {{ $points }}"
+                                        >Just passed by {{ $points }}</option>
+                                    @endforeach
+                                </select>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -50,6 +76,16 @@
                 $('#schedules-table').DataTable({
                     responsive: true
                 })
+
+                $('#statusChange').data('previous-value', $('#statusChange').val());
+                $('#statusChange').on('change', function () {
+                    if (confirm('Are you sure you want to change the status?')) {
+                        // Submit the form
+                        $('#status-update-form').submit();
+                    } else {
+                        $(this).val($(this).data('previous-value'));
+                    }
+                });
             });
         </script>
     @endsection
