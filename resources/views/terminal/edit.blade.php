@@ -47,6 +47,18 @@
                     </span>
                     @enderror
                 </div>
+                <div class="mb-3">
+                    <label for="ticket_cost" class="form-label">Ticket Cost</label>
+                    <input type="number" class="form-control @error('ticket_cost') is-invalid @enderror"
+                           min="1" max="100000"
+                           id="ticket_cost" name="ticket_cost" value="{{ old('ticket_cost', $terminal->ticket_cost) }}" required>
+
+                    @error('ticket_cost')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
                 <div x-data='{
                     terminalPoints: @if($terminal->transit_points) @json($terminal->transit_points) @else [""] @endif,
                     addTerminalPoint() {

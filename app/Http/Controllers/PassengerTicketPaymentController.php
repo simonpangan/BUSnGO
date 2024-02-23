@@ -16,11 +16,28 @@ class PassengerTicketPaymentController
 {
     public function book(Request $request)
     {
+        $request->validate([
+            'tickets'     => ['required', 'array'],
+            'tickets.*'   => ['required', 'integer', 'exists:tickets,id'],
+            'schedule_id' => ['required', 'integer', 'exists:schedules,id'],
+            'wallet'      => ['required', 'string', 'in:G-CASH,GRAB-PAY']
+        ]);
+
         $schedule = Schedule::findOrFail($request->schedule_id);
+
+        $ticketCost = $schedule->terminal->ticket_cost * count($request->tickets);
+        //https://paymongo.help/en/articles/4318573-what-are-the-minimum-and-maximum-transaction-amounts
+        if ($ticketCost > 100000) {
+            return back()
+                ->withErrors([
+                    'tickets' => 'Maximum transaction amount is 100,000.00 PHP. Please try to book less tickets.'
+                ])
+                ->withInput();
+        }
 
         $payment = Paymongo::source()->create([
             'type'     => ($request->wallet == 'G-CASH') ? 'gcash' : 'grab_pay',
-            'amount'   => $schedule->ticket_cost * count($request->tickets),
+            'amount'   => $ticketCost,
             'currency' => 'PHP',
             'redirect' => [
                 'success' => route('payment.callback'),
@@ -85,7 +102,7 @@ class PassengerTicketPaymentController
         Session::forget('tickets');
 
         return to_route('schedules.show', [
-            'schedule' => Session::pull('scheduleID')
+            'schedule' => Session::pull('payment_details.schedule_id')
         ])->with('error', 'Transaction Error');
     }
 

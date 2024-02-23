@@ -6,6 +6,7 @@ use App\Http\Requests\BusRequest;
 use App\Models\Bus;
 use App\Models\Conductor;
 use App\Models\Driver;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BusController extends Controller
@@ -31,20 +32,26 @@ class BusController extends Controller
     {
         $values = $request->validate([
             'no'                 => ['required', 'integer'],
-            'seat'               => ['required', 'integer'],
-            'engine_model'       => ['required', 'max:50'],
-            'chassis_no'         => ['required', 'max:50'],
-            'model'              => ['required', 'max:50'],
-            'color'              => ['required', 'max:50'],
-            'register_no'        => ['required', 'max:50'],
-            'made_in'            => ['required', 'max:50'],
-            'make'               => ['required', 'max:50'],
-            'price'              => ['required', 'max:50'],
-            'fuel'               => ['required', 'max:50'],
-            'engine_capacity'    => ['required', 'max:50'],
-            'puchase_year'       => ['required', 'integer'],
-            'transmission_model' => ['required', 'max:50'],
-            'status'             => ['required', 'max:50'],
+            'seat'               => ['required',
+                'integer', 'min: 10', 'max: 100'
+            ],
+            'engine_model'       => ['required', 'string', 'max:50'],
+            'chassis_no'         => ['required', 'string', 'max:50'],
+            'model'              => ['required', 'string', 'max:50'],
+            'color'              => ['required', 'string', 'max:50'],
+            'register_no'        => ['required', 'string', 'max:50'],
+            'made_in'            => ['required', 'string', 'max:50'],
+            'make'               => ['required', 'string', 'max:50'],
+            'price'              => ['required', 'string', 'max:50'],
+            'fuel'               => ['required', 'string', 'max:50'],
+            'engine_capacity'    => ['required', 'string', 'max:50'],
+            'puchase_year'       => [
+                'required', 'digits:4',
+                'integer', 'min:1990' ,
+                'max:'.Carbon::now()->year
+            ],
+            'transmission_model' => ['required', 'string', 'max:50'],
+            'status'             => ['required', 'string', 'max:50'],
         ]);
 
         Bus::create($values);
@@ -73,22 +80,26 @@ class BusController extends Controller
     {
         $values = $request->validate([
             'no'                 => ['required', 'integer'],
-            'seat'               => ['required', 'integer'],
-            'engine_model'       => ['required', 'max:50'],
-            'chassis_no'         => ['required', 'max:50'],
-            'model'              => ['required', 'max:50'],
-            'color'              => ['required', 'max:50'],
-            'register_no'        => ['required', 'max:50'],
-            'made_in'            => ['required', 'max:50'],
-            'make'               => ['required', 'max:50'],
-            'price'              => ['required', 'max:50'],
-            'fuel'               => ['required', 'max:50'],
-            'engine_capacity'    => ['required', 'max:50'],
-            'puchase_year'       => ['required', 'integer'],
-            'transmission_model' => ['required', 'max:50'],
-            'status'             => ['required', 'max:50'],
-            'driver_id'          => ['required', 'integer'],
-            'conductor_id'       => ['required', 'integer'],
+            'seat'               => ['required',
+                'integer', 'min: 10', 'max: 100'
+            ],
+            'engine_model'       => ['required', 'string', 'max:50'],
+            'chassis_no'         => ['required', 'string', 'max:50'],
+            'model'              => ['required', 'string', 'max:50'],
+            'color'              => ['required', 'string', 'max:50'],
+            'register_no'        => ['required', 'string', 'max:50'],
+            'made_in'            => ['required', 'string', 'max:50'],
+            'make'               => ['required', 'string', 'max:50'],
+            'price'              => ['required', 'string', 'max:50'],
+            'fuel'               => ['required', 'string', 'max:50'],
+            'engine_capacity'    => ['required', 'string', 'max:50'],
+            'puchase_year'       => [
+                'required', 'digits:4',
+                'integer', 'min:1990' ,
+                'max:'.Carbon::now()->year
+            ],
+            'transmission_model' => ['required', 'string', 'max:50'],
+            'status'             => ['required', 'string', 'max:50'],
         ]);
 
         $bus->update($values);

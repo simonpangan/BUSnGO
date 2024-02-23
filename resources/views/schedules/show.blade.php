@@ -57,6 +57,16 @@
                         {{ session('error') }}
                     </div>
                 @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <form method="post" action="{{ route('payment.book', [
                     'schedule_id' => $schedule->id,
                 ])}}"
@@ -68,15 +78,18 @@
                         Book Selected
                     </button>
                     <br/>
-                    <div class="fw-bold">Payment Method #:</div>
+                    <div class="fw-bold">Payment Method #: </div>
                     <div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="wallet" id="gCashRadio"
-                                   value="G-CASH">
+                                   value="G-CASH"
+                                    {{ old("wallet") == "G-CASH" ? "checked": "" }}
+                            >
                             <label class="form-check-label" for="gCashRadio">G-Cash</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="wallet" id="grabPay"
+                                {{ old("wallet") == "GRAB-PAY" ? "checked": "" }}
                                    value="GRAB-PAY">
                             <label class="form-check-label" for="grabPay">Grab Pay</label>
                         </div>
@@ -168,7 +181,7 @@
                 let totalCost = 0
 
                 $('.ticket-input').change(function () {
-                    const ticketCost = {{ $schedule->ticket_cost }}
+                    const ticketCost = {{ $schedule->terminal->ticket_cost }}
 
                     if($(this).prop('checked')) {
                         totalCost += ticketCost;

@@ -14,6 +14,7 @@ class TerminalSeeder extends Seeder
         $terminals = Collection::times(10, fn() => [
             'from' => fake()->city(),
             'to' => fake()->city(),
+            'ticket_cost'     => fake()->numberBetween(1, 10000),
             'transit_points' => json_encode(Collection::times(random_int(2, 5),
                 static fn() => fake()->city()
             )->toArray()),

@@ -26,6 +26,7 @@
                 <th>#</th>
                 <th>From</th>
                 <th>To</th>
+                <th>Cost</th>
                 <th>Terminal Points</th>
                 <th></th>
             </tr>
@@ -36,6 +37,7 @@
                     <td>{{ $terminal->id }}</td>
                     <td>{{ $terminal->from }}</td>
                     <td>{{ $terminal->to }}</td>
+                    <td>{{ $terminal->ticket_cost }}</td>
                     <td>
                         <ul>
                             @foreach($terminal->transit_points as $point)

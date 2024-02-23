@@ -25,12 +25,18 @@ class AdminScheduleController extends Controller
 
     public function store(Request $request)
     {
-//        'driver_id'          => ['required', 'integer'],
-//            'conductor_id'       => ['required', 'integer'],
+        $request->validate([
+            'bus_id' => ['required', 'integer', 'exists:buses,id'],
+            'departure_time' => ['required', 'date', 'after:tomorrow'],
+            'arrival_time' => ['required', 'date', 'after:departure_time'],
+            'status' => ['required', 'string'],
+            'terminal_id' => ['required', 'integer', 'exists:terminals,id'],
+            'driver_id'          => ['required', 'integer', 'exists:drivers,id'],
+            'conductor_id'       => ['required', 'integer', 'exists:conductors,id'],
+        ]);
+
         $schedule = Schedule::create([
             'bus_id' => $request->bus_id,
-//            'ticket_cost' => $request->ticket_cost,
-            'ticket_cost' => 100,
             'departure_time' => $request->departure_time,
             'arrival_time' => $request->arrival_time,
             'status' => $request->status,
@@ -67,6 +73,16 @@ class AdminScheduleController extends Controller
 
     public function update(Request $request, Schedule $schedule)
     {
+        $request->validate([
+            'bus_id' => ['required', 'integer', 'exists:buses,id'],
+            'departure_time' => ['required', 'date', 'after:tomorrow'],
+            'arrival_time' => ['required', 'date', 'after:departure_time'],
+            'status' => ['required', 'string'],
+            'terminal_id' => ['required', 'integer', 'exists:terminals,id'],
+            'driver_id'          => ['required', 'integer', 'exists:drivers,id'],
+            'conductor_id'       => ['required', 'integer', 'exists:conductors,id'],
+        ]);
+
         $schedule->update([
             'bus_id' => $request->bus_id,
             'departure_time' => $request->departure_time,

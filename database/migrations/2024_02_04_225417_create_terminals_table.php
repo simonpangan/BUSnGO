@@ -11,6 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->string('from');
             $table->string('to');
+            $table->unsignedBigInteger('ticket_cost');
             $table->json('transit_points')->nullable();
             $table->timestamps();
         });

@@ -25,10 +25,13 @@ class AdminTerminalController extends Controller
 
     public function store(Request $request)
     {
+        //https://paymongo.help/en/articles/4318573-what-are-the-minimum-and-maximum-transaction-amounts
         $validatedData = $request->validate([
             'from' => 'required|max:45',
             'to' => 'required|max:45',
+            'ticket_cost' => 'required|integer|min:1|max:10000',
             'transit_points'  => 'required|array',
+            'transit_points.*' => 'required|string|max:45',
         ]);
 
         Terminal::create($validatedData);
@@ -47,7 +50,9 @@ class AdminTerminalController extends Controller
         $validatedData = $request->validate([
             'from' => 'required|max:45',
             'to' => 'required|max:45',
+            'ticket_cost' => 'required|integer|min:1|max:10000',
             'transit_points'  => 'required|array',
+            'transit_points.*' => 'required|string|:45',
         ]);
 
         $terminal->update($validatedData);
