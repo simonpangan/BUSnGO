@@ -37,16 +37,15 @@
                         <td>{{ $schedule->departure_time->format('l, F j, Y g:i A') }}</td>
                         <td>{{ $schedule->arrival_time->format('l, F j, Y g:i A') }}</td>
                         <td>
-                            <form id="status-update-form"
+                            <form
                               action="{{ route('bus-location.update', [
                                     'schedule_id' => $schedule->id,
                                 ]) }}"
                               method="POST"
                             >
                                 @csrf
-                                <select class="form-control @error('status') is-invalid @enderror" aria-label="Status select"
-                                        id="statusChange"
-                                        name="status"
+                                <select class="form-control status-change @error('status') is-invalid @enderror" aria-label="Status select"
+                                    name="status"
                                 >
                                     @foreach(Schedule::STATUS as $status)
                                         <option value="{{ $status }}"
@@ -54,8 +53,11 @@
                                         >{{ $status }}</option>
                                     @endforeach
                                     @foreach($schedule->terminal->transit_points as $points)
+                                        @php
+                                            $fullStatus = "Just passed by ".$points;
+                                        @endphp
                                         <option
-                                            {{ old('status', $schedule->status) == $points ? "selected" : "" }}
+                                            {{ old('status', $schedule->status) == $fullStatus ? "selected" : "" }}
                                             value="Just passed by {{ $points }}"
                                         >Just passed by {{ $points }}</option>
                                     @endforeach
@@ -77,11 +79,11 @@
                     responsive: true
                 })
 
-                $('#statusChange').data('previous-value', $('#statusChange').val());
-                $('#statusChange').on('change', function () {
+                $('.status-change').data('previous-value', $('.status-change').val());
+                $('.status-change').on('change', function () {
+                    const form = $(this).closest('form')
                     if (confirm('Are you sure you want to change the status?')) {
-                        // Submit the form
-                        $('#status-update-form').submit();
+                        form.submit();
                     } else {
                         $(this).val($(this).data('previous-value'));
                     }
