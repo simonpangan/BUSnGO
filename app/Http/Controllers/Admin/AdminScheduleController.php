@@ -9,6 +9,7 @@ use App\Models\Driver;
 use App\Models\Schedule;
 use App\Models\Terminal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 class AdminScheduleController extends Controller
@@ -27,7 +28,9 @@ class AdminScheduleController extends Controller
     {
         $request->validate([
             'bus_id' => ['required', 'integer', 'exists:buses,id'],
-            'departure_time' => ['required', 'date', 'after:tomorrow'],
+            'departure_time' => ['required', 'date',
+//                'after:tomorrow'
+            ],
             'arrival_time' => ['required', 'date', 'after:departure_time'],
             'status' => ['required', 'string'],
             'terminal_id' => ['required', 'integer', 'exists:terminals,id'],
@@ -56,6 +59,14 @@ class AdminScheduleController extends Controller
 
         $schedule->tickets()->createMany($tickets);
 
+        if (Carbon::parse($request->departure_time)->lt(Carbon::now())) {
+            return redirect()->route('admin.schedules.edit', $schedule)
+             ->with(
+                 'warning',
+                 'Schedule created successfully. We suggest to pick a date that is close to current time. '
+             );
+        }
+
         return to_route('schedules.index')
             ->with('success', 'Schedule created successfully');
     }
@@ -75,7 +86,9 @@ class AdminScheduleController extends Controller
     {
         $request->validate([
             'bus_id' => ['required', 'integer', 'exists:buses,id'],
-            'departure_time' => ['required', 'date', 'after:tomorrow'],
+            'departure_time' => ['required', 'date',
+//                'after:tomorrow'
+            ],
             'arrival_time' => ['required', 'date', 'after:departure_time'],
             'status' => ['required', 'string'],
             'terminal_id' => ['required', 'integer', 'exists:terminals,id'],
@@ -92,6 +105,14 @@ class AdminScheduleController extends Controller
             'driver_id' => $request->driver_id,
             'conductor_id' => $request->conductor_id,
         ]);
+
+        if (Carbon::parse($request->departure_time)->lt(Carbon::now())) {
+            return redirect()->route('admin.schedules.edit', $schedule)
+             ->with(
+                 'warning',
+                 'Schedule created successfully. We suggest to pick a date that is close to current time.'
+             );
+        }
 
         return redirect()->route('admin.schedules.edit', $schedule)
              ->with('success', 'Schedule updated successfully');

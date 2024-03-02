@@ -12,6 +12,11 @@
                 {{ session('success') }}
             </div>
         @endif
+            @if(session('warning'))
+                <div class="alert alert-warning">
+                    {{ session('warning') }}
+                </div>
+            @endif
 
         <h2>Edit Schedule</h2>
         @if ($errors->any())
