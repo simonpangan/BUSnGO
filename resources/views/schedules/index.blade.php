@@ -16,6 +16,7 @@
             @role('admin')
                 <a href="{{ route('admin.schedules.create') }}" class="btn btn-success">
                     Create Schedule
+                    <i class="bi bi-plus"></i>
                 </a>
             @endrole
         </div>

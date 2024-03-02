@@ -47,6 +47,9 @@ class AdminDriverController extends Controller
             'password' => Hash::make($validatedData['password']),
         ]);
 
+        $user->assignRole('driver');
+
+
         //Store Photo in public folder
         $file = $request->file('photo');
         $photoFileName = uniqid().'-'.now()->timestamp.$file->getClientOriginalName();

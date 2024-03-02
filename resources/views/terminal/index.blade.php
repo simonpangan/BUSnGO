@@ -16,6 +16,7 @@
             @role('admin')
                 <a href="{{ route('admin.terminals.create') }}" class="btn btn-success">
                     Create Terminal
+                    <i class="bi bi-plus"></i>
                 </a>
             @endrole
         </div>

@@ -80,7 +80,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
              ->name('conductors.show')
              ->withoutMiddleware('role:conductor');
 
-        Route::post('/bus-location', BusStatusUpdateController::class)->name('bus-location.update');
     });
 
     //PASSENGER ROUTES
@@ -103,7 +102,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     });
 });
 
-require __DIR__.'/auth.php';
+Route::middleware(['role:driver|conductor'])->group(function () {
+    Route::post('/bus-location', BusStatusUpdateController::class)->name('bus-location.update');
+});
 
-// Refund time limit
-//fix yung foreign key constraint such that deleting terminal when there is a schedule will trigger an error
+require __DIR__.'/auth.php';

@@ -13,7 +13,10 @@
 
         <div class="d-flex justify-content-between align-items-center">
             <h2>Driver List</h2>
-            <a href="{{ route('admin.drivers.create') }}" class="btn btn-success">Create Driver</a>
+            <a href="{{ route('admin.drivers.create') }}" class="btn btn-success">
+                Create Driver
+                <i class="bi bi-plus"></i>
+            </a>
         </div>
         <table id="drivers-table" class="table mt-4">
             <thead>

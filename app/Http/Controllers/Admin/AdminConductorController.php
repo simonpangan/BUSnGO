@@ -49,6 +49,8 @@ class AdminConductorController extends Controller
             'password' => Hash::make($validatedData['password']),
         ]);
 
+        $user->assignRole('conductor');
+
         //Store Photo in public folder
         $file          = $request->file('photo');
         $photoFileName = uniqid().'-'.now()->timestamp.$file->getClientOriginalName();

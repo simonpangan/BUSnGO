@@ -46,6 +46,8 @@
                 </div>
             </div>
 
+
+            @role('passenger')
             <div class="col-12 col-md-3">
                 @if(session('success'))
                     <div class="alert alert-success">
@@ -95,7 +97,7 @@
                         </div>
                     </div>
                     <br/>
-                    <div class="fw-bold">Seat #:</div>
+                    <div class="fw-bold">Tickets Sold:</div>
                     @foreach($scheduleTickets as $ticket)
                         <div class="row">
                             <div class="col-6 d-flex">
@@ -172,26 +174,80 @@
                     </div>
                 @endif
             </div>
+            @else
+                <div class="col-12 col-md-3">
+                    <div class="fw-bold">Seat #:</div>
+                        @foreach($scheduleTickets as $ticket)
+                            <div class="row">
+                                <div class="col-6 d-flex">
+                                    @if(isset($ticket[0]))
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input ticket-input" type="checkbox"
+                                                   name="tickets[]"
+                                                   value="{{ $ticket[0]->id }}"
+                                                   id="tsCheckBox"
+                                                {{ $ticket[0]->status != "available" ? "disabled" : "" }}
+                                            >
+                                            <label class="form-check-label" for="tsCheckBox">
+                                                #{{ $ticket[0]->seat_no }}
+                                            </label>
+                                        </div>
+                                    @endif
+                                    @if(isset($ticket[1]))
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input ticket-input" type="checkbox"
+                                                   name="tickets[]"
+                                                   value="{{ $ticket[1]->id }}"
+                                                   id="tsCheckBox"
+                                                {{ $ticket[1]->status != "available" ? "disabled" : "" }}
+                                            >
+                                            <label class="form-check-label" for="tsCheckBox">
+                                                #{{ $ticket[1]->seat_no }}
+                                            </label>
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="col-6 d-flex">
+                                    @if(isset($ticket[2]))
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input ticket-input" type="checkbox"
+                                                   name="tickets[]"
+                                                   value="{{ $ticket[2]->id }}"
+                                                   id="tsCheckBox"
+                                                {{ $ticket[2]->status != "available" ? "disabled" : "" }}
+                                            >
+                                            <label class="form-check-label" for="tsCheckBox">
+                                                #{{ $ticket[2]->seat_no }}
+                                            </label>
+                                        </div>
+                                    @endif
+                                    @if(isset($ticket[3]))
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input ticket-input" type="checkbox"
+                                                   name="tickets[]"
+                                                   value="{{ $ticket[3]->id }}"
+                                                   id="tsCheckBox"
+                                                {{ $ticket[3]->status != "available" ? "disabled" : "" }}
+                                            >
+                                            <label class="form-check-label" for="tsCheckBox">
+                                                #{{ $ticket[3]->seat_no }}
+                                            </label>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    <br/>
+                    @role('admin|conductor|driver')
+                    <div id="totalCost">
+                        <span class="fw-bold">Total Earn</span>:
+                        ₱<span id="totalCostValue">
+                            {{ ($schedule->tickets->where('status', "!=", 'available')->count()) * $schedule->terminal->ticket_cost }}
+                        </span>
+                    </div>
+                    @endrole
+                </div>
+            @endrole
         </div>
     </div>
-
-    @section('javascript')
-        <script>
-            $(document).ready(function () {
-                let totalCost = 0
-
-                $('.ticket-input').change(function () {
-                    const ticketCost = {{ $schedule->terminal->ticket_cost }}
-
-                    if($(this).prop('checked')) {
-                        totalCost += ticketCost;
-                    } else {
-                        totalCost -= ticketCost;
-                    }
-
-                    $('#totalCostValue').text(totalCost.toFixed(2));
-                });
-            });
-        </script>
-    @endsection
 </x-app-layout>

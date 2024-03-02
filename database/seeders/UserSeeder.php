@@ -47,10 +47,10 @@ class UserSeeder extends Seeder
 
             $passenger->assignRole('passenger');
 
-            // Create a test conductors user
+            // Create a test conductor user
             $conductor = User::factory()->create([
                 'name' => 'Test Conductor',
-                'email' => 'conductors@example.com',
+                'email' => 'conductor@example.com',
                 'password' => bcrypt('password'),
             ]);
 
