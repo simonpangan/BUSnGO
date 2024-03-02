@@ -1,7 +1,9 @@
+@php use Carbon\Carbon @endphp
 <x-app-layout>
     @section('css')
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.13.8/datatables.min.css"/>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css"/>
+        <link rel="stylesheet" type="text/css"
+              href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css"/>
     @endsection
 
     <div class="container mt-4">
@@ -37,12 +39,13 @@
                         <td>
                             {{ implode(",", $payment->tickets->pluck('seat_no')->toArray()) }}
                         </td>
-                        <td>From: {{ $payment->schedule->terminal->from }}, To: {{ $payment->schedule->terminal->to }}</td>
+                        <td>From: {{ $payment->schedule->terminal->from }},
+                            To: {{ $payment->schedule->terminal->to }}</td>
                         <td>
                             {{ $payment->schedule->status }}
-                            <br />
+                            <br/>
                             <a href="{{ route('schedules.show', $payment->schedule->id) }}"
-                                class="btn btn-sm btn-primary">View
+                               class="btn btn-sm btn-primary">View
                             </a>
                         </td>
                         <td>{{ $payment->status }}</td>
@@ -51,12 +54,24 @@
                         </td>
                         <td>
                             @if($payment->status != 'refunded')
-                            <a href="{{ route('payment.receipt', $payment->id) }}" class="btn btn-info btn-sm"> Receipt </a>
+                                <a href="{{ route('payment.receipt', $payment->id) }}" class="btn btn-info btn-sm">
+                                    Receipt </a>
                             @endif
-                            <form method="post" action="{{ route('payment.refund', $payment->id) }}" style="display:inline">
+                            <form method="post" action="{{ route('payment.refund', $payment->id) }}"
+                                  style="display:inline">
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm"
-                                        @if($payment->status == 'refunded') {{ 'disabled' }} @endif
+                                        @php
+                                            $currentTime = Carbon::now();
+                                            $eightHoursBeforeDepartureTime = $payment
+                                                ->schedule
+                                                ->departure_time
+                                                ->copy()
+                                                ->subHours(8);
+                                        @endphp
+                                        @if(($payment->status == 'refunded') || (! $currentTime->lte($eightHoursBeforeDepartureTime)))
+                                            {{ 'disabled' }}
+                                        @endif
                                         onclick="return confirm('Are you sure?')">
                                     Refund
                                 </button>
@@ -76,7 +91,7 @@
             $(document).ready(function () {
                 $('#myBuses').DataTable({
                     responsive: true,
-                    'sort' : []
+                    'sort': []
                 })
             });
         </script>

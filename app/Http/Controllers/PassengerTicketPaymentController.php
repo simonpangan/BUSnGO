@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\ValidationException;
 use Luigel\Paymongo\Facades\Paymongo;
 use Luigel\Paymongo\Models\Refund;
 
@@ -111,11 +112,18 @@ class PassengerTicketPaymentController
 
     public function refund(Payment $payment)
     {
-        //TODO: ADD REFUND TIME LIMIT LOGIC
-//        if ($this->somethingIsInvalid()) {
-//            throw ValidationException::withMessages([
-//                'some_error' => 'Something is invalid.'),
-//         ]);
+        $currentTime = Carbon::now();
+        $eightHoursBeforeDepartureTime = $payment
+            ->schedule
+            ->departure_time
+            ->copy()
+            ->subHours(8);
+
+        if (! $currentTime->lte($eightHoursBeforeDepartureTime)) {
+            throw ValidationException::withMessages([
+                'refund_time_limit' => 'Refund is not allowed within 8 hours before departure time.'
+            ]);
+        }
 
         Paymongo::refund()->create([
             'amount'     => $payment->amount,

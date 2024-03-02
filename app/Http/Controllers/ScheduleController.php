@@ -6,6 +6,7 @@ use App\Models\Bus;
 use App\Models\Schedule;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Luigel\Paymongo\Facades\Paymongo;
@@ -14,10 +15,19 @@ class ScheduleController extends Controller
 {
     public function index()
     {
+        $authUserRole = Auth::user()?->hasRole('admin');
+        $schedules = null;
+
+        if ($authUserRole) {
+            $schedules = Schedule::latest()->get();
+        } else {
+            $schedules = Schedule::query()
+                ->where('departure_time', ">=", Carbon::now())
+                ->get();
+        }
+
         return view('schedules.index', [
-            'schedules' => Schedule::query()
-                                   ->latest()
-                                   ->get()
+            'schedules' => $schedules
         ]);
     }
 
