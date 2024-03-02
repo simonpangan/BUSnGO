@@ -17,6 +17,15 @@ class Payment extends Model
         'paid_at'    => 'datetime'
     ];
 
+    public function passenger(): BelongsTo
+    {
+        return $this->belongsTo(
+            User::class,
+            'passenger_id',
+            'id'
+        );
+    }
+
     public function schedule(): BelongsTo
     {
         return $this->belongsTo(Schedule::class);

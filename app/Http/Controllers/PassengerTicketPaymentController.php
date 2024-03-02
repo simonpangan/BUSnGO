@@ -14,6 +14,10 @@ use Luigel\Paymongo\Models\Refund;
 
 class PassengerTicketPaymentController
 {
+    public function receipt(Payment $payment)
+    {
+        return view('payment.receipt', compact('payment'));
+    }
     public function book(Request $request)
     {
         $request->validate([
@@ -55,7 +59,6 @@ class PassengerTicketPaymentController
 
         return redirect()->to($payment->redirect['checkout_url']);
     }
-
 
     public function callback()
     {

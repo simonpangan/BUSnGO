@@ -94,6 +94,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/payments/callback', [PassengerTicketPaymentController::class, 'callback'])->name('payment.callback');
         Route::get('/payments/failed', [PassengerTicketPaymentController::class, 'failed'])->name('payment.failed');
 
+        Route::get('/payments/{payment}/receipt', [PassengerTicketPaymentController::class, 'receipt'])->name('payment.receipt');
         Route::post('/payments/{payment}/refund', [PassengerTicketPaymentController::class, 'refund'])->name('payment.refund');
     });
 

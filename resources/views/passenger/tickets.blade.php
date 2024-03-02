@@ -16,7 +16,7 @@
         </div>
 
         <div>
-            <table id="myBuses" style="width: 1000px;" class="display table mt-3">
+            <table id="myBuses" style="width: 1200px;" class="display table mt-3">
                 <thead>
                 <tr>
                     <th>Amount</th>
@@ -50,6 +50,9 @@
                             {{ $payment->paid_at->diffForHumans() }}
                         </td>
                         <td>
+                            @if($payment->status != 'refunded')
+                            <a href="{{ route('payment.receipt', $payment->id) }}" class="btn btn-info btn-sm"> Receipt </a>
+                            @endif
                             <form method="post" action="{{ route('payment.refund', $payment->id) }}" style="display:inline">
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm"
