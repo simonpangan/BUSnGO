@@ -8,6 +8,9 @@
             <div class="col-12 col-md-3">
                 <div class="card rounded p-3" style="max-width: 500px;">
                     <div class="mb-3">
+                        <strong>Schedule ID</strong>: {{ $schedule->id }}
+                    </div>
+                    <div class="mb-3">
                         <strong>Bus</strong>: {{ $schedule->bus->no }}
                     </div>
                     <div class="mb-3">
