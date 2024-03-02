@@ -46,8 +46,7 @@
                 </div>
             </div>
 
-
-            @role('passenger')
+            @unlessrole('admin|conductor|driver')
             <div class="col-12 col-md-3">
                 @if(session('success'))
                     <div class="alert alert-success">
@@ -59,16 +58,6 @@
                         {{ session('error') }}
                     </div>
                 @endif
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
                 <form method="post" action="{{ route('payment.book', [
                     'schedule_id' => $schedule->id,
                 ])}}"
@@ -80,24 +69,21 @@
                         Book Selected
                     </button>
                     <br/>
-                    <div class="fw-bold">Payment Method #: </div>
+                    <div class="fw-bold">Payment Method #:</div>
                     <div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="wallet" id="gCashRadio"
-                                   value="G-CASH"
-                                    {{ old("wallet") == "G-CASH" ? "checked": "" }}
-                            >
+                                   value="G-CASH">
                             <label class="form-check-label" for="gCashRadio">G-Cash</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="wallet" id="grabPay"
-                                {{ old("wallet") == "GRAB-PAY" ? "checked": "" }}
                                    value="GRAB-PAY">
                             <label class="form-check-label" for="grabPay">Grab Pay</label>
                         </div>
                     </div>
                     <br/>
-                    <div class="fw-bold">Tickets Sold:</div>
+                    <div class="fw-bold">Seat #:</div>
                     @foreach($scheduleTickets as $ticket)
                         <div class="row">
                             <div class="col-6 d-flex">
@@ -174,80 +160,81 @@
                     </div>
                 @endif
             </div>
-            @else
-                <div class="col-12 col-md-3">
-                    <div class="fw-bold">Seat #:</div>
-                        @foreach($scheduleTickets as $ticket)
-                            <div class="row">
-                                <div class="col-6 d-flex">
-                                    @if(isset($ticket[0]))
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input ticket-input" type="checkbox"
-                                                   name="tickets[]"
-                                                   value="{{ $ticket[0]->id }}"
-                                                   id="tsCheckBox"
-                                                {{ $ticket[0]->status != "available" ? "disabled" : "" }}
-                                            >
-                                            <label class="form-check-label" for="tsCheckBox">
-                                                #{{ $ticket[0]->seat_no }}
-                                            </label>
-                                        </div>
-                                    @endif
-                                    @if(isset($ticket[1]))
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input ticket-input" type="checkbox"
-                                                   name="tickets[]"
-                                                   value="{{ $ticket[1]->id }}"
-                                                   id="tsCheckBox"
-                                                {{ $ticket[1]->status != "available" ? "disabled" : "" }}
-                                            >
-                                            <label class="form-check-label" for="tsCheckBox">
-                                                #{{ $ticket[1]->seat_no }}
-                                            </label>
-                                        </div>
-                                    @endif
+            @endunlessrole
+
+            @role('admin|conductor|driver')
+            <div class="col-12 col-md-3">
+                <div class="fw-bold">Seat #:</div>
+                @foreach($scheduleTickets as $ticket)
+                    <div class="row">
+                        <div class="col-6 d-flex">
+                            @if(isset($ticket[0]))
+                                <div class="{{ $ticket[0]->status != "available" ? "text-danger" : "text-info" }}">
+                                    #{{ $ticket[0]->seat_no }}
                                 </div>
-                                <div class="col-6 d-flex">
-                                    @if(isset($ticket[2]))
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input ticket-input" type="checkbox"
-                                                   name="tickets[]"
-                                                   value="{{ $ticket[2]->id }}"
-                                                   id="tsCheckBox"
-                                                {{ $ticket[2]->status != "available" ? "disabled" : "" }}
-                                            >
-                                            <label class="form-check-label" for="tsCheckBox">
-                                                #{{ $ticket[2]->seat_no }}
-                                            </label>
-                                        </div>
-                                    @endif
-                                    @if(isset($ticket[3]))
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input ticket-input" type="checkbox"
-                                                   name="tickets[]"
-                                                   value="{{ $ticket[3]->id }}"
-                                                   id="tsCheckBox"
-                                                {{ $ticket[3]->status != "available" ? "disabled" : "" }}
-                                            >
-                                            <label class="form-check-label" for="tsCheckBox">
-                                                #{{ $ticket[3]->seat_no }}
-                                            </label>
-                                        </div>
-                                    @endif
+                            @endif
+                            @if(isset($ticket[1]))
+                                <div class="ms-3  {{ $ticket[1]->status != "available" ? "text-danger" : "text-info" }}">
+                                    #{{ $ticket[1]->seat_no }}
                                 </div>
-                            </div>
-                        @endforeach
-                    <br/>
-                    @role('admin|conductor|driver')
-                    <div id="totalCost">
-                        <span class="fw-bold">Total Earn</span>:
-                        ₱<span id="totalCostValue">
-                            {{ ($schedule->tickets->where('status', "!=", 'available')->count()) * $schedule->terminal->ticket_cost }}
-                        </span>
+                            @endif
+                        </div>
+                        <div class="col-6 d-flex">
+                            @if(isset($ticket[2]))
+                                <div class="{{ $ticket[2]->status != "available" ? "text-danger" : "text-info" }}">
+                                    #{{ $ticket[2]->seat_no }}
+                                </div>
+                            @endif
+                            @if(isset($ticket[3]))
+                                <div class="ms-3 {{ $ticket[3]->status != "available" ? "text-danger" : "text-info" }}">
+                                    #{{ $ticket[3]->seat_no }}
+                                </div>
+                            @endif
+                        </div>
                     </div>
-                    @endrole
-                </div>
+                    @endforeach
+                    <br/>
+
+                    <div>
+                        <span class="fw-bold">Total Earn</span>:
+                        ₱<span>
+                        {{ ($schedule->tickets->where('status', "!=", 'available')->count()) * $schedule->terminal->ticket_cost }}
+                    </span>
+                    </div>
+
+                    <br/>
+
+                    @if(count($authUserTickets) > 0)
+                        <div class="fw-bold">Your Tickets:</div>
+                        <div>
+                            {{ implode(', ', $authUserTickets) }}
+                        </div>
+                    @endif
+            </div>
             @endrole
         </div>
     </div>
+
+    @section('javascript')
+        <script>
+            $(document).ready(function () {
+                let totalCost = 0
+
+                $('.ticket-input').change(function () {
+                    const ticketCost = {{ $schedule->terminal->ticket_cost }}
+
+                    if($(this).prop('checked'))
+                    {
+                        totalCost += ticketCost;
+                    }
+                else
+                    {
+                        totalCost -= ticketCost;
+                    }
+
+                    $('#totalCostValue').text(totalCost.toFixed(2));
+                });
+            });
+        </script>
+    @endsection
 </x-app-layout>
