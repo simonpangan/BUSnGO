@@ -31,7 +31,7 @@ class Schedule extends Model
 
     public function tickets(): HasMany
     {
-        return $this->hasMany(Ticket::class)->withTrashed();
+        return $this->hasMany(Ticket::class);
     }
 
     public function driver(): BelongsTo

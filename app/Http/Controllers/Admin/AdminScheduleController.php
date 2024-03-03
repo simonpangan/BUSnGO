@@ -109,7 +109,7 @@ class AdminScheduleController extends Controller
         if (Carbon::parse($request->departure_time)->lt(Carbon::now())) {
             return redirect()->route('admin.schedules.edit', $schedule)
              ->with(
-                 'warning',\
+                 'warning',
                  'Schedule created successfully. We suggest to pick a date that is close to current time.'
              );
         }

@@ -33,18 +33,31 @@
                     </div>
 
                     <div>
-                        <strong>Driver</strong>: <a
+                        <strong>Driver</strong>:
+                        @if( $schedule->driver->deleted_at != null)
+                            {{ $schedule->driver->name }}
+                        @else
+                        <a
                             target="_blank"
                             href="{{ route('drivers.show',
-                    $schedule->driver->id
-                )}}"> {{ $schedule->driver->name }}</a>
+                                $schedule->driver->id
+                            )}}"
+                        >
+                            {{ $schedule->driver->name }}
+                        </a>
+                        @endif
                     </div>
                     <div>
-                        <strong>Conductor:</strong> <a
-                            target="_blank"
-                            href="{{ route('conductors.show',
-                    $schedule->conductor->id
-                )}}"> {{ $schedule->conductor->name }}</a>
+                        <strong>Conductor:</strong>
+                        @if( $schedule->conductor->deleted_at != null)
+                            {{ $schedule->conductor->name }}
+                        @else
+                            <a
+                                target="_blank"
+                                href="{{ route('conductors.show',
+                        $schedule->conductor->id
+                    )}}"> {{ $schedule->conductor->name }}</a>
+                        @endif
                     </div>
                 </div>
             </div>
