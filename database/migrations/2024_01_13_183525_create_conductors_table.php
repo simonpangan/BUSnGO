@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('contact_no', 45);
             $table->string('photo');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

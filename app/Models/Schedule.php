@@ -26,26 +26,26 @@ class Schedule extends Model
 
     public function bus(): BelongsTo
     {
-        return $this->belongsTo(Bus::class);
+        return $this->belongsTo(Bus::class)->withTrashed();
     }
 
     public function tickets(): HasMany
     {
-        return $this->hasMany(Ticket::class);
+        return $this->hasMany(Ticket::class)->withTrashed();
     }
 
     public function driver(): BelongsTo
     {
-        return $this->belongsTo(Driver::class);
+        return $this->belongsTo(Driver::class)->withTrashed();
     }
 
     public function conductor(): BelongsTo
     {
-        return $this->belongsTo(Conductor::class);
+        return $this->belongsTo(Conductor::class)->withTrashed();
     }
 
     public function terminal(): BelongsTo
     {
-        return $this->belongsTo(Terminal::class);
+        return $this->belongsTo(Terminal::class)->withTrashed();
     }
 }

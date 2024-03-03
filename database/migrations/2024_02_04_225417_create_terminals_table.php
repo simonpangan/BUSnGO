@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('ticket_cost');
             $table->json('transit_points')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

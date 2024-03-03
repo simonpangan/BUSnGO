@@ -25,6 +25,7 @@ return new class extends Migration {
             $table->string('transmission_model');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

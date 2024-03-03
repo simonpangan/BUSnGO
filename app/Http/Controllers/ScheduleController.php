@@ -19,7 +19,9 @@ class ScheduleController extends Controller
         $schedules = null;
 
         if ($authUserRole) {
-            $schedules = Schedule::latest()->get();
+            $schedules = Schedule::query()
+                ->latest()
+                ->get();
         } else {
             $schedules = Schedule::query()
                 ->where('departure_time', ">=", Carbon::now())
