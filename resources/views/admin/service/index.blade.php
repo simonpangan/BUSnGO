@@ -20,69 +20,43 @@
             </a>
         </div>
 
-{{--        <div>--}}
-{{--            <table id="myBuses" style="width: 1000px;" class="display table mt-3">--}}
-{{--                <thead>--}}
-{{--                <tr>--}}
-{{--                    <th>ID</th>--}}
-{{--                    <th>No</th>--}}
-{{--                    <th>Seat</th>--}}
-{{--                    <th>Engine Model</th>--}}
-{{--                    <th>Chassis No</th>--}}
-{{--                    <th>Model</th>--}}
-{{--                    <th>Color</th>--}}
-{{--                    <th>Register No</th>--}}
-{{--                    <th>Made In</th>--}}
-{{--                    <th>Make</th>--}}
-{{--                    <th>Price</th>--}}
-{{--                    <th>Fuel</th>--}}
-{{--                    <th>Engine Capacity</th>--}}
-{{--                    <th>Purchase Year</th>--}}
-{{--                    <th>Transmission Model</th>--}}
-{{--                    <th>Status</th>--}}
-{{--                    <th>Created At</th>--}}
-{{--                    <th>Updated At</th>--}}
-{{--                    <th>Action</th>--}}
-{{--                </tr>--}}
-{{--                </thead>--}}
-{{--                <tbody>--}}
-{{--                @foreach($buses as $bus)--}}
-{{--                    <tr>--}}
-{{--                        <td>{{ $bus->id }}</td>--}}
-{{--                        <td>{{ $bus->no }}</td>--}}
-{{--                        <td>{{ $bus->seat }}</td>--}}
-{{--                        <td>{{ $bus->engine_model }}</td>--}}
-{{--                        <td>{{ $bus->chassis_no }}</td>--}}
-{{--                        <td>{{ $bus->model }}</td>--}}
-{{--                        <td>{{ $bus->color }}</td>--}}
-{{--                        <td>{{ $bus->register_no }}</td>--}}
-{{--                        <td>{{ $bus->made_in }}</td>--}}
-{{--                        <td>{{ $bus->make }}</td>--}}
-{{--                        <td>{{ $bus->price }}</td>--}}
-{{--                        <td>{{ $bus->fuel }}</td>--}}
-{{--                        <td>{{ $bus->engine_capacity }}</td>--}}
-{{--                        <td>{{ $bus->puchase_year }}</td>--}}
-{{--                        <td>{{ $bus->transmission_model }}</td>--}}
-{{--                        <td>{{ $bus->status }}</td>--}}
-{{--                        <td>{{ $bus->created_at }}</td>--}}
-{{--                        <td>{{ $bus->updated_at }}</td>--}}
-{{--                        <td>--}}
-{{--                            <a href="{{ route('admin.buses.show', $bus->id) }}" class="btn btn-info btn-sm">Show</a>--}}
-{{--                            <a href="{{ route('admin.buses.edit', $bus->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>--}}
-{{--                            <form method="post" action="{{ route('admin.buses.destroy', $bus->id) }}" style="display:inline">--}}
-{{--                                @csrf--}}
-{{--                                @method('delete')--}}
-{{--                                <button type="submit" class="btn btn-danger btn-sm"--}}
-{{--                                        onclick="return confirm('Are you sure?')">--}}
-{{--                                    <i class="bi bi-trash-fill"></i>--}}
-{{--                                </button>--}}
-{{--                            </form>--}}
-{{--                        </td>--}}
-{{--                    </tr>--}}
-{{--                @endforeach--}}
-{{--                </tbody>--}}
-{{--            </table>--}}
-{{--        </div>--}}
+        <div>
+            <table id="myBuses" style="width: 1000px;" class="display table mt-3">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>BUS NO</th>
+                    <th>Description</th>
+                    <th>Engine Model</th>
+                    <th>Status</th>
+                    <th>Duration</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($services as $service)
+                    <tr>
+                        <td>{{ $service->id }}</td>
+                        <td>{{ $service->bus->no }}</td>
+                        <td>{{ $service->description }}</td>
+                        <td>{{ $service->status }}</td>
+                        <td>{{ $service->duration }}</td>
+                        <td>
+                            <a href="{{ route('admin.service.edit', $service->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                            <form method="post" action="{{ route('admin.service.destroy', $service->id) }}" style="display:inline">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Are you sure?')">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
     @section('javascript')
