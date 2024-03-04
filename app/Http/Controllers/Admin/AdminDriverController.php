@@ -19,6 +19,7 @@ class AdminDriverController extends Controller
         return view('admin.drivers.index', [
             'drivers' => Driver::latest()->get(),
         ]);
+
     }
 
     public function create()

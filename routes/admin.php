@@ -5,12 +5,22 @@ use App\Http\Controllers\Admin\AdminDriverController;
 use App\Http\Controllers\Admin\AdminScheduleController;
 use App\Http\Controllers\Admin\AdminTerminalController;
 use App\Http\Controllers\BusController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['role:admin'])->prefix('admin')->group(function () {
     Route::get('/', function () {
         return view('dashboard');
     })->middleware(['auth', 'verified']);
+
+    Route::controller(ServiceController::class)->group(function () {
+    	Route::get('services/', 'index')->name('admin.service.index');
+    	Route::get('services/create', 'create')->name('admin.service.create');
+    	Route::post('services', 'store')->name('admin.service.store');
+    	Route::get('services/{service}/edit', 'edit')->name('admin.service.edit');
+    	Route::put('services/{service}', 'update')->name('admin.service.update');
+    	Route::delete('services/{service}', 'destroy')->name('admin.service.destroy');
+    });
 
     Route::controller(AdminTerminalController::class)->group(function () {
         Route::get('/terminals', 'index')->name('admin.terminals.index');
