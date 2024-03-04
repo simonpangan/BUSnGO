@@ -10,6 +10,7 @@
         <li> <a class="dropdown-item" href="{{ route('admin.conductors.index') }}">{{ __('Conductors') }}</a></li>
         <li><a class="dropdown-item" href="{{ route('admin.buses.index') }}">{{ __('Buses') }}</a></li>
         <li><a class="dropdown-item" href="{{ route('admin.terminals.index') }}">{{ __('Terminals') }}</a></li>
+        <li><a class="dropdown-item" href="{{ route('admin.service.index') }}">{{ __('Services') }}</a></li>
     </ul>
 </li>
 @endrole

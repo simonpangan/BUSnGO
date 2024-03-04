@@ -21,13 +21,12 @@
         </div>
 
         <div>
-            <table id="myBuses" style="width: 1000px;" class="display table mt-3">
+            <table id="myService" style="width: 1000px;" class="display table mt-3">
                 <thead>
                 <tr>
                     <th>ID</th>
                     <th>BUS NO</th>
                     <th>Description</th>
-                    <th>Engine Model</th>
                     <th>Status</th>
                     <th>Duration</th>
                     <th></th>
@@ -64,7 +63,7 @@
         <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
         <script>
             $(document).ready(function () {
-                $('#myBuses').DataTable({
+                $('#myService').DataTable({
                     responsive: true,
                     "order": []
                 })

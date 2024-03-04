@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bus;
 use App\Models\Service;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,9 @@ class ServiceController extends Controller
 
     public function create()
     {
-        return view('admin.service.create');
+        return view('admin.service.create', [
+            'buses' => Bus::all()
+        ]);
     }
 
     public function store(Request $request)
