@@ -26,8 +26,8 @@ class ServiceController extends Controller
     {
         $data = $request->validate([
             'bus_id'      => ['required', 'integer'],
-            'description' => ['required'],
-            'status'      => ['required'],
+            'description' => ['required', 'max:1000'],
+            'status'      => ['required', 'max:100'],
             'duration'    => ['required'],
         ]);
 
@@ -41,6 +41,7 @@ class ServiceController extends Controller
     {
         return view('admin.service.edit', [
             'service' => $service,
+            'buses' => Bus::all()
         ]);
     }
 
@@ -48,8 +49,8 @@ class ServiceController extends Controller
     {
         $data = $request->validate([
             'bus_id'      => ['required', 'integer'],
-            'description' => ['required'],
-            'status'      => ['required'],
+            'description' => ['required', 'max:1000'],
+            'status'      => ['required', 'max:100'],
             'duration'    => ['required'],
         ]);
 
@@ -57,7 +58,7 @@ class ServiceController extends Controller
 
         return to_route('admin.service.edit', [
             'id' => $service->id
-        ])->with('success', 'Service updated successfully');;
+        ])->with('success', 'Service updated successfully');
     }
 
     public function destroy(Service $service)
