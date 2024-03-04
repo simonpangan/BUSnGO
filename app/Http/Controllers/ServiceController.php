@@ -10,7 +10,7 @@ class ServiceController extends Controller
     public function index()
     {
         return view('admin.service.index', [
-            'drivers' => Service::latest()->get(),
+            'services' => Service::latest()->get(),
         ]);
     }
 
