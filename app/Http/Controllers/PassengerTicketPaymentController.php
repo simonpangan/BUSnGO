@@ -110,7 +110,7 @@ class PassengerTicketPaymentController
         ])->with('error', 'Transaction Error');
     }
 
-    public function refund(Payment $payment)
+            public function refund(Payment $payment)
     {
         $currentTime = Carbon::now();
         $eightHoursBeforeDepartureTime = $payment

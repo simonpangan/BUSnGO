@@ -60,6 +60,7 @@
                             <form method="post" action="{{ route('payment.refund', $payment->id) }}"
                                   style="display:inline">
                                 @csrf
+                                @if(($payment->status != 'refunded'))
                                 <button type="submit" class="btn btn-danger btn-sm"
                                         @php
                                             $currentTime = Carbon::now();
@@ -75,6 +76,7 @@
                                         onclick="return confirm('Are you sure?')">
                                     Refund
                                 </button>
+                                @endif
                             </form>
                         </td>
                     </tr>
