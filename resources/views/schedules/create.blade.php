@@ -70,6 +70,18 @@
                     @enderror
                 </div>
 
+                <div x-data="{
+                    message: '',
+                    get isBlank() {
+                        return this.message == '';
+                    }
+                }">
+                    <input type="date" x-model="message">
+                    <template x-if="isBlank">
+                        <div>Contents...</div>
+                    </template>
+                </div>
+
                 <div class="mb-3">
                     <label for="departure_time" class="form-label">Departure Time</label>
                     <input type="datetime-local"
