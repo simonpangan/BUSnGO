@@ -77,6 +77,7 @@
                     }
                 }">
                     <input type="date" x-model="message">
+                    <span x-text="message"></span>
                     <template x-if="isBlank">
                         <div>Contents...</div>
                     </template>
