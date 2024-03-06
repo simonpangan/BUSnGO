@@ -15,7 +15,7 @@
         <div class="d-flex justify-content-between align-items-center mb-2">
             <h2>Service List</h2>
             <a href="{{ route('admin.service.create') }}" class="btn btn-success">
-                Create Service
+                Create New Service Details
                 <i class="bi bi-plus"></i>
             </a>
         </div>

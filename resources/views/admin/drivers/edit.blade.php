@@ -12,17 +12,23 @@
         <br/>
         <br/>
         <h2 class="text-center">Edit Driver</h2>
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
 
         <div class="mx-auto border border-2 p-3" style="max-width: 500px">
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form method="post" action="{{ route('admin.drivers.update', $driver) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')

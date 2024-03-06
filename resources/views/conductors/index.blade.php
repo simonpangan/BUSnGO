@@ -9,7 +9,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <h2>Conductors List</h2>
             <a href="{{ route('admin.conductors.create') }}" class="btn btn-success">
-                Create Conductor
+                Create New Conductor Information
                 <i class="bi bi-plus"></i>
             </a>
         </div>
