@@ -57,7 +57,7 @@ class ServiceController extends Controller
         $service->update($data);
 
         return to_route('admin.service.edit', [
-            'id' => $service->id
+            'service' => $service
         ])->with('success', 'Service updated successfully');
     }
 

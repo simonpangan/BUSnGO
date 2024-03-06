@@ -6,6 +6,10 @@
     @endsection
 
     <div class="container mt-4">
+        <a href="{{ route('admin.service.index') }}" class="btn btn-info">
+            <- Go Back
+        </a>
+
         <div class="mx-auto" style="max-width: 500px;">
             @if(session('success'))
                 <div class="alert alert-success">
@@ -23,7 +27,10 @@
                     </ul>
                 </div>
             @endif
-            <form method="post" action="{{ route('admin.service.store') }}">
+            <form method="post" action="{{ route('admin.service.update', [
+                'service' => $service
+            ]) }}">
+                @method('PUT')
                 @csrf
                 <div class="mb-3">
                     <label for="bus_id" class="form-label">Bus: </label>

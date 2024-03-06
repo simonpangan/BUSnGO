@@ -144,6 +144,6 @@ class PassengerTicketPaymentController
         ]);
 
         return to_route('passenger.tickets')
-            ->with('success', 'Successfully refunded your ticket');
+            ->with('success', 'Successfully refunded your ticket. Your refund may take 24 hrs to reflect on your account.');
     }
 }
