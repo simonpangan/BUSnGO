@@ -6,6 +6,9 @@
     @endsection
 
     <div class="container mt-4">
+        <a href="{{ route('schedules.index') }}" class="btn btn-info">
+            <- Go Back
+        </a>
 
         @if(session('success'))
             <div class="alert alert-success">
@@ -18,7 +21,7 @@
                 </div>
             @endif
 
-        <h2>Edit Schedule</h2>
+        <h2 class="text-center">Edit Schedule</h2>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>

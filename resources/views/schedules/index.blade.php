@@ -15,7 +15,7 @@
             <h2>Schedules List</h2>
             @role('admin')
                 <a href="{{ route('admin.schedules.create') }}" class="btn btn-success">
-                    Create Schedule
+                    Create A New Schedule
                     <i class="bi bi-plus"></i>
                 </a>
             @endrole

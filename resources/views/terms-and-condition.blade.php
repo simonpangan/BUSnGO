@@ -7,7 +7,7 @@
                         <!-- Title -->
                         <div class="border-bottom pb-5 mb-5">
                             <h1 class="text-primary fw-light">
-                                <span class="fw-bold">CharitAble</span> Terms &amp; conditions
+                                <span class="fw-bold">BUSnGO</span> Terms &amp; conditions
                             </h1>
                             <p class="mb-0">Effective date: July 13, 2022</p>
                         </div>
