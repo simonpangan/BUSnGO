@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BusStatusUpdateController;
 use App\Http\Controllers\ConductorController;
+use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\MyScheduleController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\PassengerTicketController;
@@ -21,7 +22,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/login/google', [GoogleLoginController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/login/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
 
 Route::get('/', function () {
     return view('welcome');
