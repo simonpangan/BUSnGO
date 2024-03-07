@@ -2,7 +2,8 @@
 
 <x-app-layout>
     @section('css')
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css" />
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css"/>
     @endsection
 
     <div class="container mt-4">
@@ -25,11 +26,38 @@
         @endif
 
         <div class="mx-auto" style="max-width: 500px;">
-            <form method="post" action="{{ route('admin.schedules.store') }}">
+            <form
+                x-data="{
+                    departureTime: '{{ old('departure_time') }}',
+                    submit(event) {
+                        event.preventDefault();
+                        // Parse the departure time and current time
+                        const departureDateTime = new Date(this.departureTime);
+                        const currentDateTime = new Date();
+
+                        // Calculate the time difference in milliseconds
+                        const timeDifference = departureDateTime - currentDateTime;
+
+                        // Convert the time difference to hours
+                        const hoursDifference = timeDifference / (1000 * 60 * 60);
+
+                        // Check if the current time is within 3 hours before the departure time
+                        if (hoursDifference <= 3 && hoursDifference > 0) {
+                            if (!confirm('Your departure time is approaching. Do you want to proceed?')) {
+                                return;
+                            }
+                        }
+                        event.currentTarget.submit();
+                    }
+                }"
+                id="scheduleCreate"
+                @submit="submit"
+                method="post" action="{{ route('admin.schedules.store') }}">
                 @csrf
                 <div class="mb-3">
                     <label for="bus_id" class="form-label">Bus: </label>
-                    <select class="form-control @error('bus') is-invalid @enderror" aria-label="City select" name="bus_id"
+                    <select class="form-control @error('bus') is-invalid @enderror" aria-label="City select"
+                            name="bus_id"
                             data-style="border border-1"
                             data-live-search="true"
                     >
@@ -49,7 +77,8 @@
                 </div>
                 <div class="mb-3">
                     <label for="bus_id" class="form-label">Terminal: </label>
-                    <select class="form-control @error('terminal_id') is-invalid @enderror" aria-label="City select" name="terminal_id"
+                    <select class="form-control @error('terminal_id') is-invalid @enderror" aria-label="City select"
+                            name="terminal_id"
                             data-style="border border-1"
                             data-live-search="true"
                     >
@@ -70,24 +99,13 @@
                     @enderror
                 </div>
 
-                <div x-data="{
-                    message: '',
-                    get isBlank() {
-                        return this.message == '';
-                    }
-                }">
-                    <input type="date" x-model="message">
-                    <span x-text="message"></span>
-                    <template x-if="isBlank">
-                        <div>Contents...</div>
-                    </template>
-                </div>
-
+                <span x-text="departureTime"></span>
                 <div class="mb-3">
                     <label for="departure_time" class="form-label">Departure Time</label>
                     <input type="datetime-local"
+                           x-model="departureTime"
                            class="form-control @error('departure_time') is-invalid @enderror" id="departure_time"
-                           name="departure_time" value="{{ old('departure_time') }}" required
+                           name="departure_time" required
                     >
 
                     @error('departure_time')
@@ -177,9 +195,10 @@
     </div>
 
     @section('javascript')
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $('select[name="bus_id"]').selectpicker();
             })
         </script>
