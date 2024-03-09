@@ -36,7 +36,7 @@
                             <h3 class="h5">2. Non-Transferable Tickets:</h3>
                         </div>
                         <!-- End Title -->
-                        <p>ickets purchased through this system are non-transferable. They are valid only for the individual(s) listed on the ticket at the time of purchase.</p>
+                        <p>Tickets purchased through this system are non-transferable. They are valid only for the individual(s) listed on the ticket at the time of purchase.</p>
                     </div>
                     <div id="privacy" class="mb-4">
                         <!-- Title -->
