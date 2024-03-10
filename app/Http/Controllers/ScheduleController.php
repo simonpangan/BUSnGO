@@ -65,7 +65,7 @@ class ScheduleController extends Controller
                 ->toArray()
         ]);
 
-        return $pdf->download('invoice.pdf');
+        return $pdf->download('schedules.pdf');
     }
 
     public function show(Schedule $schedule)
