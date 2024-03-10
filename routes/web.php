@@ -50,6 +50,7 @@ Route::get('/dashboard', function () {
 
 Route::controller(ScheduleController::class)->group(function () {
     Route::get('/schedules', 'index')->name('schedules.index');
+    Route::get('/schedules/generatePDF', 'generatePDF')->name('schedules.generate');
     Route::get('/schedules/{schedule}', 'show')->name('schedules.show');
     Route::put('/schedules/{schedule}/book/{ticket}', 'book')->name('schedules.book');
 });

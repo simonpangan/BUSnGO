@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bus;
 use App\Models\Schedule;
 use App\Models\Ticket;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -31,6 +32,40 @@ class ScheduleController extends Controller
         return view('schedules.index', [
             'schedules' => $schedules
         ]);
+    }
+
+    public function generatePDF()
+    {
+        $authUserRole = Auth::user()?->hasRole('admin');
+        $schedules = null;
+
+        if ($authUserRole) {
+            $schedules = Schedule::query()
+                ->with('terminal')
+                 ->latest()
+                 ->get();
+        } else {
+            $schedules = Schedule::query()
+                ->with('terminal')
+                 ->where('departure_time', ">=", Carbon::now())
+                ->get();
+        }
+
+        $pdf = Pdf::loadView('pdf.schedules', [
+            'schedules' => $schedules
+                ->map(function ($schedule) {
+                    return [
+                        'terminal_from' => $schedule->terminal->from,
+                        'terminal_to' => $schedule->terminal->to,
+                        'departure_time' => $schedule->departure_time->format('l, F j, Y g:i A'),
+                        'arrival_time' => $schedule->arrival_time->format('l, F j, Y g:i A'),
+                        'status' => $schedule->status,
+                    ];
+                })
+                ->toArray()
+        ]);
+
+        return $pdf->download('invoice.pdf');
     }
 
     public function show(Schedule $schedule)

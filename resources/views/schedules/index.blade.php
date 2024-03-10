@@ -11,6 +11,10 @@
             </div>
         @endif
 
+        <a href="{{ route('schedules.generate') }}" class="btn btn-danger float-end">
+            <i class="bi bi-file-pdf"></i>
+        </a>
+
         <div class="d-flex justify-content-between align-items-center">
             <h2>Schedules List</h2>
             @role('admin')
