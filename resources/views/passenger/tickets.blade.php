@@ -56,6 +56,10 @@
                             @if($payment->status != 'refunded')
                                 <a href="{{ route('payment.receipt', $payment->id) }}" class="btn btn-info btn-sm">
                                     Receipt </a>
+                                <a href="{{ route('payment.receipt.generate', $payment->id) }}"
+                                   class="btn btn-danger btn-sm">
+                                    <i class="bi bi-file-pdf"></i>
+                                </a>
                             @endif
                             <form method="post" action="{{ route('payment.refund', $payment->id) }}"
                                   style="display:inline">

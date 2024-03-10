@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Payment;
 use App\Models\Schedule;
 use App\Models\Ticket;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,23 @@ class PassengerTicketPaymentController
     public function receipt(Payment $payment)
     {
         return view('payment.receipt', compact('payment'));
+    }
+
+    public function receiptGenerate(Payment $payment)
+    {
+        $pdf = Pdf::loadView('pdf.receipt', [
+            'payment' => [
+                'reference_number' => $payment->id,
+                'schedule_id' => $payment->schedule->id,
+                'passenger_name' => $payment->passenger->name,
+                'tickets_seat_no' => $payment->tickets->pluck('seat_no')->toArray(),
+                'amount' => $payment->amount,
+                'status' => $payment->status,
+                'paid_at' => $payment->paid_at->format('l, F j, Y g:i A'),
+            ]
+        ]);
+
+        return $pdf->download('payment.pdf');
     }
     public function book(Request $request)
     {
