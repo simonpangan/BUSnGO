@@ -12,12 +12,12 @@ class GoogleLoginController extends Controller
 {
     public function redirectToGoogle(): RedirectResponse
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->stateless()->redirect();
     }
 
     public function handleGoogleCallback(): RedirectResponse
     {
-        $user = Socialite::driver('google')->user();
+        $user = Socialite::driver('google')->stateless()->user();
 
         $existingUser = User::where('google_id', $user->id)->first();
 
