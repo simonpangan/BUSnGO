@@ -7,6 +7,7 @@ use App\Http\Controllers\MyScheduleController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\PassengerTicketController;
 use App\Http\Controllers\PassengerTicketPaymentController;
+use App\Http\Controllers\PaymentGenerateController;
 use App\Http\Controllers\ScheduleController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
@@ -104,10 +105,13 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::middleware(['role:driver|conductor'])->group(function () {
         Route::get('/my-schedules', MyScheduleController::class)->name('my-schedule');
+        Route::get('/my-schedules/generatePDF', PaymentGenerateController::class)->name('my-schedule.generate');
     });
 });
 
 Route::middleware(['role:driver|conductor'])->group(function () {
+
+
     Route::post('/bus-location', BusStatusUpdateController::class)->name('bus-location.update');
 });
 

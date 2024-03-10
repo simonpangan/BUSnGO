@@ -28,6 +28,7 @@
                 <th>Departure Time</th>
                 <th>Arrival Time</th>
                 <th>Status</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -63,6 +64,11 @@
                                     @endforeach
                                 </select>
                             </form>
+                        </td>
+                        <td>
+                            <a href="{{ route('my-schedule.generate') }}" class="btn btn-danger float-end">
+                                <i class="bi bi-file-pdf"></i>
+                            </a>
                         </td>
                     </tr>
                 @endforeach
