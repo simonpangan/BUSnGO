@@ -66,7 +66,9 @@
                             </form>
                         </td>
                         <td>
-                            <a href="{{ route('my-schedule.generate') }}" class="btn btn-danger float-end">
+                            <a href="{{ route('my-schedule.generate', [
+                                'schedule' => $schedule
+                            ]) }}" class="btn btn-danger float-end">
                                 <i class="bi bi-file-pdf"></i>
                             </a>
                         </td>
