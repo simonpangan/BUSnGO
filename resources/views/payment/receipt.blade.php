@@ -7,6 +7,10 @@
         <div class="row justify-content-center">
                 <div class="card rounded p-3" style="max-width: 400px;">
                 <div class="mb-3">
+                    <strong>Reference Number</strong>:
+                    {{ $payment->id }}
+                </div>
+                <div class="mb-3">
                     <strong>Schedule ID</strong>:
                     {{ $payment->schedule_id }}
                 </div>
