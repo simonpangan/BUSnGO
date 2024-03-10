@@ -25,7 +25,8 @@ class PassengerTicketPaymentController
             'tickets'     => ['required', 'array'],
             'tickets.*'   => ['required', 'integer', 'exists:tickets,id'],
             'schedule_id' => ['required', 'integer', 'exists:schedules,id'],
-            'wallet'      => ['required', 'string', 'in:G-CASH,GRAB-PAY']
+            'wallet'      => ['required', 'string', 'in:G-CASH,GRAB-PAY'],
+            'acknowledge' => ['accepted'],
         ]);
 
         $schedule = Schedule::findOrFail($request->schedule_id);

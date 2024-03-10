@@ -74,6 +74,15 @@
                         {{ session('error') }}
                     </div>
                 @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form method="post" action="{{ route('payment.book', [
                     'schedule_id' => $schedule->id,
                 ])}}"
@@ -89,12 +98,16 @@
                     <div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="wallet" id="gCashRadio"
-                                   value="G-CASH">
+                                   value="G-CASH"
+                                   {{ old('wallet') == "G-CASH" ? 'checked' : '' }}
+                            >
                             <label class="form-check-label" for="gCashRadio">G-Cash</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="wallet" id="grabPay"
-                                   value="GRAB-PAY">
+                                   value="GRAB-PAY"
+                                    {{ old('wallet') == "GRAB-PAY" ? 'checked' : '' }}
+                            >
                             <label class="form-check-label" for="grabPay">Grab Pay</label>
                         </div>
                     </div>
@@ -160,6 +173,15 @@
                             </div>
                         </div>
                     @endforeach
+                    <br/>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="acknowledge" value="yes"
+                               {{ old('acknowledge') ? "checked" : "" }}
+                               id="flexCheckIndeterminate">
+                        <label class="form-check-label" for="flexCheckIndeterminate">
+                            I agree to the <a href="{{ route('terms-and-condition') }}" target="_blank">terms and conditions </a>
+                        </label>
+                    </div>
                 </form>
                 <br/>
                 <div id="totalCost">
