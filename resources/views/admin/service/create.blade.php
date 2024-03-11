@@ -25,7 +25,7 @@
             <form method="post" action="{{ route('admin.service.store') }}">
                 @csrf
                 <div class="mb-3">
-                    <label for="bus_id" class="form-label">Bus: </label>
+                    <label for="bus_id" class="form-label">Bus: <span class="text-danger">*</span></label>
                     <select class="form-control @error('bus') is-invalid @enderror" aria-label="City select" name="bus_id"
                             data-style="border border-1"
                             data-live-search="true"
@@ -45,7 +45,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="to" class="form-label">Description</label>
+                    <label for="to" class="form-label">Description <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('description') is-invalid @enderror"
                            id="description" name="description" value="{{ old('description') }}" required>
 
@@ -56,7 +56,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="status" class="form-label">Status</label>
+                    <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('status') is-invalid @enderror"
                            id="status" name="status" value="{{ old('status') }}" required>
 
@@ -67,7 +67,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="duration" class="form-label">Duration</label>
+                    <label for="duration" class="form-label">Duration <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('duration') is-invalid @enderror"
                            id="duration" name="duration" value="{{ old('duration') }}" required>
 

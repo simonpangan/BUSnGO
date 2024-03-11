@@ -15,7 +15,7 @@
             @csrf
 
             <div class="mb-3">
-                <label for="from" class="form-label">From</label>
+                <label for="from" class="form-label">From <span class="text-danger">*</span></label>
                 <input type="text"
                        class="form-control @error('from') is-invalid @enderror" id="name" name="from"
                        value="{{ old('from') }}" required>
@@ -27,7 +27,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="to" class="form-label">To</label>
+                <label for="to" class="form-label">To <span class="text-danger">*</span></label>
                 <input type="text" class="form-control @error('to') is-invalid @enderror"
                        id="to" name="to" value="{{ old('to') }}" required>
 
@@ -39,7 +39,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="ticket_cost" class="form-label">Ticket Cost</label>
+                <label for="ticket_cost" class="form-label">Ticket Cost <span class="text-danger">*</span></label>
                 <input type="number" class="form-control @error('ticket_cost') is-invalid @enderror"
                        min="1" max="100000"
                        id="ticket_cost" name="ticket_cost" value="{{ old('ticket_cost') }}" required>
@@ -59,7 +59,7 @@
                         this.terminalPoints.splice(index, 1)
                     }
                  }">
-                <label for="to" class="form-label">Terminal Points</label>
+                <label for="to" class="form-label">Terminal Points <span class="text-danger">*</span></label>
                 <button type="button" class="btn btn-info rounded-pill mb-2"
                     x-on:click="addTerminalPoint()">Add</button>
 
