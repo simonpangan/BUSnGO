@@ -29,6 +29,8 @@
                         <!-- End Title -->
                         <p>Once payment is made, refunds are only permissable 8 hours before the departure time of the schedule that was booked by the passenger, otherwise, refunds will not be accepted. Refunds may take up to 24 hours to reflect.
                         </p>
+                        <p>Tickets purchased for schedules that is less than 8hrs from boarding time will be non-refundable.
+                        </p>
                     </div>
                     <div id="privacy" class="mb-4">
                         <!-- Title -->
@@ -62,6 +64,24 @@
                         <!-- End Title -->
                         <p>By utilizing this e-ticketing system and purchasing tickets, passengers fully agree to abide by these terms and conditions outlined herein.
                             We reserve the right to modify or update these terms and conditions at our discretion. It is advisable to review these terms periodically for any changes or updates.</p>
+                    </div>
+                    <div id="privacy" class="mb-4">
+                        <!-- Title -->
+                        <div class="mb-3">
+                            <h3 class="h5">6. Discounts:</h3>
+                        </div>
+                        <!-- End Title -->
+                        <p>PWD and Senior Citizen discounts can be applied through contacting customer support and once verified, the discounted amount will be refunded within 24hrs.
+                        </p>
+                    </div>
+                    <div id="privacy" class="mb-4">
+                        <!-- Title -->
+                        <div class="mb-3">
+                            <h3 class="h5">7. Driver and Conductor Listing</h3>
+                        </div>
+                        <!-- End Title -->
+                        <p>Drivers and Conductors assigned to a bus schedule may change on short notice.
+                        </p>
                     </div>
                 </div>
             </div>
