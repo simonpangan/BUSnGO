@@ -101,7 +101,6 @@
                     @enderror
                 </div>
 
-                <span x-text="departureTime"></span>
                 <div class="mb-3">
                     <label for="departure_time" class="form-label">Departure Time</label>
                     <input type="datetime-local"
