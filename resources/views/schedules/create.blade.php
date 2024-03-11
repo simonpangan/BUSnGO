@@ -60,6 +60,7 @@
                             name="bus_id"
                             data-style="border border-1"
                             data-live-search="true"
+                            required
                     >
                         <option>Select Bus</option>
                         @foreach($buses as $bus)
@@ -81,6 +82,7 @@
                             name="terminal_id"
                             data-style="border border-1"
                             data-live-search="true"
+                            required
                     >
                         <option>Select Terminal</option>
                         @foreach($terminals as $terminal)
@@ -135,6 +137,7 @@
                             class="form-select @error('status') is-invalid @enderror"
                             aria-label="Status Select"
                             id="status"
+                            required
                     >
                         <option>Select Status</option>
                         @foreach(Schedule::STATUS as $status)
@@ -153,7 +156,7 @@
                 <div class="mb-3">
                     <label for="driver_id" class="form-label">Driver</label>
                     <select name="driver_id" class="form-select @error('driver_id') is-invalid @enderror"
-                            aria-label="Driver Select">
+                            aria-label="Driver Select" required>
                         <option>Select Driver</option>
                         @foreach($drivers as $driver)
                             <option value="{{ $driver->id }}"
@@ -172,7 +175,7 @@
                     <label for="conductor_id" class="form-label">Conductor</label>
                     <select name="conductor_id"
                             class="form-select @error('conductor_id') is-invalid @enderror"
-                            aria-label="Conductor Select">
+                            aria-label="Conductor Select" required>
                         <option>Select Conductor</option>
                         @foreach($conductors as $conductor)
                             <option value="{{ $conductor->id }}"
