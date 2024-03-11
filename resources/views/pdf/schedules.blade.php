@@ -11,7 +11,7 @@
     <title>Schedules</title>
 </head>
 <body>
-    <h1 class="text-center">Schedules for today</h1>
+    <h3 class="text-center">Bus Schedules for today: {{ now()->format('F j, Y'), }}</h3>
     <table class="table">
         <thead>
             <tr>
