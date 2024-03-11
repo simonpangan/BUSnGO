@@ -24,7 +24,7 @@
                 @method('PUT')
 
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
+                    <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
                            value="{{ old('name', $conductor->name) }}" required>
                     @error('name')
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="gender" class="form-label">Gender</label>
+                    <label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
                     <select class="form-select @error('gender') is-invalid @enderror" id="gender" name="gender"
                             required>
                         <option value="M">Male</option>
@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="address" class="form-label">Address</label>
+                    <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
                            name="address" value="{{ old('address', $conductor->address) }}" required>
                     @error('address')
@@ -60,6 +60,7 @@
                 </div>
 
                 <div class="mb-3">
+                    <span class="text-danger">*</span>
                     <select class="form-control @error('city') is-invalid @enderror" aria-label="City select"
                             name="city"
                             data-style="border border-1"
@@ -81,7 +82,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="contact_no" class="form-label">Contact Number</label>
+                    <label for="contact_no" class="form-label">Contact Number <span class="text-danger">*</span></label>
                     <input type="text"
                            class="form-control @error('contact_no') is-invalid @enderror" id="contact_no"
                            name="contact_no" value="{{ old('contact_no', $conductor->contact_no) }}" required
@@ -110,7 +111,7 @@
                 {{--                </div>--}}
 
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                     <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
                            name="email" value="{{ old('email', $conductor->user->email) }}" required>
                     @error('email')
@@ -121,7 +122,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <div class="fw-bold">Current Photo</div>
+                    <div class="fw-bold">Current Photo </div>
                     <div>
                         <img src="{{ asset('storage/uploads/'.$conductor->photo) }}"
                              alt="Driver Photo" class="img-thumbnail w-100"

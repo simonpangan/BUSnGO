@@ -25,7 +25,7 @@
                 @csrf
 
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
+                    <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
                            value="{{ old('name') }}" required>
                     @error('name')
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="gender" class="form-label">Gender</label>
+                    <label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
                     <select class="form-select @error('gender') is-invalid @enderror" id="gender" name="gender"
                             required>
                         <option value="M">Male</option>
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="address" class="form-label">Address</label>
+                    <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
                            name="address" value="{{ old('address') }}" required>
                     @error('address')
@@ -61,6 +61,7 @@
                 </div>
 
                 <div class="mb-3">
+                    <span class="text-danger">*</span>
                     <select class="form-control @error('city') is-invalid @enderror" aria-label="City select"
                             name="city"
                             data-style="border border-1"
@@ -82,7 +83,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="contact_no" class="form-label">Contact Number</label>
+                    <label for="contact_no" class="form-label">Contact Number <span class="text-danger">*</span></label>
                     <input type="text"
                            class="form-control @error('contact_no') is-invalid @enderror" id="contact_no"
                            name="contact_no" value="{{ old('contact_no') }}" required
@@ -100,7 +101,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
                     <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
                            name="password" required>
                     @error('password')
@@ -111,7 +112,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                     <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
                            name="email" value="{{ old('email') }}" required>
                     @error('email')
@@ -122,7 +123,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="photo" class="form-label">Photo</label>
+                    <label for="photo" class="form-label">Photo <span class="text-danger">*</span></label>
                     <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo" name="photo"
                            accept="image/*" required>
                     @error('photo')
