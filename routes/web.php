@@ -29,7 +29,6 @@ Route::get('/login/google/callback', [GoogleLoginController::class, 'handleGoogl
 Route::get('/', function () {
     return view('welcome');
 });
-
 Route::view('/about', 'about')->name('about');
 Route::view('/faq', 'faq')->name('faq');
 Route::view('/contact-us', 'contact-us')->name('contact-us');
