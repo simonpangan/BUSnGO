@@ -2,7 +2,7 @@
     <div class="container mt-4">
         <a href="{{ route('passenger.tickets')  }}" class="btn btn-primary">Back to list</a>
 
-        <h2 class="text-center"> Receipt</h2>
+        <h2 class="text-center">Itenary Details</h2>
 
         <div class="row justify-content-center">
                 <div class="card rounded p-3" style="max-width: 400px;">
