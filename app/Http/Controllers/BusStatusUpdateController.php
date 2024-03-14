@@ -22,7 +22,7 @@ class BusStatusUpdateController extends Controller
                         "username" => "Project_case",
                         "password" => "SScDpn6J",
                         "msisdn" => $payment->passenger->contact_no,
-                        "content" => "Hello, this is a reminder from BUSnGO that your bus will be departing at".$schedule->departure_time->format('h:i A'), //TODO
+                        "content" => "Hello, this is a reminder from BUSnGO that your bus will be departing at ".$schedule->departure_time->format('h:i A'), //TODO
                         "shortcode_mask" => "BUSnGO",
                         "is_intl" => false
                     ]);
