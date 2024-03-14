@@ -21,13 +21,12 @@ class BusStatusUpdateController extends Controller
                     Http::post('https://api.m360.com.ph/v3/api/broadcast', [
                         "username" => "Project_case",
                         "password" => "SScDpn6J",
-                        "msisdn" => $payment->contact_no,
-                        "content" => "Hello,this is a samplebroadcast.",
+                        "msisdn" => $payment->passenger->contact_no,
+                        "content" => "Hello,this is a sample broadcast.",
                         "shortcode_mask" => "BUSnGO",
                         "is_intl" => false
                     ]);
                 }
-                dd('asd');
             }
         }
 
