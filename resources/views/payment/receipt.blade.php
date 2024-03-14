@@ -38,5 +38,6 @@
                 <div class="mb-3">
                     <strong>Paid At</strong>: {{ $payment->paid_at->format('l, F j, Y g:i A') }}
                 </div>
+                <div style="text-align: center;"><p><span><b>*</b></span> also serves as your official receipt</p></div>
             </div>
 </x-app-layout>

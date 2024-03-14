@@ -48,6 +48,7 @@
         <div class="mb-3">
             <strong>Paid At</strong>: {{ $payment['paid_at'] }}
         </div>
+        <div style="text-align: center;"><p><span><b>*</b></span> also serves as your official receipt</p></div>
     </div>
 </div>
 </body>
