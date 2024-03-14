@@ -15,6 +15,14 @@
                     {{ $payment->schedule_id }}
                 </div>
                 <div class="mb-3">
+                    <strong>Departure Time</strong>:
+                    {{ $payment->schedule->departure_time->format('l, F j, Y g:i A') }}
+                </div>
+                <div class="mb-3">
+                    <strong>Arrival Time</strong>:
+                    {{ $payment->schedule->arrival_time->format('l, F j, Y g:i A') }}
+                </div>
+                <div class="mb-3">
                     <strong>Seats</strong>:
                     {{ implode(', ', $payment->tickets->pluck('seat_no')->toArray()) }}
                 </div>

@@ -32,6 +32,8 @@ class PassengerTicketPaymentController
                 'amount' => $payment->amount,
                 'status' => $payment->status,
                 'paid_at' => $payment->paid_at->format('l, F j, Y g:i A'),
+                'departure_time' => $payment->schedule->departure_time->format('l, F j, Y g:i A'),
+                'arrival_time' => $payment->schedule->arrival_time->format('l, F j, Y g:i A'),
             ]
         ]);
 

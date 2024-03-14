@@ -25,6 +25,14 @@
             {{ $payment['schedule_id'] }}
         </div>
         <div class="mb-3">
+            <strong>Departure Time</strong>:
+            {{ $payment['departure_time'] }}
+        </div>
+        <div class="mb-3">
+            <strong>Arrival Time</strong>:
+            {{ $payment['arrival_time'] }}
+        </div>
+        <div class="mb-3">
             <strong>Seats</strong>:
             {{ implode(', ', $payment['tickets_seat_no']) }}
         </div>
