@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container mt-4">
-    <h2 class="text-center"> Receipt</h2>
+    <h2 class="text-center"> Itinerary Details</h2>
 
     <div class="card rounded p-3" style="max-width: 400px;">
         <div class="mb-3">
