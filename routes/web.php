@@ -5,6 +5,7 @@ use App\Http\Controllers\ConductorController;
 use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\MyScheduleController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\PassengerTicketController;
 use App\Http\Controllers\PassengerTicketPaymentController;
 use App\Http\Controllers\PaymentGenerateController;
@@ -91,6 +92,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             return view('dashboard');
         });
 
+        Route::get('/passenger/update', [PassengerController::class, 'edit'])->name('passenger.show');
+        Route::put('/passenger/{user}/update', [PassengerController::class, 'update'])->name('passenger.update');
+
         Route::get('/tickets', [PassengerTicketController::class, 'index'])->name('passenger.tickets');
 
         Route::post('/payments/book', [PassengerTicketPaymentController::class, 'book'])->name('payment.book');
@@ -109,9 +113,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 });
 
 Route::middleware(['role:driver|conductor'])->group(function () {
-
-
     Route::post('/bus-location', BusStatusUpdateController::class)->name('bus-location.update');
 });
+
+
 
 require __DIR__.'/auth.php';
