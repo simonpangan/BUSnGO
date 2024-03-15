@@ -23,10 +23,14 @@
 <body>
 <div id="app">
     {{--    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">--}}
-    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+                <img
+                    height="50"
+                    src="{{ asset('logo.jpg') }}"
+                    alt="busngo logo"
+                />
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
