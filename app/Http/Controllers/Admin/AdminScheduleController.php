@@ -26,6 +26,7 @@ class AdminScheduleController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->conductor_id);
         $request->validate([
             'bus_id' => ['required', 'integer', 'exists:buses,id'],
             'departure_time' => ['required', 'date',

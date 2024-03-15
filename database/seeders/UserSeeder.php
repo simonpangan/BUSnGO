@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Conductor;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -53,6 +54,17 @@ class UserSeeder extends Seeder
                 'name' => 'Test Conductor',
                 'email' => 'conductor@example.com',
                 'password' => bcrypt('password'),
+            ]);
+
+
+            Conductor::create([
+                'user_id' =>  $conductor->id,
+                'name' =>  "Allek Esteban",
+                'gender' =>  'M',
+                'address' => '6215 Prudence Mission Apt. 055 Kelsistad, IA 15415',
+                'city' => 'East Adriennemouth',
+                'contact_no' => '1-229-325-8870',
+                'photo' => 'https://via.placeholder.com/640x480.png/008822?text=eos',
             ]);
 
             $conductor->assignRole('conductor');
