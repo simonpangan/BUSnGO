@@ -83,6 +83,15 @@
                         <p>Drivers and Conductors assigned to a bus schedule may change on short notice.
                         </p>
                     </div>
+                    <div id="privacy" class="mb-4">
+                        <!-- Title -->
+                        <div class="mb-3">
+                            <h3 class="h5">8. Service Fee:</h3>
+                        </div>
+                        <!-- End Title -->
+                        <p>All ticket prices will include a 5% service fee that is non-refundable.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
