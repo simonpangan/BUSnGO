@@ -23,12 +23,12 @@ class Payment extends Model
             User::class,
             'passenger_id',
             'id'
-        );
+        )->withTrashed();
     }
 
     public function schedule(): BelongsTo
     {
-        return $this->belongsTo(Schedule::class);
+        return $this->belongsTo(Schedule::class)->withTrashed();
     }
 
     public function tickets()

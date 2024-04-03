@@ -44,9 +44,11 @@
                         <td>
                             {{ $payment->schedule->status }}
                             <br/>
-                            <a href="{{ route('schedules.show', $payment->schedule->id) }}"
-                               class="btn btn-sm btn-primary">View
-                            </a>
+                            @if($payment->schedule->deleted_at == null)
+                                <a href="{{ route('schedules.show', $payment->schedule->id) }}"
+                                   class="btn btn-sm btn-primary">View
+                                </a>
+                            @endif
                         </td>
                         <td>{{ $payment->status }}</td>
                         <td>

@@ -12,10 +12,10 @@ class PassengerTicketController
     {
         return view('passenger.tickets', [
             'payments' => Payment::query()
-                ->with('tickets')
-                 ->where('passenger_id', Auth::id())
-                 ->latest('paid_at')
-                 ->get()
+                ->with(['tickets', 'schedule.bus', 'schedule.terminal'])
+                ->where('passenger_id', Auth::id())
+                ->latest('paid_at')
+                ->get()
         ]);
     }
 }
