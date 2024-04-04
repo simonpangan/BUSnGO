@@ -23,7 +23,7 @@ class Payment extends Model
             User::class,
             'passenger_id',
             'id'
-        )->withTrashed();
+        );
     }
 
     public function schedule(): BelongsTo

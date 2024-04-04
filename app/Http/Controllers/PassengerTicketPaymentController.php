@@ -18,6 +18,8 @@ class PassengerTicketPaymentController
 {
     public function receipt(Payment $payment)
     {
+        $payment->load('schedule');
+
         return view('payment.receipt', compact('payment'));
     }
 
