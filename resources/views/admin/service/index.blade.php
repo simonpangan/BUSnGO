@@ -41,11 +41,12 @@
                         <td>{{ $service->status }}</td>
                         <td>{{ $service->duration }}</td>
                         <td>
-                            <a href="{{ route('admin.service.edit', $service->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                            <a title="Edit Service"
+                                href="{{ route('admin.service.edit', $service->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
                             <form method="post" action="{{ route('admin.service.destroy', $service->id) }}" style="display:inline">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn btn-danger btn-sm"
+                                <button title="Delete Service" type="submit" class="btn btn-danger btn-sm"
                                         onclick="return confirm('Are you sure?')">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>

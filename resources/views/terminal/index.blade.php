@@ -47,13 +47,15 @@
                         </ul>
                     </td>
                     <td>
-                            <a href="{{ route('admin.terminals.edit', $terminal->id) }}" class="btn btn-warning btn-sm">
+                            <a title="Edit TerminalMN"
+                                href="{{ route('admin.terminals.edit', $terminal->id) }}" class="btn btn-warning btn-sm">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                             <form method="post" action="{{ route('admin.terminals.destroy', $terminal->id) }}" style="display:inline">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                <button title="Delete  Terminal"
+                                    type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
                             </form>
