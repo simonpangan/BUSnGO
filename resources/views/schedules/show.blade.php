@@ -188,6 +188,14 @@
                             I agree to the <a href="{{ route('terms-and-condition') }}" target="_blank">terms and conditions </a>
                         </label>
                     </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="verify" value="yes"
+                               {{ old('verify') ? "checked" : "" }}
+                               id="flexCheckIndeterminate">
+                        <label class="form-check-label" for="flexCheckIndeterminate">
+                            I verify that my profile name matches the name on my valid government ID.
+                        </label>
+                    </div>
                 </form>
                 <br/>
                 <div id="totalCost">

@@ -49,6 +49,7 @@ class PassengerTicketPaymentController
             'schedule_id' => ['required', 'integer', 'exists:schedules,id'],
             'wallet'      => ['required', 'string', 'in:G-CASH,GRAB-PAY'],
             'acknowledge' => ['accepted'],
+            'verify' => ['accepted'],
         ]);
 
         $schedule = Schedule::findOrFail($request->schedule_id);
