@@ -39,14 +39,15 @@
                         <a href="{{ route('conductors.show', $conductor->id) }}" class="btn btn-info btn-sm">
                             View
                         </a>
-                        <a href="{{ route('admin.conductors.edit', $conductor->id) }}" class="btn btn-warning btn-sm">
+                        <a title="Edit Driver"
+                            href="{{ route('admin.conductors.edit', $conductor->id) }}" class="btn btn-warning btn-sm">
                             <i class="bi bi-pencil-square"></i>
                         </a>
                         <form method="post" action="{{ route('admin.conductors.destroy', $conductor->id) }}"
                               style="display:inline">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="btn btn-danger btn-sm"
+                            <button title="Delete Driver" type="submit" class="btn btn-danger btn-sm"
                                     onclick="return confirm('Are you sure?')">
                                 <i class="bi bi-trash-fill"></i>
                             </button>

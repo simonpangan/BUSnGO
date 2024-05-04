@@ -11,7 +11,8 @@
             </div>
         @endif
 
-        <a href="{{ route('schedules.generate') }}" class="btn btn-danger float-end">
+        <a title="Download Schedule Today"
+            href="{{ route('schedules.generate') }}" class="btn btn-danger float-end">
             <i class="bi bi-file-pdf"></i>
         </a>
 
@@ -47,11 +48,14 @@
                     <td>
                         <a href="{{ route('schedules.show', $schedule->id) }}" class="btn btn-info btn-sm">View</a>
                         @role('admin')
-                            <a href="{{ route('admin.schedules.edit', $schedule->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                            <a title="Edit Schedule"
+                                href="{{ route('admin.schedules.edit', $schedule->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
                             <form method="post" action="{{ route('admin.schedules.destroy', $schedule->id) }}" style="display:inline">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                <button type="submit"
+                                        title="Delete Schedule"
+                                        class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
                             </form>
