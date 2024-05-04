@@ -7,6 +7,14 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-3">
                 <div class="card rounded p-3" style="max-width: 500px;">
+                    <div>
+                        <strong># Seats Remaining</strong>:
+                        {{ $schedule->tickets
+                            ->where('status', 'available')
+                            ->count()
+                        }}
+                    </div>
+                    <hr />
                     <div class="mb-3">
                         <strong>Schedule ID</strong>: {{ $schedule->id }}
                     </div>
