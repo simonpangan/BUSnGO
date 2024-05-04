@@ -55,6 +55,7 @@ class PassengerTicketPaymentController
         $schedule = Schedule::findOrFail($request->schedule_id);
 
         $ticketCost = $schedule->terminal->ticket_cost * count($request->tickets);
+        $ticketCost = ($ticketCost * 0.05) + $ticketCost; // 5% convenience fee
         //https://paymongo.help/en/articles/4318573-what-are-the-minimum-and-maximum-transaction-amounts
         if ($ticketCost > 100000) {
             return back()

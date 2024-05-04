@@ -214,11 +214,6 @@
                         </label>
                     </div>
                 </form>
-                <br/>
-                <div id="totalCost">
-                    <span class="fw-bold">Total Cost</span>:
-                    ₱<span id="totalCostValue">0</span>
-                </div>
 
                 <br/>
 
@@ -229,7 +224,46 @@
                     </div>
                 @endif
             </div>
+            <div class="col-12 col-md-3">
+                <br/>
+                <div id="totalCost">
+                    <div class="fw-bold">Cost</div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <div>Ticket Cost: </div>
+                        <div>
+                            {{ $schedule->terminal->ticket_cost }}
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <div>Quantity: </div>
+                        <div id="quantity">0</div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <div>Sub Total: </div>
+                        <div id="subTotalCost">0</div>
+                    </div>
+                    <hr />
+                    <div class="d-flex justify-content-between mt-2">
+                        <div>BUSnGO Service Fee (5%): </div>
+                        <div id="serviceFee">0</div>
+                    </div>
+                    <hr />
+                    <div class="d-flex justify-content-between mt-2">
+                        <div>Total: </div>
+                        <div id="totalCal">0</div>
+                    </div>
+                </div>
+                <br/>
+
+                @if(count($authUserTickets) > 0)
+                    <div class="fw-bold">Your Tickets:</div>
+                    <div>
+                        {{ implode(', ', $authUserTickets) }}
+                    </div>
+                @endif
+            </div>
             @endunlessrole
+
 
             @role('admin|conductor|driver')
             <div class="col-12 col-md-3">
@@ -270,15 +304,6 @@
                         {{ ($schedule->tickets->where('status', "!=", 'available')->count()) * $schedule->terminal->ticket_cost }}
                     </span>
                     </div>
-
-                    <br/>
-
-                    @if(count($authUserTickets) > 0)
-                        <div class="fw-bold">Your Tickets:</div>
-                        <div>
-                            {{ implode(', ', $authUserTickets) }}
-                        </div>
-                    @endif
             </div>
             @endrole
         </div>
@@ -287,21 +312,31 @@
     @section('javascript')
         <script>
             $(document).ready(function () {
-                let totalCost = 0
+                let subTotal = 0
+                let numberOfTickets = 0
+                let serviceFee = 0
 
                 $('.ticket-input').change(function () {
                     const ticketCost = {{ $schedule->terminal->ticket_cost }}
 
                     if($(this).prop('checked'))
                     {
-                        totalCost += ticketCost;
+                        subTotal += ticketCost;
+                        numberOfTickets++;
+                        serviceFee = subTotal * 0.05;
+                        $('#totalCal').text(subTotal + serviceFee);
                     }
-                else
+                        else
                     {
-                        totalCost -= ticketCost;
+                        subTotal -= ticketCost;
+                        numberOfTickets--;
+                        serviceFee = subTotal * 0.05;
+                        $('#totalCal').text(subTotal + serviceFee);
                     }
 
-                    $('#totalCostValue').text(totalCost.toFixed(2));
+                    $('#subTotalCost').text(subTotal.toFixed(2));
+                    $('#quantity').text(numberOfTickets);
+                    $('#serviceFee').text(serviceFee.toFixed(2));
                 });
             });
         </script>
