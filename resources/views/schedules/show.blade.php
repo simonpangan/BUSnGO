@@ -131,7 +131,12 @@
                                             {{ $ticket[0]->status != "available" ? "disabled" : "" }}
                                         >
                                         <label class="form-check-label" for="tsCheckBox">
-                                            #{{ $ticket[0]->seat_no }}
+                                            <div class="d-flex">
+                                                <img height="25" width="25"
+                                                     src="https://static.thenounproject.com/png/629421-200.png"
+                                                />
+                                                <span>{{ $ticket[0]->seat_no }}</span>
+                                            </div>
                                         </label>
                                     </div>
                                 @endif
@@ -144,7 +149,11 @@
                                             {{ $ticket[1]->status != "available" ? "disabled" : "" }}
                                         >
                                         <label class="form-check-label" for="tsCheckBox">
-                                            #{{ $ticket[1]->seat_no }}
+                                            <div class="d-flex">
+                                                <img height="25" width="25"
+                                                     src="https://static.thenounproject.com/png/629421-200.png"
+                                                /> {{ $ticket[1]->seat_no }}
+                                            </div>
                                         </label>
                                     </div>
                                 @endif
@@ -159,7 +168,11 @@
                                             {{ $ticket[2]->status != "available" ? "disabled" : "" }}
                                         >
                                         <label class="form-check-label" for="tsCheckBox">
-                                            #{{ $ticket[2]->seat_no }}
+                                            <div class="d-flex">
+                                                <img height="25" width="25"
+                                                     src="https://static.thenounproject.com/png/629421-200.png"
+                                                /> {{ $ticket[2]->seat_no }}
+                                            </div>
                                         </label>
                                     </div>
                                 @endif
@@ -172,7 +185,11 @@
                                             {{ $ticket[3]->status != "available" ? "disabled" : "" }}
                                         >
                                         <label class="form-check-label" for="tsCheckBox">
-                                            #{{ $ticket[3]->seat_no }}
+                                            <div class="d-flex">
+                                                <img height="25" width="25"
+                                                     src="https://static.thenounproject.com/png/629421-200.png"
+                                                /> {{ $ticket[3]->seat_no }}
+                                            </div>
                                         </label>
                                     </div>
                                 @endif
