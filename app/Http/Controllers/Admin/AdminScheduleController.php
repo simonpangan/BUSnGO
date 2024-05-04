@@ -32,7 +32,6 @@ class AdminScheduleController extends Controller
                 'after:now'
             ],
             'arrival_time' => ['required', 'date', 'after:departure_time'],
-            'status' => ['required', 'string'],
             'terminal_id' => ['required', 'integer', 'exists:terminals,id'],
             'driver_id'          => ['required', 'integer', 'exists:drivers,id'],
             'conductor_id'       => ['required', 'integer', 'exists:conductors,id'],
@@ -42,7 +41,7 @@ class AdminScheduleController extends Controller
             'bus_id' => $request->bus_id,
             'departure_time' => $request->departure_time,
             'arrival_time' => $request->arrival_time,
-            'status' => $request->status,
+            'status' => "Ticketing",
             'terminal_id' => $request->terminal_id,
             'driver_id' => $request->driver_id,
             'conductor_id' => $request->conductor_id,

@@ -129,29 +129,6 @@
                     </span>
                     @enderror
                 </div>
-
-                <div class="mb-3">
-                    <label for="status" class="form-label">Status</label>
-                    <select name="status"
-                            class="form-select @error('status') is-invalid @enderror"
-                            aria-label="Status Select"
-                            id="status"
-                            required
-                    >
-                        <option>Select Status</option>
-                        @foreach(Schedule::STATUS as $status)
-                            <option value="{{ $status }}"
-                                {{ old('status') == $status ? "selected" : "" }}
-                            >{{ $status }}</option>
-                        @endforeach
-                    </select>
-
-                    @error('status')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
                 <div class="mb-3">
                     <label for="driver_id" class="form-label">Driver</label>
                     <select name="driver_id" class="form-select @error('driver_id') is-invalid @enderror"
