@@ -6,6 +6,7 @@ use App\Models\Bus;
 use App\Models\Schedule;
 use App\Models\Ticket;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -25,6 +26,9 @@ class ScheduleController extends Controller
                 ->get();
         } else {
             $schedules = Schedule::query()
+                ->whereHas('tickets', function (Builder $query) {
+                    $query->where('status', '=', "available");
+                }, '>=', 1)
                 ->where('departure_time', ">=", Carbon::now())
                 ->get();
         }
