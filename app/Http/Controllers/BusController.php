@@ -31,7 +31,7 @@ class BusController extends Controller
     public function store(Request  $request)
     {
         $values = $request->validate([
-            'no'                 => ['required', 'integer'],
+            'no'                 => ['required', 'regex:/^[A-Z]{3}\s\d{3,4}$/'],
             'seat'               => ['required',
                 'integer', 'min: 10', 'max: 100'
             ],
@@ -79,7 +79,7 @@ class BusController extends Controller
     public function update(Request $request, Bus $bus)
     {
         $values = $request->validate([
-            'no'                 => ['required', 'integer'],
+            'no'                 => ['required', 'regex:/^[A-Z]{3}\s\d{3,4}$/'],
             'seat'               => ['required',
                 'integer', 'min: 10', 'max: 100'
             ],

@@ -17,15 +17,19 @@
                 @csrf @method('put')
 
                 <div class="mb-3 row">
-                    <label for="no" class="col-md-4 col-form-label text-md-end">No</label>
+                    <label for="no" class="col-md-4 col-form-label text-md-end">
+                        Plate No
+                    </label>
                     <div class="col-md-6">
                         <input type="text" class="form-control @error('no') is-invalid @enderror" id="no" name="no"
                                value="{{ old('no', $bus->no) }}" required/>
-
+                        <div id="passwordHelpBlock" class="form-text">
+                          Format: ABC 123 or ABC 1234
+                        </div>
                         @error('no')
                         <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
                     </div>
                 </div>
