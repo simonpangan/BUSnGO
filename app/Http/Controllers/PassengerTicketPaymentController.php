@@ -122,7 +122,11 @@ class PassengerTicketPaymentController
 
         return to_route('schedules.show', [
             'schedule' => $paymentDetails['schedule_id']
-        ])->with('success', 'Successfully booked your ticket');
+        ])->with(
+            'success',
+            'Your seats have been reserved, thank you! Your receipt/e-ticket will be available on the “My Tickets” page.
+            Please prepare a government ID to present to the conductor upon boarding.'
+        );
     }
 
     public function failed()
@@ -134,7 +138,7 @@ class PassengerTicketPaymentController
         ])->with('error', 'Transaction Error');
     }
 
-            public function refund(Payment $payment)
+    public function refund(Payment $payment)
     {
         $currentTime = Carbon::now();
         $eightHoursBeforeDepartureTime = $payment
