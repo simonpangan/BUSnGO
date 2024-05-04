@@ -14,7 +14,7 @@
                         <strong>Bus</strong>: {{ $schedule->bus->no }}
                     </div>
                     <div class="mb-3">
-                        <strong>Terminal</strong>
+                        <strong>Routes</strong>
                         <br/>
                         From: {{ $schedule->terminal->from }}
                         <br/>

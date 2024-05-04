@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="container mt-4" style="width: 500px">
-        <h2 class="text-center">Create Terminal</h2>
+        <h2 class="text-center">Create Route</h2>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>

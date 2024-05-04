@@ -12,10 +12,10 @@
         @endif
 
         <div class="d-flex justify-content-between align-items-center">
-            <h2>Terminals List</h2>
+            <h2>Routes List</h2>
             @role('admin')
                 <a href="{{ route('admin.terminals.create') }}" class="btn btn-success">
-                    Create A New Terminal
+                    Create A New Route
                     <i class="bi bi-plus"></i>
                 </a>
             @endrole
@@ -47,14 +47,14 @@
                         </ul>
                     </td>
                     <td>
-                            <a title="Edit TerminalMN"
+                            <a title="Edit Route"
                                 href="{{ route('admin.terminals.edit', $terminal->id) }}" class="btn btn-warning btn-sm">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                             <form method="post" action="{{ route('admin.terminals.destroy', $terminal->id) }}" style="display:inline">
                                 @csrf
                                 @method('delete')
-                                <button title="Delete  Terminal"
+                                <button title="Delete Route"
                                     type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>

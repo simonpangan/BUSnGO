@@ -4,7 +4,7 @@
             <- Go Back
         </a>
 
-        <h2 class="text-center">Edit Terminal</h2>
+        <h2 class="text-center">Edit Route</h2>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
