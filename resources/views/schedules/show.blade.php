@@ -14,11 +14,9 @@
                         <strong>Bus</strong>: {{ $schedule->bus->no }}
                     </div>
                     <div class="mb-3">
-                        <strong>Routes</strong>
+                        <strong>Departure Terminal: </strong> {{ $schedule->terminal->from }}
                         <br/>
-                        From: {{ $schedule->terminal->from }}
-                        <br/>
-                        To : {{ $schedule->terminal->to }}
+                        <strong> Arrival Terminal : </strong>{{ $schedule->terminal->to }}
                     </div>
                     <div class="mb-3">
                         <strong>Departure Time:</strong> {{ $schedule->departure_time->format('l, F j, Y g:i A') }}

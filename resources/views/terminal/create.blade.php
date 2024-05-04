@@ -15,7 +15,7 @@
             @csrf
 
             <div class="mb-3">
-                <label for="from" class="form-label">From <span class="text-danger">*</span></label>
+                <label for="from" class="form-label">Departure Terminal<span class="text-danger">*</span></label>
                 <input type="text"
                        class="form-control @error('from') is-invalid @enderror" id="name" name="from"
                        value="{{ old('from') }}" required>
@@ -27,7 +27,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="to" class="form-label">To <span class="text-danger">*</span></label>
+                <label for="to" class="form-label">Arrival Terminal<span class="text-danger">*</span></label>
                 <input type="text" class="form-control @error('to') is-invalid @enderror"
                        id="to" name="to" value="{{ old('to') }}" required>
 
