@@ -147,6 +147,10 @@ class AdminScheduleController extends Controller
             }
         }
 
+        $schedule->update([
+            'status' => 'Cancelled'
+        ]);
+
         $schedule->delete();
 
         return redirect()->route('schedules.index')
