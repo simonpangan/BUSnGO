@@ -53,9 +53,22 @@
                             <form method="post" action="{{ route('admin.schedules.destroy', $schedule->id) }}" style="display:inline">
                                 @csrf
                                 @method('delete')
+
+                                @php
+                                    $hasBookings = $schedule->tickets
+                                        ->where('status', 'booked')
+                                        ->count()
+                                        > 0
+                                    ;
+                                @endphp
                                 <button type="submit"
                                         title="Delete Schedule"
-                                        class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                        class="btn btn-danger btn-sm"
+                                        onclick="return confirm('{{ ($hasBookings) ?
+                                            'Schedule contains bookings. Are you sure, and proceed to refunds?' :
+                                            'Are you sure?'
+                                        }}')"
+                                >
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
                             </form>
