@@ -88,7 +88,7 @@ class AdminScheduleController extends Controller
         $request->validate([
             'bus_id' => ['required', 'integer', 'exists:buses,id'],
             'departure_time' => ['required', 'date',
-                'after:now'
+//                'after:now'
             ],
             'arrival_time' => ['required', 'date', 'after:departure_time'],
             'status' => ['required', 'string'],
