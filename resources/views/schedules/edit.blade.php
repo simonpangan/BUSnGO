@@ -95,7 +95,7 @@
 
                 <div class="mb-3">
                     <label for="arrival_time" class="form-label">Arrival Time</label>
-                    <input type="datetime-local"
+                    <input type="datetime-local" step="any"
                            class="form-control @error('arrival_time') is-invalid @enderror" id="arrival_time"
                            name="arrival_time" value="{{ old('arrival_time', $schedule->arrival_time) }}" required
                     >

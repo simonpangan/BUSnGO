@@ -33,6 +33,14 @@ class ScheduleController extends Controller
                 ->get();
         }
 
+        $now = Carbon::now();
+        foreach ($schedules as $schedule) {
+            if ($now->gte($schedule->arrival_time)) {
+                $schedule->status = 'Arrived';
+                $schedule->save();
+            }
+        }
+
         return view('schedules.index', [
             'schedules' => $schedules
         ]);
@@ -74,6 +82,12 @@ class ScheduleController extends Controller
 
     public function show(Schedule $schedule)
     {
+        $now = Carbon::now();
+        if ($now->gte($schedule->arrival_time)) {
+            $schedule->status = 'Arrived';
+            $schedule->save();
+        }
+
         return view('schedules.show', [
             'schedule'        => $schedule,
             'scheduleTickets' =>
