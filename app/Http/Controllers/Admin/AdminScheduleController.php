@@ -11,6 +11,8 @@ use App\Models\Terminal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Luigel\Paymongo\Facades\Paymongo;
+use Luigel\Paymongo\Models\Refund;
 
 class AdminScheduleController extends Controller
 {
@@ -119,6 +121,32 @@ class AdminScheduleController extends Controller
 
     public function destroy(Schedule $schedule)
     {
+        $hasBookings = $schedule->tickets
+               ->where('status', 'booked')
+               ->count()
+            > 0
+        ;
+
+        if ($hasBookings) {
+            $payments = $schedule
+                ->payments()
+                ->where('status', 'paid')
+                ->get()
+            ;
+
+            foreach ($payments as $payment) {
+                Paymongo::refund()->create([
+                    'amount'     => $payment->amount,
+                    'payment_id' => $payment->paymongo_id,
+                    'reason'     => Refund::REASON_OTHERS,
+                ]);
+
+                $payment->update([
+                    'status' => 'refunded'
+                ]);
+            }
+        }
+
         $schedule->delete();
 
         return redirect()->route('schedules.index')

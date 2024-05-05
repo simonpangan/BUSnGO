@@ -26,6 +26,11 @@ class Schedule extends Model
     ];
 
 
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class, 'schedule_id');
+    }
+
     public function bus(): BelongsTo
     {
         return $this->belongsTo(Bus::class)->withTrashed();
