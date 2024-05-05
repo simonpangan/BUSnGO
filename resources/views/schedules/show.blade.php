@@ -272,25 +272,29 @@
                     <div class="row">
                         <div class="col-6 d-flex">
                             @if(isset($ticket[0]))
-                                <div class="{{ $ticket[0]->status != "available" ? "text-danger" : "text-info" }}">
-                                    #{{ $ticket[0]->seat_no }}
-                                </div>
+                                <img height="25" width="25"
+                                     src="{{ $ticket[0]->status != "available" ? 'https://static.thenounproject.com/png/629421-200.png' : asset('available-seat.png') }}"
+                                />
+                                {{ $ticket[0]->seat_no }}
                             @endif
                             @if(isset($ticket[1]))
-                                <div class="ms-3  {{ $ticket[1]->status != "available" ? "text-danger" : "text-info" }}">
-                                    #{{ $ticket[1]->seat_no }}
-                                </div>
+                                <img height="25" width="25"
+                                     src="{{ $ticket[1]->status != "available" ? 'https://static.thenounproject.com/png/629421-200.png' : asset('available-seat.png') }}"
+                                />
+                                {{ $ticket[1]->seat_no }}
                             @endif
                         </div>
                         <div class="col-6 d-flex">
                             @if(isset($ticket[2]))
-                                <div class="{{ $ticket[2]->status != "available" ? "text-danger" : "text-info" }}">
-                                    #{{ $ticket[2]->seat_no }}
-                                </div>
+                                <img height="25" width="25"
+                                     src="{{ $ticket[2]->status != "available" ? 'https://static.thenounproject.com/png/629421-200.png' : asset('available-seat.png') }}"
+                                /> {{ $ticket[2]->seat_no }}
                             @endif
                             @if(isset($ticket[3]))
-                                <div class="ms-3 {{ $ticket[3]->status != "available" ? "text-danger" : "text-info" }}">
-                                    #{{ $ticket[3]->seat_no }}
+                                <div>
+                                    <img height="25" width="25"
+                                         src="{{ $ticket[2]->status != "available" ? 'https://static.thenounproject.com/png/629421-200.png' : asset('available-seat.png') }}"
+                                    /> {{ $ticket[2]->seat_no }}
                                 </div>
                             @endif
                         </div>
