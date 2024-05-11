@@ -7,6 +7,7 @@ use App\Models\Driver;
 use App\Models\LGU;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -17,7 +18,12 @@ class AdminDriverController extends Controller
     public function index()
     {
         return view('admin.drivers.index', [
-            'drivers' => Driver::latest()->get(),
+            'drivers' => Driver::query()
+                ->when(Auth::user()->hasRole('bus admin'), function ($query, $search) {
+                    return $query->where('company_id', Auth::user()->companyAdmin->company_id);
+                })
+                ->latest()
+                ->get(),
         ]);
 
     }
@@ -57,6 +63,7 @@ class AdminDriverController extends Controller
         $file->storeAs('public/uploads', $photoFileName);
 
         Driver::create([
+            'company_id' => Auth::user()->companyAdmin->company_id, //Add this line
             'user_id' => $user->id,
             'name' => $validatedData['name'],
             'gender' => $validatedData['gender'],
@@ -97,6 +104,7 @@ class AdminDriverController extends Controller
         ]);
 
         $driver->update([
+            'company_id' => Auth::user()->companyAdmin->company_id, //Add this line
             'name' => $validatedData['name'],
             'gender' => $validatedData['gender'],
             'address' => $validatedData['address'],
