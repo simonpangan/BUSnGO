@@ -52,7 +52,6 @@
                                     ->where('status', "!=", 'Arrived')
                                     ->count();
                             @endphp
-                            {{ $count }}
                             <button
                                 title="Delete Driver"
                                 type="submit" class="btn btn-danger btn-sm" onclick="
