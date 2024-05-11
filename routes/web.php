@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\CompanyAdminController;
+use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\BusStatusUpdateController;
 use App\Http\Controllers\ConductorController;
 use App\Http\Controllers\GoogleLoginController;
@@ -59,6 +61,30 @@ Route::controller(ScheduleController::class)->group(function () {
 Route::group(['middleware' => ['auth', 'verified']], function () {
 
     require __DIR__.'/admin.php';
+
+    Route::middleware(['role:super admin'])->prefix('app-admin')->group(function () {
+        Route::get('', function () {
+            return view('dashboard');
+        });
+
+        Route::controller(CompanyController::class)->group(function () {
+        	Route::get('/companies', 'index')->name('companies.index');
+        	Route::get('/companies/create', 'create')->name('companies.create');
+        	Route::post('/companies', 'store')->name('companies.store');
+        	Route::get('/companies/{company}/edit', 'edit')->name('companies.edit');
+        	Route::put('/companies/{company}', 'update')->name('companies.update');
+        	Route::delete('/companies/{company}', 'destroy')->name('companies.destroy');
+        });
+
+        Route::controller(CompanyAdminController::class)->group(function () {
+        	Route::get('/company-admins', 'index')->name('company-admin.index');
+        	Route::get('/company-admins/create', 'create')->name('company-admin.create');
+        	Route::post('/company-admins', 'store')->name('company-admin.store');
+        	Route::get('/company-admins/{companyAdmin}/edit', 'edit')->name('company-admin.edit');
+        	Route::put('/company-admins/{companyAdmin}', 'update')->name('company-admin.update');
+        	Route::delete('/company-admins/{companyAdmin}', 'destroy')->name('company-admin.destroy');
+        });
+    });
 
 
     //DRIVER ROUTES

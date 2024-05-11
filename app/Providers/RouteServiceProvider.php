@@ -20,6 +20,7 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME = '/dashboard';
 
     public const ADMIN = "/admin";
+    public const SUPER_ADMIN = "/app-admin";
     public const DRIVER = "/driver";
     public const CONDUCTOR = "/conductor";
     public const PASSENGER = "/passenger";

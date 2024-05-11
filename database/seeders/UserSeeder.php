@@ -18,7 +18,8 @@ class UserSeeder extends Seeder
             Role::create(['name' => 'passenger']);
             Role::create(['name' => 'driver']);
             Role::create(['name' => 'conductor']);
-            Role::create(['name' => 'admin']);
+            Role::create(['name' => 'bus admin']);
+            Role::create(['name' => 'super admin']);
         }
 
         if (User::count() === 0) {
@@ -28,7 +29,7 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('password'),
             ]);
 
-            $admin->assignRole('admin');
+            $admin->assignRole('super admin');
 
             // Create a test driver user
             $driver = User::factory()->create([

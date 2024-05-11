@@ -13,9 +13,9 @@
         @endif
 
         <div class="d-flex justify-content-between align-items-center mb-2">
-            <h2>Companies</h2>
-            <a href="{{ route('companies.create') }}" class="btn btn-success">
-                Create Company
+            <h2>Admins</h2>
+            <a href="{{ route('company-admin.create') }}" class="btn btn-success">
+                Create Bus Admin
                 <i class="bi bi-plus"></i>
             </a>
         </div>
@@ -26,36 +26,37 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Address</th>
-                    <th>Phone Number</th>
+                    <th>Contact No</th>
                     <th>Email Address</th>
+                    <th>Company</th>
                     <th>Created At</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($companies as $company)
+                @foreach($admins as $admin)
                     <tr>
-                        <td>{{ $company->id }}</td>
-                        <td>{{ $company->name }}</td>
-                        <td>{{ $company->address }}</td>
-                        <td>{{ $company->phone_number }}</td>
-                        <td>{{ $company->email_address }}</td>
-                        <td>{{ $company->created_at->format('F jS Y') }}</td>
+                        <td>{{ $admin->id }}</td>
+                        <td>{{ $admin->name }}</td>
+                        <td>{{ $admin->contact_no }}</td>
+                        <td>{{ $admin->user->email }}</td>
+                        <td>{{ $admin->company->name }}</td>
+                        <td>{{ $admin->created_at->format('F jS Y') }}</td>
                         <td>
-                            <a href="{{ route('companies.edit', $company) }}" class="btn btn-primary">
+                            <a href="{{ route('company-admin.edit', $admin) }}" class="btn btn-primary">
                                 Edit
                             </a>
-                            <form action="{{ route('companies.destroy', $company) }}" method="post" class="d-inline">
+                            <form action="{{ route('company-admin.destroy', $admin) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger" type="submit"
-                                        onclick="return confirm('Are you sure you want to delete this company?')"
+                                        onclick="return confirm('Are you sure you want to delete this Admin?')"
                                 >
                                     Delete
                                 </button>
                             </form>
                         </td>
+                    </tr>
                 @endforeach
             </tbody>
             </table>

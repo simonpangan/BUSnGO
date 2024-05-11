@@ -51,6 +51,25 @@
                             <a class="nav-link" href="{{ route('schedules.index') }}">{{ __('Schedules') }}</a>
                         </li>
                     @endauth
+                    @role('super admin')
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Super Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('companies.index') }}">
+                                    Bus Companies
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('company-admin.index') }}">
+                                    Bus Admins
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endrole
                     <x-admin-routes/>
                     <x-passenger-routes/>
                     <x-guest-routes/>

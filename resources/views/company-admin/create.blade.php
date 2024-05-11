@@ -5,7 +5,7 @@
         </a>
 
         <div class="mx-auto border rounded p-3" style="width: 500px">
-            <h2>Create Company</h2>
+            <h2>Create Admin</h2>
 
             @if($errors->any())
                 <div class="alert alert-danger">
@@ -22,8 +22,31 @@
                 </div>
             @endif
 
-            <form method="post" action="{{ route('companies.store') }}" enctype="multipart/form-data">
+            <form method="post" action="{{ route('company-admin.store') }}" enctype="multipart/form-data">
                 @csrf
+
+                <div class="mb-3 row">
+                    <label for="company" class="col-md-4 col-form-label text-md-end">Company: </label>
+                    <div class="col-md-6">
+                        <select class="form-control @error('bus') is-invalid @enderror" aria-label="City select" name="company"
+                                data-style="border border-1"
+                                data-live-search="true"
+                        >
+                            <option>Select Company</option>
+                            @foreach($companies as $company)
+                                <option
+                                    {{ old('company') }}
+                                    value="{{ $company->id }}"
+                                >{{ $company->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @error('company')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
                 <div class="mb-3 row">
                     <label for="name" class="col-md-4 col-form-label text-md-end">
@@ -33,20 +56,6 @@
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
                                value="{{ old('name') }}" required />
                         @error('name')
-                        <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label for="address" class="col-md-4 col-form-label text-md-end">Address</label>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control @error('address') is-invalid @enderror" id="address" name="address"
-                               value="{{ old('address') }}" required />
-
-                        @error('address')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -72,14 +81,14 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <labe for="email_address" class="col-md-4 col-form-label text-md-end">
+                    <labe for="email" class="col-md-4 col-form-label text-md-end">
                         Email Address
                     </labe>
                     <div class="col-md-6">
-                        <input type="text" class="form-control @error('email_address') is-invalid @enderror" id="email_address"
-                               name="email_address" value="{{ old('email_address') }}" required />
+                        <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
+                               name="email" value="{{ old('email') }}" required />
 
-                        @error('email_address')
+                        @error('email')
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -87,9 +96,31 @@
                     </div>
                 </div>
 
+                <div class="row mb-3">
+                    <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                        @error('password')
+                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                    </div>
+                </div>
+
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary float-end">
-                        Store  Bus
+                        Store  Admin
                     </button>
                 </div>
 

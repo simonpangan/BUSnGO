@@ -8,7 +8,7 @@ use App\Http\Controllers\BusController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['role:admin'])->prefix('admin')->group(function () {
+Route::middleware(['role:bus admin'])->prefix('admin')->group(function () {
     Route::get('/', function () {
         return view('dashboard');
     })->middleware(['auth', 'verified']);

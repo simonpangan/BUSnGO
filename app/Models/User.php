@@ -45,4 +45,13 @@ use Laravel\Sanctum\HasApiTokens;
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function conductorSchedules()
+    {
+        return $this->hasMany(
+            Schedule::class,
+            'conductor_id',
+            "id"
+        );
+    }
 }

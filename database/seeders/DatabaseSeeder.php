@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Company;
 use App\Models\User;
 use Database\Seeders\database\seeders\ScheduleSeeder;
 use Database\Seeders\database\seeders\TerminalSeeder;
@@ -23,6 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call(BusSeeder::class);
         $this->call(TerminalSeeder::class);
         $this->call(ScheduleSeeder::class);
+
+        Company::factory()->count(10)->create();
 
         DB::unprepared(file_get_contents(__DIR__ . '/../dump/philippines_local_government_units.sql'));
     }
