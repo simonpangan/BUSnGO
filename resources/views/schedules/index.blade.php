@@ -18,7 +18,7 @@
 
         <div class="d-flex justify-content-between align-items-center">
             <h2>Schedules List</h2>
-            @role('admin')
+            @role('bus admin')
                 <a href="{{ route('admin.schedules.create') }}" class="btn btn-success">
                     Create A New Schedule
                     <i class="bi bi-plus"></i>

@@ -20,10 +20,26 @@ class AdminScheduleController extends Controller
     public function create()
     {
         return view('schedules.create', [
-            'buses' => Bus::all(),
-            'terminals' => Terminal::all(),
-            'drivers'    => Driver::all(),
-            'conductors' => Conductor::all(),
+            'buses' => Bus::query()
+                 ->when(Auth::user()->hasRole('bus admin'), function ($query, $search) {
+                    return $query->where('company_id', Auth::user()->companyAdmin->company_id);
+                })
+                ->get(),
+            'terminals' => Terminal::query()
+                 ->when(Auth::user()->hasRole('bus admin'), function ($query, $search) {
+                    return $query->where('company_id', Auth::user()->companyAdmin->company_id);
+                })
+                ->get(),
+            'drivers'    => Driver::query()
+                 ->when(Auth::user()->hasRole('bus admin'), function ($query, $search) {
+                    return $query->where('company_id', Auth::user()->companyAdmin->company_id);
+                })
+                ->get(),
+            'conductors' => Conductor::query()
+                 ->when(Auth::user()->hasRole('bus admin'), function ($query, $search) {
+                    return $query->where('company_id', Auth::user()->companyAdmin->company_id);
+                })
+                ->get(),
         ]);
     }
 

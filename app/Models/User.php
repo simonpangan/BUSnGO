@@ -46,6 +46,15 @@ use Laravel\Sanctum\HasApiTokens;
         'password' => 'hashed',
     ];
 
+    public function companyAdmin()
+    {
+        return $this->hasOne(
+            CompanyAdmin::class,
+            'user_id',
+            "id"
+        );
+    }
+
     public function conductorSchedules()
     {
         return $this->hasMany(
