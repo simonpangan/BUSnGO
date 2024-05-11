@@ -34,7 +34,7 @@ class AdminTerminalController extends Controller
             'transit_points.*' => 'required|string|max:45',
         ]);
 
-        Terminal::create($validatedData);
+        Terminal::create($validatedData + ['company_id' => auth()->user()->companyAdmin->company_id]);
 
         return to_route('admin.terminals.index')
             ->with('success', 'Terminal created successfully.');
