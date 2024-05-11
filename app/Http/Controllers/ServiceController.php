@@ -31,7 +31,7 @@ class ServiceController extends Controller
             'duration'    => ['required'],
         ]);
 
-        Service::create($data);
+        Service::create($data + ['company_id' => auth()->user()->companyAdmin->company_id]);
 
         return to_route('admin.service.index')
             ->with('success', 'Service created successfully');

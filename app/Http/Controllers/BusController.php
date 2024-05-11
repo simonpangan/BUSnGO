@@ -8,6 +8,7 @@ use App\Models\Conductor;
 use App\Models\Driver;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BusController extends Controller
 {
@@ -15,6 +16,9 @@ class BusController extends Controller
     {
         return view('bus.index', [
             'buses' => Bus::query()
+                ->when(Auth::user()->hasRole('bus admin'), function ($query, $search) {
+                    return $query->where('company_id', Auth::user()->companyAdmin->company_id);
+                })
                 ->latest()
                 ->get()
         ]);
@@ -54,7 +58,7 @@ class BusController extends Controller
             'status'             => ['required', 'string', 'max:50'],
         ]);
 
-        Bus::create($values);
+        Bus::create($values + ['company_id' => auth()->user()->companyAdmin->company_id]);
 
         return to_route('admin.buses.index')
             ->with('success', 'Bus created successfully.');

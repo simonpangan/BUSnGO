@@ -22,6 +22,9 @@ class ScheduleController extends Controller
 
         if ($authUserRole) {
             $schedules = Schedule::query()
+                ->when(Auth::user()->hasRole('bus admin'), function ($query, $search) {
+                    return $query->where('company_id', Auth::user()->companyAdmin->company_id);
+                })
                 ->latest()
                 ->get();
         } else {

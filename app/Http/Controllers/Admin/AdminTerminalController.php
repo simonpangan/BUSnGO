@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Terminal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminTerminalController extends Controller
 {
@@ -13,6 +14,9 @@ class AdminTerminalController extends Controller
     {
         return view('terminal.index',[
             'terminals' => Terminal::query()
+                ->when(Auth::user()->hasRole('bus admin'), function ($query, $search) {
+                    return $query->where('company_id', Auth::user()->companyAdmin->company_id);
+                })
                 ->latest()
                 ->get()
         ]);
