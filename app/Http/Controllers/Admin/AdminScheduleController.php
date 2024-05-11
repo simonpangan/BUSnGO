@@ -11,6 +11,7 @@ use App\Models\Terminal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Luigel\Paymongo\Facades\Paymongo;
 use Luigel\Paymongo\Models\Refund;
 
@@ -40,6 +41,7 @@ class AdminScheduleController extends Controller
         ]);
 
         $schedule = Schedule::create([
+            'company_id' => Auth::user()->companyAdmin->company_id, //Add this line
             'bus_id' => $request->bus_id,
             'departure_time' => $request->departure_time,
             'arrival_time' => $request->arrival_time,
@@ -98,6 +100,7 @@ class AdminScheduleController extends Controller
         ]);
 
         $schedule->update([
+            'company_id' => Auth::user()->companyAdmin->company_id, //Add this line
             'bus_id' => $request->bus_id,
             'departure_time' => $request->departure_time,
             'arrival_time' => $request->arrival_time,
