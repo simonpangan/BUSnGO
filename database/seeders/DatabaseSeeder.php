@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        Company::factory()->count(10)->create();
+
         $this->call(TerminalSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(DriverSeeder::class);
@@ -25,7 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TerminalSeeder::class);
         $this->call(ScheduleSeeder::class);
 
-        Company::factory()->count(10)->create();
 
         DB::unprepared(file_get_contents(__DIR__ . '/../dump/philippines_local_government_units.sql'));
     }

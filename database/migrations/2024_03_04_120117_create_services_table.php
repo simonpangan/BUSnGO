@@ -9,6 +9,7 @@ return new class extends Migration {
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('bus_id');
             $table->string('description');
             $table->string('status');

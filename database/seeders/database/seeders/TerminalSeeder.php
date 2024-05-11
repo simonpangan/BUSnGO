@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\database\seeders;
 
+use App\Models\Company;
 use App\Models\Terminal;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -12,6 +13,7 @@ class TerminalSeeder extends Seeder
     public function run(): void
     {
         $terminals = Collection::times(10, fn() => [
+            'company_id' => Company::inRandomOrder()->first()->id,
             'from' => fake()->city(),
             'to' => fake()->city(),
             'ticket_cost'     => fake()->numberBetween(1, 10000),

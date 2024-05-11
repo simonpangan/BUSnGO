@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Bus;
+use App\Models\Company;
 use App\Models\Conductor;
 use App\Models\Driver;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -15,6 +16,7 @@ class BusFactory extends Factory
     public function definition(): array
     {
         return [
+            'company_id' => Company::inRandomOrder()->first()->id,
             'no'                 => $this->faker->word(),
             'seat'               => $this->faker->numberBetween(20, 50),
             'engine_model'       => $this->faker->word(),

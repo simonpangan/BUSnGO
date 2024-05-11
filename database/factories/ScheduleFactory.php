@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Bus;
+use App\Models\Company;
 use App\Models\Conductor;
 use App\Models\Driver;
 use App\Models\Schedule;
@@ -17,6 +18,7 @@ class ScheduleFactory extends Factory
     public function definition(): array
     {
         return [
+            'company_id' => Company::inRandomOrder()->first()->id,
             'bus_id'         => Bus::factory(),
             'terminal_id'    => Terminal::inRandomOrder()->first()->id,
             'departure_time' => Carbon::now(),

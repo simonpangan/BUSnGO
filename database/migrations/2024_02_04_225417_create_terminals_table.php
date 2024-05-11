@@ -12,6 +12,7 @@ return new class extends Migration {
             $table->string('from');
             $table->string('to');
             $table->unsignedBigInteger('ticket_cost');
+            $table->unsignedBigInteger('company_id');
             $table->json('transit_points')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('conductors', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('company_id');
             $table->integer('user_id');
             $table->string('name', 45);
             $table->char('gender', 1);

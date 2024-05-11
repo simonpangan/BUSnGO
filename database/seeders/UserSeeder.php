@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Company;
 use App\Models\Conductor;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -59,6 +60,7 @@ class UserSeeder extends Seeder
 
 
             Conductor::create([
+                'company_id' => Company::inRandomOrder()->first()->id,
                 'user_id' =>  $conductor->id,
                 'name' =>  "Allek Esteban",
                 'gender' =>  'M',

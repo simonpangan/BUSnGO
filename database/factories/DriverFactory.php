@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 
@@ -18,6 +19,7 @@ class DriverFactory extends Factory
     public function definition(): array
     {
         return [
+            'company_id' => Company::inRandomOrder()->first()->id,
             'user_id' => User::factory(),
             'name' => $this->faker->name,
             'gender' => $this->faker->randomElement(['M', 'F']),

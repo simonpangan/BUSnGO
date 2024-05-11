@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Company;
 use App\Models\Conductor;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -13,6 +14,7 @@ class ConductorFactory extends Factory
     public function definition(): array
     {
         return [
+            'company_id' => Company::inRandomOrder()->first()->id,
             'user_id' => User::factory(),
             'name' => $this->faker->name,
             'gender' => $this->faker->randomElement(['M', 'F']),

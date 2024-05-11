@@ -26,6 +26,7 @@ class ScheduleSeeder extends Seeder
                 );
 
                 $schedule->tickets()->createMany($tickets);
-            });
+            })
+        ;
     }
 }

@@ -9,6 +9,7 @@ return new class extends Migration {
     {
         Schema::create('buses', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('company_id');
             $table->string('no');
             $table->integer('seat');
             $table->string('engine_model');
