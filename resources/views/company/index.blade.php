@@ -43,6 +43,11 @@
                         <td>{{ $company->email_address }}</td>
                         <td>{{ $company->created_at->format('F jS Y') }}</td>
                         <td>
+                            <a href="{{ route('company-admin.index', [
+                                'companyName' => $company->name,
+                            ]) }}" class="btn btn-info">
+                                Admins
+                            </a>
                             <a href="{{ route('companies.edit', $company) }}" class="btn btn-primary">
                                 Edit
                             </a>

@@ -14,6 +14,7 @@
 
         <div class="d-flex justify-content-between align-items-center mb-2">
             <h2>Admins</h2>
+        <h1>{{ request()->get('companyName') }}</h1>
             <a href="{{ route('company-admin.create') }}" class="btn btn-success">
                 Create Bus Admin
                 <i class="bi bi-plus"></i>
@@ -68,10 +69,16 @@
         <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
         <script>
             $(document).ready(function () {
-                $('#myBuses').DataTable({
-                    responsive: true,
-                    "order": []
-                })
+
+                    $('#myBuses').DataTable({
+                        responsive: true,
+                        "order": []
+                    })
+                    @if(request()->get('companyName'))
+                    .search('{{ request()->get('companyName') }}')
+                    .draw()
+                    @endif
+
             });
         </script>
     @endsection
