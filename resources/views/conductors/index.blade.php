@@ -1,3 +1,4 @@
+@php use Termwind\Components\Dd; @endphp
 <x-app-layout>
     <div class="container mt-4">
         @if(session('success'))
@@ -47,8 +48,21 @@
                               style="display:inline">
                             @csrf
                             @method('delete')
+                            @php
+                                $count =  $conductor
+                                    ->schedules()
+                                    ->where('status', "!=", 'Arrived')
+                                    ->count();
+                            @endphp
                             <button title="Delete Driver" type="submit" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Are you sure?')">
+                                    onclick="
+                                        @if($count >= 1)
+                                            alert('Cannot delete a conductor that is currently assigned. Please change the assignment first.')
+                                            return false;
+                                        @else
+                                            return confirm('Are you sure?')
+                                        @endif
+                                    ">
                                 <i class="bi bi-trash-fill"></i>
                             </button>
                         </form>

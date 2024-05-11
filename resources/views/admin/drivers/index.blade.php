@@ -46,9 +46,23 @@
                         <form method="post" action="{{ route('admin.drivers.destroy', $driver->id) }}" style="display:inline">
                             @csrf
                             @method('delete')
+                            @php
+                                $count =  $driver
+                                    ->schedules()
+                                    ->where('status', "!=", 'Arrived')
+                                    ->count();
+                            @endphp
+                            {{ $count }}
                             <button
                                 title="Delete Driver"
-                                type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                type="submit" class="btn btn-danger btn-sm" onclick="
+                                    @if($count >= 1)
+                                            alert('Cannot delete a conductor that is currently assigned. Please change the assignment first.')
+                                            return false;
+                                    @else
+                                        return confirm('Are you sure?')
+                                    @endif
+                                ">
                                 <i class="bi bi-trash-fill"></i>
                             </button>
                         </form>
