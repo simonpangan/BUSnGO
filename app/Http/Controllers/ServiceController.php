@@ -5,13 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Bus;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
     public function index()
     {
         return view('admin.service.index', [
-            'services' => Service::latest()->get(),
+            'services' => Service::query()
+                ->when(Auth::user()->hasRole('bus admin'), function ($query, $search) {
+                    return $query->where('company_id', Auth::user()->companyAdmin->company_id);
+                })
+                ->latest()
+                ->get(),
         ]);
     }
 
