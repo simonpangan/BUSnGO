@@ -93,11 +93,27 @@ class AdminScheduleController extends Controller
     public function edit(Schedule $schedule)
     {
         return view('schedules.edit', [
-            'buses' => Bus::all(),
-            'terminals' => Terminal::all(),
+            'buses' => Bus::query()
+                          ->when(Auth::user()->hasRole('bus admin'), function ($query, $search) {
+                              return $query->where('company_id', Auth::user()->companyAdmin->company_id);
+                          })
+                          ->get(),
+            'terminals' => Terminal::query()
+                                   ->when(Auth::user()->hasRole('bus admin'), function ($query, $search) {
+                                       return $query->where('company_id', Auth::user()->companyAdmin->company_id);
+                                   })
+                                   ->get(),
+            'drivers'    => Driver::query()
+                                  ->when(Auth::user()->hasRole('bus admin'), function ($query, $search) {
+                                      return $query->where('company_id', Auth::user()->companyAdmin->company_id);
+                                  })
+                                  ->get(),
+            'conductors' => Conductor::query()
+                                     ->when(Auth::user()->hasRole('bus admin'), function ($query, $search) {
+                                         return $query->where('company_id', Auth::user()->companyAdmin->company_id);
+                                     })
+                                     ->get(),
             'schedule' => $schedule,
-             'drivers'    => Driver::all(),
-            'conductors' => Conductor::all(),
         ]);
     }
 
