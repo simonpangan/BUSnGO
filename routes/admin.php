@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminConductorController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminDriverController;
 use App\Http\Controllers\Admin\AdminScheduleController;
 use App\Http\Controllers\Admin\AdminTerminalController;
@@ -8,10 +9,8 @@ use App\Http\Controllers\BusController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['role:bus admin'])->prefix('admin')->group(function () {
-    Route::get('/', function () {
-        return view('dashboard');
-    })->middleware(['auth', 'verified']);
+Route::middleware(['role:bus admin|super admin'])->prefix('admin')->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->middleware(['auth', 'verified']);
 
     Route::controller(ServiceController::class)->group(function () {
     	Route::get('services/', 'index')->name('admin.service.index');
