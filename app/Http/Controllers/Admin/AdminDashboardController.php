@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Payment;
 use App\Models\Ticket;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,8 @@ class AdminDashboardController extends Controller
                             ->where('company_id', Auth::user()->companyAdmin->company_id)
                             ->from('schedules');
                   })
-                  ->whereYear('paid_at', Carbon::now()->year)
+                    ->whereMonth('paid_at', Carbon::now()->month)
+                    ->whereYear('paid_at', Carbon::now()->year)
                   ->count();
 
         $bookingsPerMonth = Ticket::whereYear('paid_at', Carbon::now()->year)
@@ -42,10 +44,32 @@ class AdminDashboardController extends Controller
             ->groupByRaw('MONTH(paid_at)')
             ->get();
 
+        $totalEarningsThisYear = Payment::query()
+                                        ->selectRaw('SUM(amount) as amount')
+              ->whereIn('schedule_id', function ($query) {
+                  $query->select('id')
+                        ->where('company_id', Auth::user()->companyAdmin->company_id)
+                        ->from('schedules');
+              })
+              ->first();
+
+        $totalEarningsPerMonth = Payment::whereYear('paid_at', Carbon::now()->year)
+               ->selectRaw('MONTH(paid_at) as month, SUM(amount) as amount')
+               ->whereIn('schedule_id', function ($query) {
+                   $query->select('id')
+                         ->where('company_id', Auth::user()->companyAdmin->company_id)
+                         ->from('schedules');
+               })
+               ->groupByRaw('MONTH(paid_at)')
+               ->get();
+
+
         return view('admin.dashboard', [
             'bookingsThisMonth' => $tickets,
             'bookingsThisYear' => $bookingsPerYear,
-            'bookingsPerMonth' => $bookingsPerMonth
+            'bookingsPerMonth' => $bookingsPerMonth,
+            'totalEarningsThisYear' => $totalEarningsThisYear,
+            'totalEarningsPerMonth' => $totalEarningsPerMonth,
         ]);
     }
 }
