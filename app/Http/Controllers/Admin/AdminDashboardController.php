@@ -63,6 +63,29 @@ class AdminDashboardController extends Controller
                ->groupByRaw('MONTH(paid_at)')
                ->get();
 
+        $totalRefundsThisYear = Payment::query()
+            ->selectRaw('count(*) as amount')
+            ->whereIn('schedule_id', function ($query) {
+                $query->select('id')
+                      ->where('company_id', Auth::user()->companyAdmin->company_id)
+                      ->from('schedules');
+            })
+            ->whereStatus('refunded')
+            ->whereYear('paid_at', Carbon::now()->year)
+            ->first();
+
+        $totalRefundsPerMonth = Payment::query()
+            ->selectRaw('MONTH(paid_at) as month, count(*) as amount')
+            ->whereStatus('refunded')
+            ->whereYear('paid_at', Carbon::now()->year)
+            ->whereIn('schedule_id', function ($query) {
+                $query->select('id')
+                      ->where('company_id', Auth::user()->companyAdmin->company_id)
+                      ->from('schedules');
+            })
+            ->groupByRaw('MONTH(paid_at)')
+            ->get();
+
 
         return view('admin.dashboard', [
             'bookingsThisMonth' => $tickets,
@@ -70,6 +93,8 @@ class AdminDashboardController extends Controller
             'bookingsPerMonth' => $bookingsPerMonth,
             'totalEarningsThisYear' => $totalEarningsThisYear,
             'totalEarningsPerMonth' => $totalEarningsPerMonth,
+            'totalRefundsThisYear' => $totalRefundsThisYear,
+            'totalRefundsPerMonth' => $totalRefundsPerMonth
         ]);
     }
 }

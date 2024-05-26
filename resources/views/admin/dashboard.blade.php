@@ -6,7 +6,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="row">
-                    <div class="col-4 card border-left-primary shadow py-2">
+                    <div class="col-3 card border-left-primary shadow py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
@@ -23,7 +23,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4 card border-left-primary shadow py-2">
+                    <div class="col-3 card border-left-primary shadow py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4 card border-left-primary shadow py-2">
+                    <div class="col-3 card border-left-primary shadow py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
@@ -49,6 +49,23 @@
                                     </div>
                                     <div class="h5 mb-0 text-gray-800">
                                         {{ $totalEarningsThisYear->amount }}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="bi bi-currency-dollar text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3 card border-left-primary shadow py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs text-primary text-uppercase mb-1">
+                                        Total Refunds This Year:
+                                    </div>
+                                    <div class="h5 mb-0 text-gray-800">
+                                        {{ $totalRefundsThisYear->amount }}
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -68,6 +85,11 @@
                 <h2>Earnings per month for the current year:</h2>
                 <br />
                 <canvas id="earningsChart" width="400" height="200"></canvas>
+
+                <br />
+                <h2>Refunds per month for the current year:</h2>
+                <br />
+                <canvas id="refundsChart" width="400" height="200"></canvas>
             </div>
         </div>
     </div>
@@ -156,6 +178,52 @@
                 new Chart(ctx2, {
                     type: 'bar',
                     data: data2,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+
+                const ctx3 = document.getElementById('refundsChart').getContext('2d');
+
+                const refundsPerMonth = @json($totalRefundsPerMonth);
+
+
+                const dataByMonthRefunds = Array.from({ length: 12 }, () => 0);
+
+                // Fill the dataByMonth array with the booking totals for each month
+                refundsPerMonth.forEach(booking => {
+                    const monthIndex = booking.month - 1;
+                    dataByMonthRefunds[monthIndex] = booking.amount;
+                });
+
+                const labelsRefunds = [];
+
+                // Iterate over each month
+                for (let month = 1; month <= 12; month++) {
+                    // Get the label for the month
+                    const label = new Date(2024, month - 1, 1).toLocaleString('default', { month: 'long' });
+                    labelsRefunds.push(label);
+                }
+
+                const data3 = {
+                    labels: labelsRefunds,
+                    datasets: [{
+                        label: 'Bookings',
+                        data: dataByMonthRefunds,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                };
+
+                new Chart(ctx3, {
+                    type: 'bar',
+                    data: data3,
                     options: {
                         scales: {
                             y: {
