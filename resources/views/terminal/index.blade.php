@@ -13,7 +13,7 @@
 
         <div class="d-flex justify-content-between align-items-center">
             <h2>Routes List</h2>
-            @role('admin')
+            @role('bus admin')
                 <a href="{{ route('admin.terminals.create') }}" class="btn btn-success">
                     Create A New Route
                     <i class="bi bi-plus"></i>
