@@ -31,7 +31,7 @@
             </tr>
             </thead>
             <tbody>
-            @forelse($drivers as $driver)
+            @foreach($drivers as $driver)
                 <tr>
                     <td>{{ $driver->id }}</td>
                     <td>{{ $driver->name }}</td>
@@ -67,11 +67,7 @@
                         </form>
                     </td>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="9">No drivers found.</td>
-                </tr>
-            @endforelse
+            @endforeach
             </tbody>
         </table>
     </div>
