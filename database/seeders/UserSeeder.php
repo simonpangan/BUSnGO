@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
             ]);
 
             Driver::create([
-                'company_id' => Auth::user()->companyAdmin->company_id, //Add this line
+                'company_id' => Company::inRandomOrder()->first()->id,
                 'user_id' => $driver->id,
                 'name' => 'Test Driver',
                 'gender' => "M",
@@ -72,7 +72,7 @@ class UserSeeder extends Seeder
             ]);
 
             Conductor::create([
-                'company_id' => Auth::user()->companyAdmin->company_id, //Add this line
+                'company_id' => Company::inRandomOrder()->first()->id, //Add this line
                 'user_id' => $conductor->id,
                 'name' => 'Test Conductor',
                 'gender' => "M",
