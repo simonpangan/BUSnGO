@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\Company;
 use App\Models\Conductor;
+use App\Models\Driver;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
@@ -39,6 +41,17 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('password'),
             ]);
 
+            Driver::create([
+                'company_id' => Auth::user()->companyAdmin->company_id, //Add this line
+                'user_id' => $driver->id,
+                'name' => 'Test Driver',
+                'gender' => "M",
+                'address' => "7353 Hammes Locks Suite 979 Lake Emely, OR 01718-0153",
+                'city' => "Miguelmouth",
+                'contact_no' => "09999351568",
+                'photo' => "https://via.placeholder.com/640x480.png/0099cc?text=enim",
+            ]);
+
             $driver->assignRole('driver');
 
             // Create a test passenger user
@@ -58,6 +71,16 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('password'),
             ]);
 
+            Conductor::create([
+                'company_id' => Auth::user()->companyAdmin->company_id, //Add this line
+                'user_id' => $conductor->id,
+                'name' => 'Test Conductor',
+                'gender' => "M",
+                'address' => "7353 Hammes Locks Suite 979 Lake Emely, OR 01718-0153",
+                'city' => "Miguelmouth",
+                'contact_no' => "09999351568",
+                'photo' => "https://via.placeholder.com/640x480.png/0099cc?text=enim",
+            ]);
 
             Conductor::create([
                 'company_id' => Company::inRandomOrder()->first()->id,
